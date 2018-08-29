@@ -18,11 +18,35 @@ from sympy.physics import wigner
 
 
 class Atom:
-    """An atom class"""
+    """An atom class. 
+    # Detailed description
+    You can initialize atom with your favourit atomic species. You can then download the spectral data for that atom from the NIST atomic spectra database.
+    After you have done that once, the data is saved locally in the folder parsed_data/ from which it is loaded everytime you reinitialize the class for that atom
 
-    def __init__(self, atom):
+    Example for neutral magnesium
+    ```python
+    atom = Atom('mg')
+    atom.populate_states() # parse data from NIST database and store it locally. This has to be done only once for each atom.
+    ```
+
+    """
+
+    def __init__(self, atom, data_folder='/home/tiqi/Projects/OpticalTrap/Calculations/Software library/Python/atom/parsed_data/'):
+        """Constructor. 
+        The atom name `atom` is what is used for retreiving the data from the NIST data base.
+        For neutral you can use either mg i, mg 0, mg
+        For singly ionized you can use mg ii, mg 1, mg+
+        And so on.
+        """
+
         self.name = atom
         self.states = None
+        self.data_folder = data_folder
+
+        try: 
+            self.load_states()
+        except IOError:
+            pass
 
     def __repr__(self):
         rstr = "Atom: " + self.name + '\n'
@@ -276,14 +300,33 @@ class Atom:
 
         return [(states.L.iloc[i], energy[i]) for i in range(len(states))]
 
-
     def get_nist_transitions(self, atom):
+        """Helper function used in `populate_states` that extracts the atomic state data for a certain atom from the NIST atomic spectra database.
+
+        # Detailed description
+        Function used by `populate_states` to get atomic data. Sends a http request and parses the response. The data is contained in a <table> html contaier. 
+        We can select it by finding the one table htat has the color #FFFEEE in it's style.
+
+        # Arguments
+        * `atom` -- Atom name string passed to NIST data base. You can use mg as shorthand for mg i (neutral magnesium) and mg+ as shorthand for mg ii. 
+        
+        # Returns
+        * `data` -- a pandas dataframe containing all transitions.
+        """
+
         # if the atom string doesn't match the form 'atom+', the shorthand for
         # a singly charge ion, check to see if a charge is specified. If not,
         # we will assume the neutral (e.g. 'atom i').
-        if re.search('\+$', atom) is None:
-            if re.search(' i+', atom) is None:
-                atom = atom + ' i'
+        # mg -> mg i
+        # mg+ -> mg ii
+        # mg++ -> mg iii
+
+        if re.search(' [i, I, 0-9]{1,999}$', atom) is None: # check whether there is at least one i, I or a number at the end of the atom name
+            if re.search('\+{1,999}$', atom) is not None: # check whether atom+ was used as a shorthand for atom ii
+                s = re.search('\+{1,999}$', atom) # convert atom+ into atom i
+                atom = atom[:s.start()] + ' ' + ''.join(['i' for i in range(s.end()-s.start())])
+            else: # mg -> mg i
+                atom += ' i'     
 
         # the NIST url and GET options.
         url = 'http://physics.nist.gov/cgi-bin/ASD/lines1.pl'
@@ -416,22 +459,156 @@ class Atom:
         self.states.reset_index(drop=True, inplace=True)
 
     def populate_states(self, local=False):
-        self.parse_nist_transitions(self.get_nist_transitions(self.name))
-        self.get_states()
+        """Retreive atomic state data.
+
+        # Keyword arguments
+        * If `local` is false the data is collected from the NIST atomic specta database. Otherwise a previously saved csv file is loaded.
+
+        # Raises
+        IOError when csv file does not exist.
+        """
+
+        if local:
+            self.load_states()
+        else:
+            self.parse_nist_transitions(self.get_nist_transitions(self.name))
+            self.get_states()
+            self.save_states()
 
     def save_states(self, filename=''):
+        """Save state information as csv file. """
+
         if filename == '':
-            filename = self.name + '.csv'
+            filename = self.data_folder + self.name + '.csv'
         self.transitions.to_csv(filename, encoding='utf8')
 
     def load_states(self, filename=''):
+        """Load state information from a csv file. """
+
         if filename == '':
-            filename = self.name + '.csv'
+            filename = self.data_folder + self.name + '.csv'
         try:
             self.transitions = pd.read_csv(filename, encoding='utf8')
             self.get_states()
         except:
-            print('Could not load atomic transitions file')
+            raise IOError('Could not load atomic transitions file')
+
+
+    def _flip_operator(self, symbol):
+        """Convert '>' to '<', '>=' to '<=', and vice versa. Doesn't do anything to = sign. """
+
+        if symbol[0] == '<':
+            symbol = '>' + symbol[1:]
+        elif symbol[0] == '>':
+            symbol = '<' + symbol[1:]
+        return symbol
+
+    def _find_conditions(self, search_string, match_pattern):
+        """Find the condition `match_pattern` in a string `search_string`. 
+
+        # Detailed description
+        Find all occurances of `match_pattern` in `search_string` and convert it into a relation <number> <operator> <term>.
+        Examples
+        * 1<n<4 will be converted to [1, 4], ['<', '>'], n which has to be understood as (1 < n) and (4 > n). 
+        * 1>=L will be converted to [1], ['>='], L
+        * 1<S will be converted to [1], ['<'], S
+        """
+
+        matches = []
+        symbols = []
+        a = None
+        b = None
+        term = None
+
+        for s in re.finditer(match_pattern, search_string):
+            matches.append((s.start(), s.end()))
+            symbols.append(search_string[s.start(): s.end()])
+        
+        if len(matches) == 2: 
+            # a < term < b or a > term > b
+            # rewrite as (a < term, b > term) or (a > term, b < term)
+            term = str(search_string[matches[0][1]:matches[1][0]]) # the thing between the two conditions
+            a = float(search_string[:matches[0][0]])
+            b = float(search_string[matches[1][1]:]) 
+            symbols[1] = self._flip_operator(symbols[1])
+        elif len(matches) == 1: # c < term, term < c, c > term or term > x
+            ex1 = search_string[:matches[0][0]]
+            ex2 = search_string[matches[0][1]:]
+            try: # c < term or c > term
+                a = float(ex1)
+                term = str(ex2)
+            except ValueError: # term < c or term > c -> turn operator around
+                try:
+                    a = float(ex2)
+                    term = str(ex1)
+                    symbols[0] = self._flip_operator(symbols[0])
+                except: # <= or >= symbol was mistaken for == symbol. Reset symbols
+                    symbols = []
+
+        return [x for x in [a, b] if x is not None], term, symbols
+
+    def select_states(self, condition):
+        """Select state data according to given conditions.
+
+        # Detailed description
+        `condition` is a string or list of strings specifying the conditions with which state data is selected.
+
+        `conditions` can have the form 
+        <number> <operator> <term> <operator> <number> where the left or right side of <term> can also be omitted.
+
+        <term> must be in {E, n, L, S, J} and <operator> in {<, <=, >, >=, =, ==}. 
+
+        Example conditions are
+        * 1 < n < 5
+        * 7 > n > 1
+        * E >= 2
+        * L = 1
+        * L == 1
+        and you can select data with several conditions with `atom.select_states(['n<=4', 'S=0', '1<=J<3', 'E>3'])`
+
+        # Returns
+        * `selected_data` -- The state data in self.states that satisfies `condition`
+        """
+
+        if not isinstance(condition, (list, tuple)):
+            condition = [condition]
+
+        selected_data = self.states
+
+        for cond in condition:
+            # remove white spaces
+            cond = ''.join(cond.split(' '))
+            term = None
+            # search all less and greater (equal) conditions
+            n_l, term_l, operators_l = self._find_conditions(cond, '<={0,1}') # matches < and <=
+            n_g, term_g, operators_g = self._find_conditions(cond, '>={0,1}') # matches > and >=
+            if term_l is not None:
+                term = term_l
+            elif term_g is not None:
+                term = term_g
+            n = n_l + n_g
+            operators = operators_l + operators_g
+
+            if term is None: # we couldn't find a <, <=, >, >= condition. Hence it must be an == condition.
+                # We don't want to call this when there are also <= and >= signs since the matching pattern will also match those.
+                n, term, operators = self._find_conditions(cond, '={1,2}') # matches = and == but also <= and >=.     
+    
+            for (num, op) in zip(n, operators):
+                if op == '<':
+                    selected_data = selected_data.loc[num < selected_data[term]]
+                elif op == '<=':
+                    selected_data = selected_data.loc[num <= selected_data[term]]
+                elif op == '>':
+                    selected_data = selected_data.loc[num > selected_data[term]]
+                elif op == '>=':
+                    selected_data = selected_data.loc[num >= selected_data[term]]
+                elif op in ['=', '==']:
+                    selected_data = selected_data.loc[num == selected_data[term]]
+        
+        return selected_data
+
+
+
 
 def to_SI(d):
     inc_prefix = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']
