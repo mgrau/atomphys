@@ -1,2 +1,8 @@
 parsed_data/
 __pycache__/
+*.egg-info
+
+# don't version the virtual environment for testing
+venv
+
+.vscode
