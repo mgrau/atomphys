@@ -125,6 +125,20 @@ class Transition(OrderedDict):
     def wavelength(self):
         return self.λ
 
+    @property
+    def saturation_intensity(self):
+        if isinstance(self.Ei, _Q):
+            h = _ureg['h']
+            c = _ureg['c']
+        else:
+            h = 2*π
+            c = 137.03599908356244
+        return π*h*c*self.Γ/(3*self.λ**3)
+
+    @property
+    def Isat(self):
+        return self.saturation_intensity
+
 
 def download_nist_transitions(atom):
     # the NIST url and GET options.
