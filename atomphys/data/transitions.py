@@ -76,6 +76,10 @@ class Transition(OrderedDict):
         return self['Gamma']
 
     @property
+    def Γ(self):
+        return self['Gamma']
+
+    @property
     def i(self):
         try:
             return self['i']
