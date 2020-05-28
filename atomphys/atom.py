@@ -45,6 +45,9 @@ class Atom():
             state['transitions_up'] = [
                 transition for transition in self._transitions if transition.i == state]
 
+    def __getitem__(self, state):
+        return self.states[state]
+
     @property
     def states(self):
         return self._states
