@@ -2,7 +2,7 @@ import csv
 import io
 import re
 import urllib.request
-from collections import OrderedDict, MutableSequence
+from collections import OrderedDict
 from fractions import Fraction
 from .util import sanitize_energy
 import numpy as np
