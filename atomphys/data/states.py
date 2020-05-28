@@ -5,7 +5,6 @@ import urllib.request
 from collections import OrderedDict
 from fractions import Fraction
 from .util import sanitize_energy
-import numpy as np
 from math import pi as π
 
 
