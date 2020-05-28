@@ -23,7 +23,7 @@ class StateRegistry(tuple):
         if isinstance(key, slice):
             return StateRegistry(super().__getitem__(key))
         elif isinstance(key, str):
-            return next(state for state in self if key in state.term)
+            return next(state for state in self if key in state.name)
         else:
             raise TypeError('key must be integer, slice, or term string')
 
@@ -92,7 +92,7 @@ class State(OrderedDict):
             {'energy': energy, 'configuration': configuration, 'J': J,  **term})
 
     def __repr__(self):
-        return 'State({:} {:}: {:.4g})'.format(self.valence, self.term, self.energy)
+        return 'State({:}: {:.4g})'.format(self.name, self.energy)
 
     @property
     def energy(self):
@@ -104,11 +104,15 @@ class State(OrderedDict):
 
     @property
     def valence(self):
-        match = re.match(r'^\S+\.(?P<valence>\S+)', self.configuration)
+        match = re.match(r'^(\S*\.)?(?P<valence>\S+)', self.configuration)
         if match is None:
             return ''
         else:
             return match['valence']
+
+    @property
+    def name(self):
+        return '{:} {:}'.format(self.valence, self.term)
 
     @property
     def J(self):
@@ -201,70 +205,27 @@ class State(OrderedDict):
     def τ(self):
         return self.lifetime
 
-    def scalar_polarizability(self, ω=0):
-        if not hasattr(ω, '__len__'):
-            ω = [ω]
+    def scalar_polarizability(self, omega=0):
+        ω = omega
 
-        hbar = self._ureg['hbar']
         ε_0 = self._ureg['ε_0']
         c = self._ureg['c']
 
-        ω0 = [(t.Ef - t.Ei)/hbar for t in self.up]
-        Γ = [t.Gamma for t in self.up]
-        deg = np.array([(2*t.f.J + 1)/(2*t.i.J + 1)
-                        for t in self.up])
-        if self.USE_UNITS:
-            if len(ω0):
-                ω0 = self._ureg.Quantity(
-                    np.array([ω.magnitude for ω in ω0]), ω0[0].units)
-            else:
-                ω0 = self._ureg.Quantity([], _ureg['Eh/hbar'])
+        α0 = 0
+        for transition in self.transitions:
+            ω0 = transition.ω
+            Γ = transition.Γ
+            deg = (2*transition.f.J + 1)/(2*transition.i.J +
+                                          1) if transition in self.up else -1
+            RME2 = 3*π*ε_0*c**3 * ω0**-3 * deg * Γ
+            Δ = ω0/(ω0**2 - ω**2)
+            α0 += (2/3)*RME2*Δ
 
-            if len(Γ):
-                Γ = self._ureg.Quantity(
-                    np.array([γ.magnitude for γ in Γ]), Γ[0].units)
-            else:
-                Γ = self._ureg.Quantity([], _ureg['Eh/hbar'])
-        else:
-            ω0 = np.array(ω0)
-            Γ = np.array(Γ)
-
-        RME2 = 3*π*ε_0*c**3 * ω0**-3 * deg * Γ
-
-        RME2 = np.tile(RME2, (np.size(ω), 1))
-        ω0_m = np.tile(ω0, (np.size(ω), 1))
-        ω_m = np.tile(ω, (np.size(ω0), 1)).T
-        Δ = ω0_m/(ω0_m**2 - ω_m**2)
-        α0_up = np.sum((2/3)*RME2*Δ, axis=1)
-
-        ω0 = [(t.Ef - t.Ei)/hbar for t in self.down]
-        Γ = [t.Gamma for t in self.down]
-        if self.USE_UNITS:
-            if len(ω0):
-                ω0 = self._ureg.Quantity(
-                    np.array([ω.magnitude for ω in ω0]), ω0[0].units)
-            else:
-                ω0 = self._ureg.Quantity([], _ureg['Eh/hbar'])
-
-            if len(Γ):
-                Γ = self._ureg.Quantity(
-                    np.array([γ.magnitude for γ in Γ]), Γ[0].units)
-            else:
-                Γ = self._ureg.Quantity([], _ureg['Eh/hbar'])
-        else:
-            ω0 = np.array(ω0)
-            Γ = np.array(Γ)
-
-        RME2 = 3*π*ε_0*c**3 * ω0**-3 * Γ
-
-        RME2 = np.tile(RME2, (np.size(ω), 1))
-        ω0_m = np.tile(ω0, (np.size(ω), 1))
-        ω_m = np.tile(ω, (np.size(ω0), 1)).T
-        Δ = ω0_m/(ω0_m**2 - ω_m**2)
-        α0_down = np.sum((2/3)*RME2*Δ, axis=1)
-
-        α0 = α0_up - α0_down
         return α0
+
+    @property
+    def α0(self):
+        return self.scalar_polarizability()
 
 
 def download_nist_states(atom):
