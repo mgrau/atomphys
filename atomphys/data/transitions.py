@@ -2,25 +2,37 @@ import csv
 import io
 import urllib.request
 from collections import OrderedDict
+from .util import sanitize_energy
 
 from math import pi as π
 
 
 try:
-    from .. import _ureg, _Q, _HAS_PINT
+    from .. import _ureg, _HAS_PINT
 except ImportError:
     _HAS_PINT = False
     _ureg = None
-    _Q = None
 
 
 class Transition(OrderedDict):
-    def __init__(self, USE_UNITS=False, **transition):
+    def __init__(self, USE_UNITS=False, ureg=None, **transition):
+        self.USE_UNITS = USE_UNITS and _HAS_PINT
+        if ureg:
+            self._ureg = ureg
+        else:
+            self._ureg = _ureg
+
+        if not self.USE_UNITS:
+            self._ureg['hbar'] = 1
+            self._ureg['h'] = 2*π
+            self._ureg['ε_0'] = 1/(4*π)
+            self._ureg['c'] = 137.03599908356244
+
         if 'Gamma' in transition:
             Gamma = transition['Gamma']
         elif 'Aki(s^-1)' in transition:
             if USE_UNITS and _HAS_PINT:
-                Gamma = _Q(
+                Gamma = self._ureg.Quantity(
                     float(transition['Aki(s^-1)']), 's^-1').to('Eh/hbar')
             else:
                 Gamma = 2.4188843265856806e-17 * float(transition['Aki(s^-1)'])
@@ -31,10 +43,10 @@ class Transition(OrderedDict):
             Ei = transition['Ei']
         elif 'Ei(Ry)' in transition:
             if USE_UNITS and _HAS_PINT:
-                Ei = _Q(float(transition['Ei(Ry)'].strip(
-                    '[]a +?')), 'Ry').to('Eh')
+                Ei = self._ureg.Quantity(float(sanitize_energy(
+                    transition['Ei(Ry)'])), 'Ry').to('Eh')
             else:
-                Ei = 0.5 * float(transition['Ei(Ry)'].strip('[]a +?'))
+                Ei = 0.5 * float(sanitize_energy(transition['Ei(Ry)']))
         else:
             Ei = 0.0
 
@@ -42,10 +54,10 @@ class Transition(OrderedDict):
             Ef = transition['Ef']
         elif 'Ek(Ry)' in transition:
             if USE_UNITS and _HAS_PINT:
-                Ef = _Q(float(transition['Ek(Ry)'].strip(
-                    '[]a +?')), 'Ry').to('Eh')
+                Ef = self._ureg.Quantity(float(sanitize_energy(
+                    transition['Ek(Ry)'])), 'Ry').to('Eh')
             else:
-                Ef = 0.5 * float(transition['Ek(Ry)'].strip('[]a +?'))
+                Ef = 0.5 * float(sanitize_energy(transition['Ek(Ry)']))
         else:
             Ef = 0.0
 
@@ -95,10 +107,7 @@ class Transition(OrderedDict):
 
     @property
     def ω(self):
-        if isinstance(self.Ei, _Q):
-            hbar = _ureg['hbar']
-        else:
-            hbar = 1
+        hbar = self._ureg['hbar']
         return (self.Ef-self.Ei)/hbar
 
     @property
@@ -115,10 +124,7 @@ class Transition(OrderedDict):
 
     @property
     def λ(self):
-        if isinstance(self.Ei, _Q):
-            c = _ureg['c']
-        else:
-            c = 1
+        c = self._ureg['c']
         return c/self.ν
 
     @property
@@ -127,17 +133,20 @@ class Transition(OrderedDict):
 
     @property
     def saturation_intensity(self):
-        if isinstance(self.Ei, _Q):
-            h = _ureg['h']
-            c = _ureg['c']
-        else:
-            h = 2*π
-            c = 137.03599908356244
+        h = self._ureg['h']
+        c = self._ureg['c']
         return π*h*c*self.Γ/(3*self.λ**3)
 
     @property
     def Isat(self):
         return self.saturation_intensity
+
+    @property
+    def branching_ratio(self):
+        r = self.Γ * self.f.τ
+        if isinstance(r, self._ureg.Quantity):
+            r = r.m
+        return r
 
 
 def download_nist_transitions(atom):
@@ -163,7 +172,8 @@ def download_nist_transitions(atom):
     return data
 
 
-def get_transitions(atom, USE_UNITS=False):
+def get_transitions(atom, USE_UNITS=False, ureg=None):
     data = download_nist_transitions(atom)
-    transitions = [Transition(**row, USE_UNITS=USE_UNITS) for row in data]
+    transitions = [Transition(**row, USE_UNITS=USE_UNITS, ureg=ureg)
+                   for row in data]
     return transitions

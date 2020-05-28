@@ -2,27 +2,67 @@ import csv
 import io
 import re
 import urllib.request
-from collections import OrderedDict
+from collections import OrderedDict, MutableSequence
 from fractions import Fraction
+from .util import sanitize_energy
+import numpy as np
+from math import pi as π
+
 
 try:
-    from .. import _ureg, _Q, _HAS_PINT
+    from .. import _ureg, _HAS_PINT
 except ImportError:
     _HAS_PINT = False
     _ureg = None
-    _Q = None
+
+
+class StateRegistry(tuple):
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return super().__getitem__(key)
+        if isinstance(key, slice):
+            return StateRegistry(super().__getitem__(key))
+        elif isinstance(key, str):
+            return next(state for state in self if key in state.term)
+        else:
+            raise TypeError('key must be integer, slice, or term string')
+
+    def __repr__(self):
+        repr = '{:d} States (\n'.format(len(self))
+        if self.__len__() <= 6:
+            for state in self:
+                repr += (str(state) + '\n')
+        else:
+            for state in self[:3]:
+                repr += (str(state) + '\n')
+            repr += '...\n'
+            for state in self[-3:]:
+                repr += (str(state) + '\n')
+        repr = repr[:-1] + ')'
+        return repr
 
 
 class State(OrderedDict):
-    def __init__(self, USE_UNITS=False, **state):
+    def __init__(self, USE_UNITS=False, ureg=None, **state):
+        self.USE_UNITS = USE_UNITS and _HAS_PINT
+        if ureg:
+            self._ureg = ureg
+        else:
+            self._ureg = _ureg
+
+        if not self.USE_UNITS:
+            self._ureg['hbar'] = 1
+            self._ureg['ε_0'] = 1/(4*π)
+            self._ureg['c'] = 137.03599908356244
+
         if 'energy' in state:
             energy = state['energy']
         elif 'Level (Ry)' in state:
-            if _HAS_PINT and USE_UNITS:
-                energy = _Q(
-                    float(state['Level (Ry)'].strip('[]a +?')), 'Ry').to('Eh')
+            if self.USE_UNITS:
+                energy = self._ureg.Quantity(
+                    float(sanitize_energy(state['Level (Ry)'])), 'Ry').to('Eh')
             else:
-                energy = 0.5 * float(state['Level (Ry)'].strip('[]a +?'))
+                energy = 0.5 * float(sanitize_energy(state['Level (Ry)']))
         else:
             energy = 0.0
 
@@ -37,7 +77,7 @@ class State(OrderedDict):
             try:
                 J = float(Fraction(state['J'].strip('?')))
             except:
-                J = None
+                J = 0
         else:
             J = 0
 
@@ -121,6 +161,111 @@ class State(OrderedDict):
         if self.coupling == 'LK':
             return '{:g}[{:}]{:}{:}'.format(2*self.S + 1, Fraction(self.K), Fraction(self.J), P)
 
+    @property
+    def transitions_down(self):
+        try:
+            return self['transitions_down']
+        except KeyError:
+            return []
+
+    @property
+    def transitions_up(self):
+        try:
+            return self['transitions_up']
+        except KeyError:
+            return []
+
+    @property
+    def transitions(self):
+        return self.transitions_down + self.transitions_up
+
+    @property
+    def down(self):
+        return self.transitions_down
+
+    @property
+    def up(self):
+        return self.transitions_up
+
+    @property
+    def lifetime(self):
+        Gamma = [transition.Gamma for transition in self.transitions_down]
+        try:
+            lifetime = 1/sum(Gamma)
+        except ZeroDivisionError:
+            lifetime = float('inf')
+
+        return lifetime
+
+    @property
+    def τ(self):
+        return self.lifetime
+
+    def scalar_polarizability(self, ω=0):
+        if not hasattr(ω, '__len__'):
+            ω = [ω]
+
+        hbar = self._ureg['hbar']
+        ε_0 = self._ureg['ε_0']
+        c = self._ureg['c']
+
+        ω0 = [(t.Ef - t.Ei)/hbar for t in self.up]
+        Γ = [t.Gamma for t in self.up]
+        deg = np.array([(2*t.f.J + 1)/(2*t.i.J + 1)
+                        for t in self.up])
+        if self.USE_UNITS:
+            if len(ω0):
+                ω0 = self._ureg.Quantity(
+                    np.array([ω.magnitude for ω in ω0]), ω0[0].units)
+            else:
+                ω0 = self._ureg.Quantity([], _ureg['Eh/hbar'])
+
+            if len(Γ):
+                Γ = self._ureg.Quantity(
+                    np.array([γ.magnitude for γ in Γ]), Γ[0].units)
+            else:
+                Γ = self._ureg.Quantity([], _ureg['Eh/hbar'])
+        else:
+            ω0 = np.array(ω0)
+            Γ = np.array(Γ)
+
+        RME2 = 3*π*ε_0*c**3 * ω0**-3 * deg * Γ
+
+        RME2 = np.tile(RME2, (np.size(ω), 1))
+        ω0_m = np.tile(ω0, (np.size(ω), 1))
+        ω_m = np.tile(ω, (np.size(ω0), 1)).T
+        Δ = ω0_m/(ω0_m**2 - ω_m**2)
+        α0_up = np.sum((2/3)*RME2*Δ, axis=1)
+
+        ω0 = [(t.Ef - t.Ei)/hbar for t in self.down]
+        Γ = [t.Gamma for t in self.down]
+        if self.USE_UNITS:
+            if len(ω0):
+                ω0 = self._ureg.Quantity(
+                    np.array([ω.magnitude for ω in ω0]), ω0[0].units)
+            else:
+                ω0 = self._ureg.Quantity([], _ureg['Eh/hbar'])
+
+            if len(Γ):
+                Γ = self._ureg.Quantity(
+                    np.array([γ.magnitude for γ in Γ]), Γ[0].units)
+            else:
+                Γ = self._ureg.Quantity([], _ureg['Eh/hbar'])
+        else:
+            ω0 = np.array(ω0)
+            Γ = np.array(Γ)
+
+        RME2 = 3*π*ε_0*c**3 * ω0**-3 * Γ
+
+        RME2 = np.tile(RME2, (np.size(ω), 1))
+        ω0_m = np.tile(ω0, (np.size(ω), 1))
+        ω_m = np.tile(ω, (np.size(ω0), 1)).T
+        Δ = ω0_m/(ω0_m**2 - ω_m**2)
+        α0_down = np.sum((2/3)*RME2*Δ, axis=1)
+
+        α0 = α0_up - α0_down
+        return α0
+
 
 def download_nist_states(atom):
     url = 'https://physics.nist.gov/cgi-bin/ASD/energy1.pl'
@@ -151,9 +296,10 @@ def download_nist_states(atom):
     return states
 
 
-def get_states(atom, USE_UNITS=False):
+def get_states(atom, USE_UNITS=False, ureg=None):
     data = download_nist_states(atom)
-    states = [State(**row, USE_UNITS=USE_UNITS) for row in data]
+    states = StateRegistry(
+        State(**row, USE_UNITS=USE_UNITS, ureg=ureg) for row in data)
     return states
 
 
