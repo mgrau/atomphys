@@ -1,7 +1,6 @@
 import csv
 import io
 import urllib.request
-from collections import OrderedDict
 from .util import sanitize_energy
 
 from math import pi as π
@@ -14,7 +13,7 @@ except ImportError:
     _ureg = None
 
 
-class Transition(OrderedDict):
+class Transition(dict):
     def __init__(self, USE_UNITS=False, ureg=None, **transition):
         self.USE_UNITS = USE_UNITS and _HAS_PINT
         if ureg:

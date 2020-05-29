@@ -2,7 +2,6 @@ import csv
 import io
 import re
 import urllib.request
-from collections import OrderedDict
 from fractions import Fraction
 from .util import sanitize_energy
 from math import pi as π
@@ -41,7 +40,7 @@ class StateRegistry(tuple):
         return repr
 
 
-class State(OrderedDict):
+class State(dict):
     def __init__(self, USE_UNITS=False, ureg=None, **state):
         self.USE_UNITS = USE_UNITS and _HAS_PINT
         if ureg:
