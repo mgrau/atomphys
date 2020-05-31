@@ -43,10 +43,12 @@ class StateRegistry(tuple):
 class State(dict):
     def __init__(self, USE_UNITS=False, ureg=None, **state):
         self.USE_UNITS = USE_UNITS and _HAS_PINT
-        if ureg:
+        if ureg and self.USE_UNITS:
             self._ureg = ureg
-        else:
+        elif self.USE_UNITS:
             self._ureg = _ureg
+        else:
+            self._ureg = {}
 
         if not self.USE_UNITS:
             self._ureg['hbar'] = 1
