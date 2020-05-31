@@ -33,15 +33,15 @@ class Atom():
 
         # index the transitions to the states
         for transition in self._transitions:
-            transition['i'] = next(
+            transition._state_i = next(
                 state for state in self._states if state.energy == transition.Ei)
-            transition['f'] = next(
+            transition._state_f = next(
                 state for state in self._states if state.energy == transition.Ef)
 
         # index the states to the transitions
         for state in self._states:
-            state['transitions_down'] = self._transitions.down_from(state)
-            state['transitions_up'] = self._transitions.up_from(state)
+            state._transitions_down = self._transitions.down_from(state)
+            state._transitions_up = self._transitions.up_from(state)
 
     def __getitem__(self, state):
         return self.states[state]

@@ -44,6 +44,12 @@ class TransitionRegistry(list):
 
 
 class Transition(dict):
+
+    USE_UNITS = False
+    _ureg = {}
+    _state_i = None
+    _state_f = None
+
     def __init__(self, USE_UNITS=False, ureg=None, **transition):
         self.USE_UNITS = USE_UNITS and _HAS_PINT
         if ureg and self.USE_UNITS:
@@ -136,14 +142,14 @@ class Transition(dict):
     @property
     def i(self):
         try:
-            return self['i']
+            return self._state_i
         except KeyError:
             return None
 
     @property
     def f(self):
         try:
-            return self['f']
+            return self._state_f
         except KeyError:
             return None
 

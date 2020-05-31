@@ -41,6 +41,12 @@ class StateRegistry(tuple):
 
 
 class State(dict):
+
+    USE_UNITS = False
+    _ureg = {}
+    _transitions_down = []
+    _transitions_up = []
+
     def __init__(self, USE_UNITS=False, ureg=None, **state):
         self.USE_UNITS = USE_UNITS and _HAS_PINT
         if ureg and self.USE_UNITS:
@@ -168,14 +174,14 @@ class State(dict):
     @property
     def transitions_down(self):
         try:
-            return self['transitions_down']
+            return self._transitions_down
         except KeyError:
             return []
 
     @property
     def transitions_up(self):
         try:
-            return self['transitions_up']
+            return self._transitions_up
         except KeyError:
             return []
 
