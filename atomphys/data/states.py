@@ -246,13 +246,10 @@ def download_nist_states(atom):
     with urllib.request.urlopen(url + '?' + get_postfix) as response:
         response = response.read()
 
-    data = csv.DictReader(io.StringIO(response.decode()), dialect='excel-tab')
+    data = csv.DictReader(io.StringIO(response.decode()),
+                          dialect='excel-tab', restkey='None')
 
-    states = [row for row in data]
-    for state in states:
-        del state[None]
-
-    return states
+    return data
 
 
 def get_states(atom, USE_UNITS=False, ureg=None):
