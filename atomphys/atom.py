@@ -40,10 +40,8 @@ class Atom():
 
         # index the states to the transitions
         for state in self._states:
-            state['transitions_down'] = [
-                transition for transition in self._transitions if transition.f == state]
-            state['transitions_up'] = [
-                transition for transition in self._transitions if transition.i == state]
+            state['transitions_down'] = self._transitions.down_from(state)
+            state['transitions_up'] = self._transitions.up_from(state)
 
     def __getitem__(self, state):
         return self.states[state]

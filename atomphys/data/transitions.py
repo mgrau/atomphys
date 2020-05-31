@@ -13,6 +13,36 @@ except ImportError:
     _ureg = None
 
 
+class TransitionRegistry(list):
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return super().__getitem__(key)
+        if isinstance(key, slice):
+            return TransitionRegistry(super().__getitem__(key))
+        else:
+            raise TypeError('key must be integer, slice, or term string')
+
+    def __repr__(self):
+        repr = '{:d} Transitions (\n'.format(len(self))
+        if self.__len__() <= 6:
+            for transition in self:
+                repr += (str(transition) + '\n')
+        else:
+            for transition in self[:3]:
+                repr += (str(transition) + '\n')
+            repr += '...\n'
+            for transition in self[-3:]:
+                repr += (str(transition) + '\n')
+        repr = repr[:-1] + ')'
+        return repr
+
+    def up_from(self, state):
+        return TransitionRegistry(transition for transition in self if transition.i == state)
+
+    def down_from(self, state):
+        return TransitionRegistry(transition for transition in self if transition.f == state)
+
+
 class Transition(dict):
     def __init__(self, USE_UNITS=False, ureg=None, **transition):
         self.USE_UNITS = USE_UNITS and _HAS_PINT
@@ -72,7 +102,7 @@ class Transition(dict):
         else:
             state_f = '{:0.4g}'.format(self.Ef)
 
-        return 'Transition({:} <---> {:}, Γ={:0.4g})'.format(state_i, state_f, self.Gamma)
+        return 'Transition({:} <---> {:}, λ={:0.4g}, Γ=2π × {:0.4g})'.format(state_i, state_f, self.λ_nm, self.Γ_MHz/(2*π))
 
     @property
     def Ei(self):
@@ -89,6 +119,17 @@ class Transition(dict):
     @property
     def Γ(self):
         return self['Gamma']
+
+    @property
+    def Γ_MHz(self):
+        if self.USE_UNITS:
+            return self.Γ.to('MHz')
+        else:
+            return self.Γ * 41341373335.18245  # E_h / hbar / MHz
+
+    @property
+    def Gamma_MHz(self):
+        return self.Γ_MHz
 
     @property
     def i(self):
@@ -129,6 +170,17 @@ class Transition(dict):
     @property
     def wavelength(self):
         return self.λ
+
+    @property
+    def λ_nm(self):
+        if self.USE_UNITS:
+            return self.λ.to('nm')
+        else:
+            return self.λ * 0.052917721090397746  # nm / a_0
+
+    @property
+    def wavelength_nm(self):
+        return self.λ_nm
 
     @property
     def saturation_intensity(self):
@@ -173,6 +225,6 @@ def download_nist_transitions(atom):
 
 def get_transitions(atom, USE_UNITS=False, ureg=None):
     data = download_nist_transitions(atom)
-    transitions = [Transition(**row, USE_UNITS=USE_UNITS, ureg=ureg)
-                   for row in data]
+    transitions = TransitionRegistry(Transition(**row, USE_UNITS=USE_UNITS, ureg=ureg)
+                                     for row in data)
     return transitions
