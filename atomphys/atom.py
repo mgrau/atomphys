@@ -1,6 +1,5 @@
 from .data import State, Transition, get_states, get_transitions
 from math import pi as π
-import numpy as np
 
 
 try:
