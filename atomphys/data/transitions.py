@@ -36,6 +36,10 @@ class TransitionRegistry(list):
         repr = repr[:-1] + ')'
         return repr
 
+    def __add__(self, other):
+        assert isinstance(other, TransitionRegistry)
+        return TransitionRegistry(list(self) + list(other))
+
     def up_from(self, state):
         return TransitionRegistry(transition for transition in self if transition.i == state)
 
