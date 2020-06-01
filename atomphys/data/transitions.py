@@ -49,21 +49,21 @@ class TransitionRegistry(list):
 
 class Transition(dict):
 
-    USE_UNITS = False
+    _USE_UNITS = False
     _ureg = {}
     _state_i = None
     _state_f = None
 
     def __init__(self, USE_UNITS=False, ureg=None, **transition):
-        self.USE_UNITS = USE_UNITS and _HAS_PINT
-        if ureg and self.USE_UNITS:
+        self._USE_UNITS = USE_UNITS and _HAS_PINT
+        if ureg and self._USE_UNITS:
             self._ureg = ureg
-        elif self.USE_UNITS:
+        elif self._USE_UNITS:
             self._ureg = _ureg
         else:
             self._ureg = {}
 
-        if not self.USE_UNITS:
+        if not self._USE_UNITS:
             self._ureg['hbar'] = 1
             self._ureg['h'] = 2*π
             self._ureg['ε_0'] = 1/(4*π)
@@ -105,16 +105,24 @@ class Transition(dict):
         super(Transition, self).__init__({'Ei': Ei, 'Ef': Ef, 'Gamma': Gamma})
 
     def __repr__(self):
+        fmt = '{:0.4g~P}' if self._USE_UNITS else '{:0.4g}'
         if self.i is not None:
             state_i = '{:} {:}'.format(self.i.valence, self.i.term)
         else:
-            state_i = '{:0.4g}'.format(self.Ei)
+            state_i = fmt.format(self.Ei)
         if self.f is not None:
             state_f = '{:} {:}'.format(self.f.valence, self.f.term)
         else:
-            state_f = '{:0.4g}'.format(self.Ef)
+            state_f = fmt.format(self.Ef)
 
-        return 'Transition({:} <---> {:}, λ={:0.4g}, Γ=2π × {:0.4g})'.format(state_i, state_f, self.λ_nm, self.Γ_MHz/(2*π))
+        if self._USE_UNITS:
+            λ = '{:0.4g~P}'.format(self.λ_nm)
+            Γ = '2π × {:0.4g~P}'.format(self.Γ_MHz/(2*π))
+        else:
+            λ = '{:0.4g} nm'.format(self.λ_nm)
+            Γ = '2π × {:0.4g} MHz'.format(self.Γ_MHz/(2*π))
+
+        return 'Transition({:} <---> {:}, λ={:}, Γ={:})'.format(state_i, state_f, λ, Γ)
 
     @property
     def Ei(self):
@@ -134,7 +142,7 @@ class Transition(dict):
 
     @property
     def Γ_MHz(self):
-        if self.USE_UNITS:
+        if self._USE_UNITS:
             return self.Γ.to('MHz')
         else:
             return self.Γ * 41341373335.18245  # E_h / hbar / MHz
@@ -185,7 +193,7 @@ class Transition(dict):
 
     @property
     def λ_nm(self):
-        if self.USE_UNITS:
+        if self._USE_UNITS:
             return self.λ.to('nm')
         else:
             return self.λ * 0.052917721090397746  # nm / a_0

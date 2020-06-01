@@ -42,21 +42,21 @@ class StateRegistry(tuple):
 
 class State(dict):
 
-    USE_UNITS = False
+    _USE_UNITS = False
     _ureg = {}
     _transitions_down = []
     _transitions_up = []
 
     def __init__(self, USE_UNITS=False, ureg=None, **state):
-        self.USE_UNITS = USE_UNITS and _HAS_PINT
-        if ureg and self.USE_UNITS:
+        self._USE_UNITS = USE_UNITS and _HAS_PINT
+        if ureg and self._USE_UNITS:
             self._ureg = ureg
-        elif self.USE_UNITS:
+        elif self._USE_UNITS:
             self._ureg = _ureg
         else:
             self._ureg = {}
 
-        if not self.USE_UNITS:
+        if not self._USE_UNITS:
             self._ureg['hbar'] = 1
             self._ureg['ε_0'] = 1/(4*π)
             self._ureg['c'] = 137.03599908356244
@@ -64,7 +64,7 @@ class State(dict):
         if 'energy' in state:
             energy = state['energy']
         elif 'Level (Ry)' in state:
-            if self.USE_UNITS:
+            if self._USE_UNITS:
                 energy = self._ureg.Quantity(
                     float(sanitize_energy(state['Level (Ry)'])), 'Ry').to('Eh')
             else:
@@ -98,7 +98,11 @@ class State(dict):
             {'energy': energy, 'configuration': configuration, 'J': J,  **term})
 
     def __repr__(self):
-        return 'State({:}: {:.4g})'.format(self.name, self.energy)
+        if self._USE_UNITS:
+            energy = '{:0.4g~P}'.format(self.energy)
+        else:
+            energy = '{:0.4g}'.format(self.energy)
+        return 'State({:}: {:})'.format(self.name, energy)
 
     @property
     def energy(self):
