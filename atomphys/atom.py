@@ -1,5 +1,7 @@
 from .data import State, Transition, get_states, get_transitions
 from math import pi as π
+import os
+import json
 
 
 try:
@@ -7,6 +9,14 @@ try:
 except ImportError:
     _HAS_PINT = False
     _ureg = None
+
+current_file = os.path.realpath(__file__)
+directory = os.path.dirname(current_file)
+periodic_table = os.path.join(
+    directory, "data", "PeriodicTableJSON.json")
+with open(periodic_table) as f:
+    pt = json.load(f)
+    symbols = [element['symbol'] for element in pt['elements']]
 
 
 class Atom():
@@ -18,6 +28,14 @@ class Atom():
             self._ureg = ureg
         else:
             self._ureg = _ureg
+
+        if atom in symbols:
+            atom = atom + ' i'
+        elif atom[-1] == '+' and atom[:-1] in symbols:
+            atom = atom[:-1] + ' ii'
+        else:
+            raise Exception(
+                atom + ' does not match a known neutral atom or ionic ion name')
 
         self._states = get_states(
             atom, USE_UNITS=self.USE_UNITS, ureg=self._ureg)
