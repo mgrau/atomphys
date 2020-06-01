@@ -45,6 +45,13 @@ class Atom():
     def __getitem__(self, state):
         return self.states[state]
 
+    def __repr__(self):
+        repr = ''
+        repr += 'Ground State: {:}\n'.format(self.states[0])
+        repr += '{:d} States\n'.format(len(self.states))
+        repr += '{:d} Transitions'.format(len(self.transitions))
+        return repr
+
     @property
     def states(self):
         return self._states
