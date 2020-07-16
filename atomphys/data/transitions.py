@@ -46,6 +46,9 @@ class TransitionRegistry(list):
     def down_from(self, state):
         return TransitionRegistry(transition for transition in self if transition.f == state)
 
+    def to_dict(self):
+        return [transition.to_dict() for transition in self]
+
 
 class Transition(dict):
 
@@ -123,6 +126,9 @@ class Transition(dict):
             Γ = '2π × {:0.4g} MHz'.format(self.Γ_MHz/(2*π))
 
         return 'Transition({:} <---> {:}, λ={:}, Γ={:})'.format(state_i, state_f, λ, Γ)
+
+    def to_dict(self):
+        return {'Ei': str(self.Ei), 'Ef': str(self.Ef), 'Gamma': str(self.Gamma)}
 
     @property
     def Ei(self):

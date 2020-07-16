@@ -21,7 +21,10 @@ with open(periodic_table) as f:
 
 class Atom():
 
+    name = ''
+
     def __init__(self, atom, USE_UNITS=True, ureg=None):
+        self.name = atom
         self.USE_UNITS = USE_UNITS and _HAS_PINT
 
         if ureg:
@@ -69,6 +72,9 @@ class Atom():
         repr += '{:d} States\n'.format(len(self.states))
         repr += '{:d} Transitions'.format(len(self.transitions))
         return repr
+
+    def to_dict(self):
+        return {'name': self.name, 'states': self.states.to_dict(), 'transitions': self.transitions.to_dict()}
 
     @property
     def states(self):

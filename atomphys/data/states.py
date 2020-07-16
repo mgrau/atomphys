@@ -39,6 +39,9 @@ class StateRegistry(tuple):
         repr = repr[:-1] + ')'
         return repr
 
+    def to_dict(self):
+        return [state.to_dict() for state in self]
+
 
 class State(dict):
 
@@ -103,6 +106,9 @@ class State(dict):
         else:
             energy = '{:0.4g}'.format(self.energy)
         return 'State({:}: {:})'.format(self.name, energy)
+
+    def to_dict(self):
+        return {'energy': str(self.energy), 'configuration': self.configuration, 'term': self.term, 'J': str(Fraction(self.J))}
 
     @property
     def energy(self):
