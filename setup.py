@@ -6,4 +6,5 @@ setup(name='atomphys',
       url='https://gitlab.phys.ethz.ch/tiqi-projects/optical-trap/atomphys',
       author='Matt Grau',
       author_email='graum@phys.ethz.ch',
+      package_data={"": ["*.json"]},
       packages=find_packages())
