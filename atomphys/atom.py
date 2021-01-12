@@ -26,7 +26,6 @@ class Atom():
     name = ''
 
     def __init__(self, atom, USE_UNITS=True, ureg=None):
-        self.name = atom
         self.USE_UNITS = USE_UNITS and _HAS_PINT
 
         if ureg:
@@ -34,18 +33,11 @@ class Atom():
         else:
             self._ureg = _ureg
 
-        if atom in symbols:
-            atom = atom + ' i'
-        elif atom[-1] == '+' and atom[:-1] in symbols:
-            atom = atom[:-1] + ' ii'
-        else:
-            raise Exception(
-                atom + ' does not match a known neutral atom or ionic ion name')
-
-        self._states = StateRegistry(State(
-            **row, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for row in fetch_states(atom))
-        self._transitions = TransitionRegistry(Transition(
-            **row, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for row in fetch_transitions(atom))
+        try:
+            self.load(atom)
+        except FileNotFoundError:
+            self.name = atom
+            self.load_nist(self.name)
 
         # reverse sort by Gamma first
         self._transitions.sort(
@@ -83,6 +75,35 @@ class Atom():
 
     def to_dict(self):
         return {'name': self.name, 'states': self.states.to_dict(), 'transitions': self.transitions.to_dict()}
+
+    def save(self, filename):
+        with open(filename, 'w') as file:
+            json.dump(self.to_dict(), file)
+
+    def load(self, filename):
+        with open(filename) as file:
+            data = json.load(file)
+
+        self.name = data['name']
+        self._states = StateRegistry(State(
+            **state, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for state in data['states'])
+        self._transitions = TransitionRegistry(Transition(
+            **transition, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for transition in data['transitions'])
+
+    def load_nist(self, name):
+        if name in symbols:
+            atom = name + ' i'
+        elif name[-1] == '+' and name[:-1] in symbols:
+            atom = name[:-1] + ' ii'
+        else:
+            atom = name
+            raise Exception(
+                f'{atom} does not match a known neutral atom or ionic ion name')
+
+        self._states = StateRegistry(State(
+            **state, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for state in fetch_states(atom))
+        self._transitions = TransitionRegistry(Transition(
+            **transition, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for transition in fetch_transitions(atom))
 
     @property
     def states(self):

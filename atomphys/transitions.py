@@ -6,6 +6,7 @@ from .data import nist
 from .states import State
 
 from math import pi as π
+from math import inf
 
 
 try:
@@ -56,8 +57,8 @@ class Transition(dict):
 
     _USE_UNITS = False
     _ureg = {}
-    _state_i = None
-    _state_f = None
+    _state_i: State = None
+    _state_f: State = None
 
     def __init__(self, USE_UNITS=False, ureg=None, **transition):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
@@ -75,9 +76,12 @@ class Transition(dict):
             self._ureg['c'] = 137.03599908356244
 
         if 'Gamma' in transition:
-            Gamma = transition['Gamma']
+            if self._USE_UNITS:
+                Gamma = self._ureg.Quantity(transition['Gamma'])
+            else:
+                Gamma = float(transition['Gamma'])
         elif 'Aki(s^-1)' in transition:
-            if USE_UNITS and _HAS_PINT:
+            if self._USE_UNITS:
                 Gamma = self._ureg.Quantity(
                     float(transition['Aki(s^-1)']), 's^-1').to('Eh/hbar')
             else:
@@ -86,9 +90,12 @@ class Transition(dict):
             Gamma = 0.0
 
         if 'Ei' in transition:
-            Ei = transition['Ei']
+            if self._USE_UNITS:
+                Ei = self._ureg.Quantity(transition['Ei'])
+            else:
+                Ei = float(transition['Ei'])
         elif 'Ei(Ry)' in transition:
-            if USE_UNITS and _HAS_PINT:
+            if self._USE_UNITS:
                 Ei = self._ureg.Quantity(float(sanitize_energy(
                     transition['Ei(Ry)'])), 'Ry').to('Eh')
             else:
@@ -97,9 +104,12 @@ class Transition(dict):
             Ei = 0.0
 
         if 'Ef' in transition:
-            Ef = transition['Ef']
+            if self._USE_UNITS:
+                Ef = self._ureg.Quantity(transition['Ef'])
+            else:
+                Ef = float(transition['Ef'])
         elif 'Ek(Ry)' in transition:
-            if USE_UNITS and _HAS_PINT:
+            if self._USE_UNITS:
                 Ef = self._ureg.Quantity(float(sanitize_energy(
                     transition['Ek(Ry)'])), 'Ry').to('Eh')
             else:
@@ -193,7 +203,10 @@ class Transition(dict):
     @property
     def λ(self):
         c = self._ureg['c']
-        return c/self.ν
+        try:
+            return c/self.ν
+        except ZeroDivisionError:
+            return inf
 
     @property
     def wavelength(self):

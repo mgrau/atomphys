@@ -70,7 +70,10 @@ class State(dict):
             self._ureg['c'] = 137.03599908356244
 
         if 'energy' in state:
-            energy = state['energy']
+            if self._USE_UNITS:
+                energy = self._ureg.Quantity(state['energy'])
+            else:
+                energy = float(state['energy'])
         elif 'Level (Ry)' in state:
             if self._USE_UNITS:
                 energy = self._ureg.Quantity(
@@ -263,9 +266,9 @@ class State(dict):
         return self.scalar_polarizability()
 
 
-LS_term = re.compile(r'^(?P<S>\d+)(?P<L>[A-Z])\*?$')
-JJ_term = re.compile(r'^\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?$')
-LK_term = re.compile(r'^(?P<S>\d+)\[(?P<K>\d+/?\d*)\]\*?$')
+LS_term = re.compile(r'^(?P<S>\d+)(?P<L>[A-Z])\*?')
+JJ_term = re.compile(r'^\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?')
+LK_term = re.compile(r'^(?P<S>\d+)\[(?P<K>\d+/?\d*)\]\*?')
 
 L = {
     'S': 0, 'P': 1, 'D': 2, 'F': 3,
