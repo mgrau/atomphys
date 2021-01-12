@@ -4,11 +4,13 @@ import re
 import urllib.request
 from fractions import Fraction
 from .util import sanitize_energy
+from .data import nist
 from math import pi as π
+from itertools import chain
 
 
 try:
-    from .. import _ureg, _HAS_PINT
+    from . import _ureg, _HAS_PINT
 except ImportError:
     _HAS_PINT = False
     _ureg = None
@@ -21,9 +23,12 @@ class StateRegistry(tuple):
         if isinstance(key, slice):
             return StateRegistry(super().__getitem__(key))
         elif isinstance(key, str):
-            return next(state for state in self if key in state.name)
+            return next(state for state in self if state.match(key))
         else:
             raise TypeError('key must be integer, slice, or term string')
+
+    def __call__(self, key):
+        return self.__getitem__(key)
 
     def __repr__(self):
         repr = '{:d} States (\n'.format(len(self))
@@ -109,6 +114,20 @@ class State(dict):
 
     def to_dict(self):
         return {'energy': str(self.energy), 'configuration': self.configuration, 'term': self.term, 'J': str(Fraction(self.J))}
+
+    def to(self, key):
+        try:
+            return next(transition for transition in self.up if transition.f.match(key))
+        except StopIteration:
+            pass
+        try:
+            return next(transition for transition in self.down if transition.i.match(key))
+        except StopIteration:
+            pass
+        raise Exception(f'can\'t find state {key}')
+
+    def match(self, name):
+        return name in self.name
 
     @property
     def energy(self):
@@ -242,39 +261,6 @@ class State(dict):
     @property
     def α0(self):
         return self.scalar_polarizability()
-
-
-def download_nist_states(atom):
-    url = 'https://physics.nist.gov/cgi-bin/ASD/energy1.pl'
-    values = {
-        'spectrum': atom,
-        'units': 2,  # energy units {0: cm^-1, 1: eV, 2: Ry}
-        'format': 3,  # format {0: HTML, 1: ASCII, 2: CSV, 3: TSV}
-        'multiplet_ordered': 1,  # energy ordred
-        'term_out': 'on',  # output the term symbol string
-        'conf_out': 'on',  # output the configutation string
-        'level_out': 'on',  # output the energy level
-        'unc_out': 0,  # uncertainty on energy
-        'j_out': 'on',  # output the J level
-        'g_out': 'on',  # output the g-factor
-        'lande_out': 'off'  # output experimentally measured g-factor
-    }
-
-    get_postfix = urllib.parse.urlencode(values)
-    with urllib.request.urlopen(url + '?' + get_postfix) as response:
-        response = response.read()
-
-    data = csv.DictReader(io.StringIO(response.decode()),
-                          dialect='excel-tab', restkey='None')
-
-    return data
-
-
-def get_states(atom, USE_UNITS=False, ureg=None):
-    data = download_nist_states(atom)
-    states = StateRegistry(
-        State(**row, USE_UNITS=USE_UNITS, ureg=ureg) for row in data)
-    return states
 
 
 LS_term = re.compile(r'^(?P<S>\d+)(?P<L>[A-Z])\*?$')

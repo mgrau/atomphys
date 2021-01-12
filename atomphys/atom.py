@@ -1,4 +1,6 @@
-from .data import State, Transition, get_states, get_transitions
+from .states import State, StateRegistry
+from .transitions import Transition, TransitionRegistry
+from .data import fetch_states, fetch_transitions
 from math import pi as π
 import os
 import json
@@ -40,16 +42,19 @@ class Atom():
             raise Exception(
                 atom + ' does not match a known neutral atom or ionic ion name')
 
-        self._states = get_states(
-            atom, USE_UNITS=self.USE_UNITS, ureg=self._ureg)
-        self._transitions = get_transitions(
-            atom, USE_UNITS=self.USE_UNITS, ureg=self._ureg)
+        self._states = StateRegistry(State(
+            **row, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for row in fetch_states(atom))
+        self._transitions = TransitionRegistry(Transition(
+            **row, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for row in fetch_transitions(atom))
 
-        # sort by upper state energy first
+        # reverse sort by Gamma first
+        self._transitions.sort(
+            key=lambda transition: transition.Gamma, reverse=True)
+        # then sort by upper state energy
         self._transitions.sort(key=lambda transition: transition.Ef)
         # sort then by lower state energy
-        # because sort is stable, this produces a list sorted by both upper and lower state energy
         self._transitions.sort(key=lambda transition: transition.Ei)
+        # because sort is stable, this produces a list sorted by both upper and lower state energy
 
         # index the transitions to the states
         for transition in self._transitions:
@@ -64,6 +69,9 @@ class Atom():
             state._transitions_up = self._transitions.up_from(state)
 
     def __getitem__(self, state):
+        return self.states[state]
+
+    def __call__(self, state):
         return self.states[state]
 
     def __repr__(self):

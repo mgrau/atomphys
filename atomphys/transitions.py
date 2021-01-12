@@ -2,12 +2,14 @@ import csv
 import io
 import urllib.request
 from .util import sanitize_energy
+from .data import nist
+from .states import State
 
 from math import pi as π
 
 
 try:
-    from .. import _ureg, _HAS_PINT
+    from . import _ureg, _HAS_PINT
 except ImportError:
     _HAS_PINT = False
     _ureg = None
@@ -40,10 +42,10 @@ class TransitionRegistry(list):
         assert isinstance(other, TransitionRegistry)
         return TransitionRegistry(list(self) + list(other))
 
-    def up_from(self, state):
+    def up_from(self, state: State):
         return TransitionRegistry(transition for transition in self if transition.i == state)
 
-    def down_from(self, state):
+    def down_from(self, state: State):
         return TransitionRegistry(transition for transition in self if transition.f == state)
 
     def to_dict(self):
@@ -221,36 +223,6 @@ class Transition(dict):
     @property
     def branching_ratio(self):
         r = self.Γ * self.f.τ
-        if isinstance(r, self._ureg.Quantity):
+        if self._USE_UNITS and isinstance(r, self._ureg.Quantity):
             r = r.m
         return r
-
-
-def download_nist_transitions(atom):
-    # the NIST url and GET options.
-    url = 'http://physics.nist.gov/cgi-bin/ASD/lines1.pl'
-    values = {
-        'spectra': atom,
-        'format': 3,  # format {0: HTML, 1: ASCII, 2: CSV, 3: TSV}
-        'en_unit': 2,  # energy units {0: cm^-1, 1: eV, 2: Ry}
-        'line_out': 1,  # only with transition probabilities
-        'show_av': 5,
-        'allowed_out': 1,
-        'forbid_out': 1,
-        'enrg_out': 'on'
-    }
-
-    get_postfix = urllib.parse.urlencode(values)
-    with urllib.request.urlopen(url + '?' + get_postfix) as response:
-        response = response.read()
-
-    data = csv.DictReader(io.StringIO(response.decode()), dialect='excel-tab')
-
-    return data
-
-
-def get_transitions(atom, USE_UNITS=False, ureg=None):
-    data = download_nist_transitions(atom)
-    transitions = TransitionRegistry(Transition(**row, USE_UNITS=USE_UNITS, ureg=ureg)
-                                     for row in data)
-    return transitions
