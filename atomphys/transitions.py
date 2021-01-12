@@ -26,7 +26,7 @@ class TransitionRegistry(list):
             raise TypeError('key must be integer, slice, or term string')
 
     def __repr__(self):
-        repr = '{:d} Transitions (\n'.format(len(self))
+        repr = f'{len(self)} Transitions (\n'
         if self.__len__() <= 6:
             for transition in self:
                 repr += (str(transition) + '\n')
@@ -120,24 +120,21 @@ class Transition(dict):
         super(Transition, self).__init__({'Ei': Ei, 'Ef': Ef, 'Gamma': Gamma})
 
     def __repr__(self):
-        fmt = '{:0.4g~P}' if self._USE_UNITS else '{:0.4g}'
+        fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
         if self.i is not None:
-            state_i = '{:} {:}'.format(self.i.valence, self.i.term)
+            state_i = f'{self.i.valence} {self.i.term}'
         else:
-            state_i = fmt.format(self.Ei)
+            state_i = f'{self.Ei:{fmt}}'
         if self.f is not None:
-            state_f = '{:} {:}'.format(self.f.valence, self.f.term)
+            state_f = f'{self.f.valence} {self.f.term}'
         else:
-            state_f = fmt.format(self.Ef)
+            state_f = f'{self.Ef:{fmt}}'
 
-        if self._USE_UNITS:
-            λ = '{:0.4g~P}'.format(self.λ_nm)
-            Γ = '2π × {:0.4g~P}'.format(self.Γ_MHz/(2*π))
-        else:
-            λ = '{:0.4g} nm'.format(self.λ_nm)
-            Γ = '2π × {:0.4g} MHz'.format(self.Γ_MHz/(2*π))
-
-        return 'Transition({:} <---> {:}, λ={:}, Γ={:})'.format(state_i, state_f, λ, Γ)
+        return (
+            f'Transition({state_i} <---> {state_f}, '
+            f'λ={self.λ_nm:{fmt}}, '
+            f'Γ=2π×{self.Γ_MHz/(2*π):{fmt}})'
+        )
 
     def to_dict(self):
         return {'Ei': str(self.Ei), 'Ef': str(self.Ef), 'Gamma': str(self.Gamma)}
@@ -159,6 +156,10 @@ class Transition(dict):
         return self['Gamma']
 
     @property
+    def Gamma_MHz(self):
+        return self.Γ_MHz
+
+    @property
     def Γ_MHz(self):
         if self._USE_UNITS:
             return self.Γ.to('MHz')
@@ -166,27 +167,17 @@ class Transition(dict):
             return self.Γ * 41341373335.18245  # E_h / hbar / MHz
 
     @property
-    def Gamma_MHz(self):
-        return self.Γ_MHz
-
-    @property
     def i(self):
-        try:
-            return self._state_i
-        except KeyError:
-            return None
+        return self._state_i
 
     @property
     def f(self):
-        try:
-            return self._state_f
-        except KeyError:
-            return None
+        return self._state_f
 
     @property
     def ω(self):
-        hbar = self._ureg['hbar']
-        return (self.Ef-self.Ei)/hbar
+        ℏ = self._ureg['hbar']
+        return (self.Ef-self.Ei)/ℏ
 
     @property
     def angular_frequency(self):
@@ -228,10 +219,6 @@ class Transition(dict):
         h = self._ureg['h']
         c = self._ureg['c']
         return π*h*c*self.Γ/(3*self.λ**3)
-
-    @property
-    def Isat(self):
-        return self.saturation_intensity
 
     @property
     def branching_ratio(self):

@@ -67,11 +67,11 @@ class Atom():
         return self.states[state]
 
     def __repr__(self):
-        repr = ''
-        repr += 'Ground State: {:}\n'.format(self.states[0])
-        repr += '{:d} States\n'.format(len(self.states))
-        repr += '{:d} Transitions'.format(len(self.transitions))
-        return repr
+        return (
+            f'Ground State: {self.states[0]}\n'
+            f'{len(self.states)} States\n'
+            f'{len(self.transitions)} Transitions'
+        )
 
     def to_dict(self):
         return {'name': self.name, 'states': self.states.to_dict(), 'transitions': self.transitions.to_dict()}

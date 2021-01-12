@@ -31,16 +31,16 @@ class StateRegistry(tuple):
         return self.__getitem__(key)
 
     def __repr__(self):
-        repr = '{:d} States (\n'.format(len(self))
+        repr = f'{len(self)} States (\n'
         if self.__len__() <= 6:
             for state in self:
-                repr += (str(state) + '\n')
+                repr += f'{state}\n'
         else:
             for state in self[:3]:
-                repr += (str(state) + '\n')
+                repr += f'{state}\n'
             repr += '...\n'
             for state in self[-3:]:
-                repr += (str(state) + '\n')
+                repr += f'{state}\n'
         repr = repr[:-1] + ')'
         return repr
 
@@ -109,11 +109,8 @@ class State(dict):
             {'energy': energy, 'configuration': configuration, 'J': J,  **term})
 
     def __repr__(self):
-        if self._USE_UNITS:
-            energy = '{:0.4g~P}'.format(self.energy)
-        else:
-            energy = '{:0.4g}'.format(self.energy)
-        return 'State({:}: {:})'.format(self.name, energy)
+        fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
+        return f'State({self.name}: {self.energy:{fmt}})'
 
     def to_dict(self):
         return {'energy': str(self.energy), 'configuration': self.configuration, 'term': self.term, 'J': str(Fraction(self.J))}
@@ -150,7 +147,7 @@ class State(dict):
 
     @property
     def name(self):
-        return '{:} {:}'.format(self.valence, self.term)
+        return f'{self.valence} {self.term}'
 
     @property
     def J(self):
@@ -197,11 +194,11 @@ class State(dict):
 
         P = '*' if self.parity == -1 else ''
         if self.coupling == 'LS':
-            return '{:g}{:}{:}{:}'.format(2*self.S + 1, L_inv[self.L], Fraction(self.J), P)
+            return f'{2*self.S + 1:g}{L_inv[self.L]}{Fraction(self.J)}{P}'
         if self.coupling == 'JJ':
-            return '({:},{:}){:}{:}'.format(Fraction(self.J1), Fraction(self.J2), Fraction(self.J), P)
+            return f'({Fraction(self.J1)},{Fraction(self.J2)}){Fraction(self.J)}{P}'
         if self.coupling == 'LK':
-            return '{:g}[{:}]{:}{:}'.format(2*self.S + 1, Fraction(self.K), Fraction(self.J), P)
+            return f'{2*self.S + 1:g}[{Fraction(self.K)}]{Fraction(self.J)}{P}'
 
     @property
     def transitions_down(self):
