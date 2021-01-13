@@ -3,7 +3,6 @@ import io
 import urllib.request
 from .util import sanitize_energy
 from .data import nist
-from .states import State
 
 from math import pi as π
 from math import inf
@@ -17,13 +16,37 @@ except ImportError:
 
 
 class TransitionRegistry(list):
+    _parent = None
+
+    def __init__(self, *args, parent=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._parent = parent
+
     def __getitem__(self, key):
         if isinstance(key, int):
             return super().__getitem__(key)
-        if isinstance(key, slice):
-            return TransitionRegistry(super().__getitem__(key))
+        elif isinstance(key, slice):
+            return TransitionRegistry(super().__getitem__(key), parent=self._parent)
+        elif isinstance(key, str):
+            return next(transition for transition in self if (
+                (transition.i.match(key) and transition.i != self._parent) or
+                (transition.f.match(key) and transition.f != self._parent)
+            ))
+        elif isinstance(key, float):
+            energy = self._parent._ureg.Quantity(
+                key, 'E_h') if self._parent._USE_UNITS else key
+            return min(self, key=lambda transition: min(
+                abs(transition.i.energy - energy),
+                abs(transition.f.energy - energy)))
+        elif self._parent._USE_UNITS and isinstance(key, self._parent._ureg.Quantity):
+            return min(self, key=lambda transition: min(
+                abs(transition.i.energy - key),
+                abs(transition.f.energy - key)))
         else:
             raise TypeError('key must be integer, slice, or term string')
+
+    def __call__(self, key):
+        return self.__getitem__(key)
 
     def __repr__(self):
         repr = f'{len(self)} Transitions (\n'
@@ -41,13 +64,13 @@ class TransitionRegistry(list):
 
     def __add__(self, other):
         assert isinstance(other, TransitionRegistry)
-        return TransitionRegistry(list(self) + list(other))
+        return TransitionRegistry(list(self) + list(other), parent=self._parent)
 
-    def up_from(self, state: State):
-        return TransitionRegistry(transition for transition in self if transition.i == state)
+    def up_from(self, state):
+        return TransitionRegistry((transition for transition in self if transition.i == state), parent=self._parent)
 
-    def down_from(self, state: State):
-        return TransitionRegistry(transition for transition in self if transition.f == state)
+    def down_from(self, state):
+        return TransitionRegistry((transition for transition in self if transition.f == state), parent=self._parent)
 
     def to_dict(self):
         return [transition.to_dict() for transition in self]
@@ -57,8 +80,8 @@ class Transition(dict):
 
     _USE_UNITS = False
     _ureg = {}
-    _state_i: State = None
-    _state_f: State = None
+    _state_i = None
+    _state_f = None
 
     def __init__(self, USE_UNITS=False, ureg=None, **transition):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
@@ -139,59 +162,59 @@ class Transition(dict):
     def to_dict(self):
         return {'Ei': str(self.Ei), 'Ef': str(self.Ef), 'Gamma': str(self.Gamma)}
 
-    @property
+    @ property
     def Ei(self):
         return self['Ei']
 
-    @property
+    @ property
     def Ef(self):
         return self['Ef']
 
-    @property
+    @ property
     def Gamma(self):
         return self['Gamma']
 
-    @property
+    @ property
     def Γ(self):
         return self['Gamma']
 
-    @property
+    @ property
     def Gamma_MHz(self):
         return self.Γ_MHz
 
-    @property
+    @ property
     def Γ_MHz(self):
         if self._USE_UNITS:
             return self.Γ.to('MHz')
         else:
             return self.Γ * 41341373335.18245  # E_h / hbar / MHz
 
-    @property
+    @ property
     def i(self):
         return self._state_i
 
-    @property
+    @ property
     def f(self):
         return self._state_f
 
-    @property
+    @ property
     def ω(self):
         ℏ = self._ureg['hbar']
         return (self.Ef-self.Ei)/ℏ
 
-    @property
+    @ property
     def angular_frequency(self):
         return self.ω
 
-    @property
+    @ property
     def ν(self):
         return self.ω/(2*π)
 
-    @property
+    @ property
     def frequency(self):
         return self.ν
 
-    @property
+    @ property
     def λ(self):
         c = self._ureg['c']
         try:
@@ -199,28 +222,32 @@ class Transition(dict):
         except ZeroDivisionError:
             return inf
 
-    @property
+    @ property
     def wavelength(self):
         return self.λ
 
-    @property
+    @ property
     def λ_nm(self):
         if self._USE_UNITS:
             return self.λ.to('nm')
         else:
             return self.λ * 0.052917721090397746  # nm / a_0
 
-    @property
+    @ property
     def wavelength_nm(self):
         return self.λ_nm
 
-    @property
+    @ property
     def saturation_intensity(self):
         h = self._ureg['h']
         c = self._ureg['c']
         return π*h*c*self.Γ/(3*self.λ**3)
 
     @property
+    def Isat(self):
+        return self.saturation_intensity
+
+    @ property
     def branching_ratio(self):
         r = self.Γ * self.f.τ
         if self._USE_UNITS and isinstance(r, self._ureg.Quantity):

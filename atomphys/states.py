@@ -5,6 +5,9 @@ import urllib.request
 from fractions import Fraction
 from .util import sanitize_energy
 from .data import nist
+from .calc import polarizability
+from .transitions import TransitionRegistry
+
 from math import pi as π
 from itertools import chain
 
@@ -16,14 +19,26 @@ except ImportError:
     _ureg = None
 
 
-class StateRegistry(tuple):
+class StateRegistry(list):
+    _parent = None
+
+    def __init__(self, *args, parent=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._parent = parent
+
     def __getitem__(self, key):
         if isinstance(key, int):
             return super().__getitem__(key)
-        if isinstance(key, slice):
-            return StateRegistry(super().__getitem__(key))
+        elif isinstance(key, slice):
+            return StateRegistry(super().__getitem__(key), parent=self._parent)
         elif isinstance(key, str):
             return next(state for state in self if state.match(key))
+        elif isinstance(key, float):
+            energy = self._parent._ureg.Quantity(
+                key, 'E_h') if self._parent.USE_UNITS else key
+            return min(self, key=lambda state: abs(state.energy - energy))
+        elif self._parent.USE_UNITS and isinstance(key, self._parent._ureg.Quantity):
+            return min(self, key=lambda state: abs(state.energy - key))
         else:
             raise TypeError('key must be integer, slice, or term string')
 
@@ -43,6 +58,10 @@ class StateRegistry(tuple):
                 repr += f'{state}\n'
         repr = repr[:-1] + ')'
         return repr
+
+    def __add__(self, other):
+        assert isinstance(other, StateRegistry)
+        return StateRegistry(list(self) + list(other), parent=self._parent)
 
     def to_dict(self):
         return [state.to_dict() for state in self]
@@ -114,17 +133,6 @@ class State(dict):
 
     def to_dict(self):
         return {'energy': str(self.energy), 'configuration': self.configuration, 'term': self.term, 'J': str(Fraction(self.J))}
-
-    def to(self, key):
-        try:
-            return next(transition for transition in self.up if transition.f.match(key))
-        except StopIteration:
-            pass
-        try:
-            return next(transition for transition in self.down if transition.i.match(key))
-        except StopIteration:
-            pass
-        raise Exception(f'can\'t find state {key}')
 
     def match(self, name):
         return name in self.name
@@ -216,15 +224,19 @@ class State(dict):
 
     @property
     def transitions(self):
-        return self.transitions_down + self.transitions_up
+        return TransitionRegistry(self.transitions_down + self.transitions_up, parent=self)
+
+    @property
+    def to(self):
+        return self.transitions
 
     @property
     def down(self):
-        return self.transitions_down
+        return TransitionRegistry(self.transitions_down, parent=self)
 
     @property
     def up(self):
-        return self.transitions_up
+        return TransitionRegistry(self.transitions_up, parent=self)
 
     @property
     def lifetime(self):
@@ -241,22 +253,7 @@ class State(dict):
         return self.lifetime
 
     def scalar_polarizability(self, omega=0):
-        ω = omega
-
-        ε_0 = self._ureg['ε_0']
-        c = self._ureg['c']
-
-        α0 = 0
-        for transition in self.transitions:
-            ω0 = transition.ω
-            Γ = transition.Γ
-            deg = (2*transition.f.J + 1)/(2*transition.i.J +
-                                          1) if transition in self.up else -1
-            RME2 = 3*π*ε_0*c**3 * ω0**-3 * deg * Γ
-            Δ = ω0/(ω0**2 - ω**2)
-            α0 += (2/3)*RME2*Δ
-
-        return α0
+        return polarizability.scalar(self, omega)
 
     @property
     def α0(self):
