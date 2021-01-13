@@ -26,7 +26,7 @@ class Atom():
     name = ''
 
     def __init__(self, atom, USE_UNITS=True, ureg=None):
-        self.USE_UNITS = USE_UNITS and _HAS_PINT
+        self._USE_UNITS = USE_UNITS and _HAS_PINT
 
         if ureg:
             self._ureg = ureg
@@ -85,10 +85,10 @@ class Atom():
             data = json.load(file)
 
         self.name = data['name']
-        self._states = StateRegistry(State(
-            **state, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for state in data['states'])
+        self._states = StateRegistry((State(
+            **state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in data['states']), parent=self)
         self._transitions = TransitionRegistry(Transition(
-            **transition, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for transition in data['transitions'])
+            **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in data['transitions'])
 
     def load_nist(self, name):
         if name in symbols:
@@ -100,10 +100,10 @@ class Atom():
             raise Exception(
                 f'{atom} does not match a known neutral atom or ionic ion name')
 
-        self._states = StateRegistry(State(
-            **state, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for state in fetch_states(atom))
+        self._states = StateRegistry((State(
+            **state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in fetch_states(atom)), parent=self)
         self._transitions = TransitionRegistry(Transition(
-            **transition, USE_UNITS=self.USE_UNITS, ureg=self._ureg) for transition in fetch_transitions(atom))
+            **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in fetch_transitions(atom))
 
     @property
     def states(self):
