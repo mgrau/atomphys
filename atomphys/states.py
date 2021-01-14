@@ -1,13 +1,14 @@
 import csv
 import io
 import re
+import enum
 import urllib.request
 from fractions import Fraction
 from .util import sanitize_energy
 from .data import nist
 from .calc import polarizability
 from .transitions import TransitionRegistry
-
+from .constants import gs
 from math import pi as π
 from itertools import chain
 
@@ -17,6 +18,12 @@ try:
 except ImportError:
     _HAS_PINT = False
     _ureg = None
+
+
+class Coupling(enum.Enum):
+    LS = 'LS'  # Russell-Saunders
+    jj = 'jj'
+    LK = 'LK'  # pair coupling
 
 
 class StateRegistry(list):
@@ -188,12 +195,20 @@ class State(dict):
     @property
     def coupling(self):
         if 'L' in self:
-            return 'LS'
+            return Coupling.LS
         if 'J1' in self:
-            return 'JJ'
+            return Coupling.jj
         if 'K' in self:
-            return 'LK'
+            return Coupling.LK
         return None
+
+    @property
+    def g(self):
+        if self.coupling == Coupling.LS:
+            L, S, J = self.L, self.S, self.J
+            return (gs+1)/2 + (gs-1)/2 * (S*(S+1) - L*(L-1))/(J*(J+1))
+        else:
+            return None
 
     @property
     def term(self):
@@ -201,11 +216,11 @@ class State(dict):
             return 'Ionization Limit'
 
         P = '*' if self.parity == -1 else ''
-        if self.coupling == 'LS':
+        if self.coupling == Coupling.LS:
             return f'{2*self.S + 1:g}{L_inv[self.L]}{Fraction(self.J)}{P}'
-        if self.coupling == 'JJ':
+        if self.coupling == Coupling.jj:
             return f'({Fraction(self.J1)},{Fraction(self.J2)}){Fraction(self.J)}{P}'
-        if self.coupling == 'LK':
+        if self.coupling == Coupling.LK:
             return f'{2*self.S + 1:g}[{Fraction(self.K)}]{Fraction(self.J)}{P}'
 
     @property
