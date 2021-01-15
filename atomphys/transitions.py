@@ -278,3 +278,12 @@ class Transition(dict):
     @property
     def d_conj(self):
         return self.reduced_dipole_matrix_element_conjugate
+
+    @property
+    def σ0(self):
+        ℏ = self._ureg['hbar']
+        return ℏ*self.ω*self.Γ/(2*self.Isat)
+
+    @property
+    def cross_section(self):
+        return self.σ0
