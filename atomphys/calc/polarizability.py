@@ -1,22 +1,69 @@
 from math import pi as π
 
+from sympy import N
+from sympy.physics.wigner import wigner_6j
+
 
 def scalar(state, omega=0):
     ω = omega
-
-    ε_0 = state._ureg['ε_0']
-    c = state._ureg['c']
-
+    ℏ = state._ureg['hbar']
     α0 = 0
-    for transition in state.transitions:
+    for transition in state.up:
         ω0 = transition.ω
-        Γ = transition.Γ
-        if transition in state.up:
-            deg = (2*transition.f.J + 1)/(2*transition.i.J + 1)
-        else:
-            deg = -1
-        RME2 = 3*π*ε_0*c**3 * ω0**-3 * deg * Γ
-        Δ = ω0/(ω0**2 - ω**2)
-        α0 += (2/3)*RME2*Δ
+        d = transition.reduced_dipole_matrix_element
+        α0 += (2/3)*ω0/(ω0**2-ω**2)*d**2/ℏ
+
+    for transition in state.down:
+        ω0 = -transition.ω
+        d = transition.reduced_dipole_matrix_element_conjugate
+        α0 += (2/3)*ω0/(ω0**2-ω**2)*d**2/ℏ
+
+    return α0
+
+
+def vector(state, omega=0):
+    ω = omega
+    ℏ = state._ureg['hbar']
+    α0 = 0
+    J = state.J
+    X = ((6*J*(2*J+1)/(J+1)))**(1/2)
+
+    for transition in state.up:
+        ω0 = transition.ω
+        d = transition.reduced_dipole_matrix_element
+        Jp = transition.f.J
+        sixJ = N(wigner_6j(1, 1, 1, J, J, Jp))
+        α0 += (-1)**(J+Jp+1)*X*sixJ*ω0/(ω0**2-ω**2)*d**2/ℏ
+
+    for transition in state.down:
+        ω0 = -transition.ω
+        d = transition.reduced_dipole_matrix_element_conjugate
+        Jp = transition.i.J
+        sixJ = N(wigner_6j(1, 1, 1, J, J, Jp))
+        α0 += (-1)**(J+Jp+1)*X*sixJ*ω0/(ω0**2-ω**2)*d**2/ℏ
+
+    return α0
+
+
+def tensor(state, omega=0):
+    ω = omega
+    ℏ = state._ureg['hbar']
+    α0 = 0
+    J = state.J
+    X = ((40*J*(2*J+1)*(2*J-1))/(3*(J+1)*(2*J+3)))**(1/2)
+
+    for transition in state.up:
+        ω0 = transition.ω
+        d = transition.reduced_dipole_matrix_element
+        Jp = transition.f.J
+        sixJ = N(wigner_6j(1, 1, 2, J, J, Jp))
+        α0 += (-1)**(J+Jp+1)*X*sixJ*ω0/(ω0**2-ω**2)*d**2/ℏ
+
+    for transition in state.down:
+        ω0 = -transition.ω
+        d = transition.reduced_dipole_matrix_element_conjugate
+        Jp = transition.i.J
+        sixJ = N(wigner_6j(1, 1, 2, J, J, Jp))
+        α0 += (-1)**(J+Jp+1)*X*sixJ*ω0/(ω0**2-ω**2)*d**2/ℏ
 
     return α0
