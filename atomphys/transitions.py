@@ -7,7 +7,6 @@ from .data import nist
 from math import pi as π
 from math import inf
 
-
 try:
     from . import _ureg, _HAS_PINT
 except ImportError:
@@ -253,3 +252,29 @@ class Transition(dict):
         if self._USE_UNITS and isinstance(r, self._ureg.Quantity):
             r = r.m
         return r
+
+    @property
+    def reduced_dipole_matrix_element(self):
+        ω0 = self.ω
+        ε_0 = self._ureg['ε_0']
+        ℏ = self._ureg['hbar']
+        c = self._ureg['c']
+        Jg = self.i.J
+        Je = self.f.J
+        Γ = self.Γ
+        return ((3*π*ε_0*ℏ*c**3)/(ω0**3)*(2*Je+1)/(2*Jg+1)*Γ)**(1/2)
+
+    @property
+    def reduced_dipole_matrix_element_conjugate(self):
+        Jg = self.i.J
+        Je = self.f.J
+        d = self.reduced_dipole_matrix_element
+        return (-1)**(Je-Jg)*((2*Jg+1)/(2*Je+1))**(1/2)*d
+
+    @property
+    def d(self):
+        return self.reduced_dipole_matrix_element
+
+    @property
+    def d_conj(self):
+        return self.reduced_dipole_matrix_element_conjugate
