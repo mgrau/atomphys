@@ -50,6 +50,7 @@ class Atom():
 
         # index the transitions to the states
         for transition in self._transitions:
+            transition._atom = self
             transition._state_i = next(
                 state for state in self._states if state.energy == transition.Ei)
             transition._state_f = next(
@@ -78,7 +79,7 @@ class Atom():
 
     def save(self, filename):
         with open(filename, 'w') as file:
-            json.dump(self.to_dict(), file)
+            json.dump(self.to_dict(), file, indent=4, ensure_ascii=False)
 
     def load(self, filename):
         with open(filename) as file:
