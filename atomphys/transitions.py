@@ -79,6 +79,7 @@ class Transition(dict):
 
     _USE_UNITS = False
     _ureg = {}
+    _atom = None
     _state_i = None
     _state_f = None
 
@@ -159,7 +160,13 @@ class Transition(dict):
         )
 
     def to_dict(self):
-        return {'Ei': str(self.Ei), 'Ef': str(self.Ef), 'Gamma': str(self.Gamma)}
+        return {
+            'i': self._atom.states.index(self.i),
+            'f': self._atom.states.index(self.f),
+            'Ei': str(self.Ei),
+            'Ef': str(self.Ef),
+            'Gamma': str(self.Gamma)
+        }
 
     @ property
     def Ei(self):
