@@ -270,9 +270,8 @@ class State(dict):
     def scalar_polarizability(self, omega=0):
         return polarizability.scalar(self, omega)
 
-    @property
-    def α0(self):
-        return self.scalar_polarizability()
+    def α0(self, omega=0):
+        return self.scalar_polarizability(omega=omega)
 
 
 LS_term = re.compile(r'^(?P<S>\d+)(?P<L>[A-Z])\*?')
