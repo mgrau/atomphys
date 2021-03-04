@@ -296,5 +296,9 @@ class Transition(dict):
         return self.σ0
     
     def magic_wavelength(self):
+        '''
+        calculate magic wavelenth
+        '''
+        
         pass
     
