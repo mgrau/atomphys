@@ -294,3 +294,7 @@ class Transition(dict):
     @property
     def cross_section(self):
         return self.σ0
+    
+    def magic_wavelength(self):
+        pass
+    
