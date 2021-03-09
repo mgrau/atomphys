@@ -6,10 +6,9 @@ from .data import nist
 
 from math import pi as π
 from math import inf
-## add fsolve
-import scipy
-from scipy.optimize import fsolve
-##
+
+import scipy.optimize
+
 
 try:
     from . import _ureg, _HAS_PINT
@@ -101,6 +100,7 @@ class Transition(dict):
             self._ureg['h'] = 2*π
             self._ureg['ε_0'] = 1/(4*π)
             self._ureg['c'] = 137.03599908356244
+            self._ureg['a0'] = 1
 
         if 'Gamma' in transition:
             if self._USE_UNITS:
@@ -298,17 +298,15 @@ class Transition(dict):
     @property
     def cross_section(self):
         return self.σ0
-    
-    def magic_wavelength(self,est):    
-    #calculate magic wavelenth
-        u = self._ureg
-        c = (1*u.c).to('nm/s')        
-        est_w = (2*π*c/est).to(u.hartree/u.hbar)               
-        a0_i = self._state_i.scalar_polarizability
-        a0_f = self._state_f.scalar_polarizability
-        f = lambda w:  a0_i(omega = w*u.hartree/u.hbar) - a0_f(omega = w*u.hartree/u.hbar)
-        root = fsolve(f,est_w.magnitude)*u.hartree/u.hbar
-        magic = (2*π*c/root).to(u.nm)
-        return magic  #in nm
-    
 
+    def magic_wavelength(self, estimate):
+        c = self._ureg['c']
+        a0 = self._ureg['a0']
+        α0_i = self._state_i.α0
+        α0_f = self._state_f.α0
+
+        def f(λ_au):
+            λ = λ_au * a0
+            return (α0_i(omega=2*π*c/λ) - α0_f(omega=2*π*c/λ)).m
+        root = scipy.optimize.fsolve(f, estimate.to_base_units().m)
+        return (root * a0).to(estimate.units)
