@@ -4,6 +4,9 @@ from .data import fetch_states, fetch_transitions
 from math import pi as π
 import os
 import json
+import math
+import numpy as np
+import matplotlib.pyplot as plt  #is this ok?
 
 
 try:

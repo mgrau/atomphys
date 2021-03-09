@@ -6,6 +6,10 @@ from .data import nist
 
 from math import pi as π
 from math import inf
+## add fsolve
+import scipy
+from scipy.optimize import fsolve
+##
 
 try:
     from . import _ureg, _HAS_PINT
@@ -295,10 +299,16 @@ class Transition(dict):
     def cross_section(self):
         return self.σ0
     
-    def magic_wavelength(self):
-        '''
-        calculate magic wavelenth
-        '''
-        
-        pass
+    def magic_wavelength(self,est):    
+    #calculate magic wavelenth
+        u = self._ureg
+        c = (1*u.c).to('nm/s')        
+        est_w = (2*π*c/est).to(u.hartree/u.hbar)               
+        a0_i = self._state_i.scalar_polarizability
+        a0_f = self._state_f.scalar_polarizability
+        f = lambda w:  a0_i(omega = w*u.hartree/u.hbar) - a0_f(omega = w*u.hartree/u.hbar)
+        root = fsolve(f,est_w.magnitude)*u.hartree/u.hbar
+        magic = (2*π*c/root).to(u.nm)
+        return magic  #in nm
     
+
