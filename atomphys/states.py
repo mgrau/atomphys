@@ -272,7 +272,17 @@ class State(dict):
 
     def α0(self, omega=0):
         return self.scalar_polarizability(omega=omega)
-
+        
+    def tensor_polarizability(self,omega=0):
+        return self.polarizability.tensor(omega=0)
+            
+    def α2(self, omega=0):
+        return self.tensor_polarizability(omega=omega)
+        
+    def polarizability(self, mj, omega=0):
+        j = self.J
+        α_tot = self.α0(omega=omega)+((3*mj**2-j(j+1))/j(2*j-1))*self.α2(omega = omega)
+        return α_tot
 
 LS_term = re.compile(r'^(?P<S>\d+)(?P<L>[A-Z])\*?')
 JJ_term = re.compile(r'^\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?')
