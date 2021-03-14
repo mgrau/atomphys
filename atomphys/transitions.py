@@ -304,3 +304,6 @@ class Transition(dict):
         def f(λ):
             return α0_i(omega=2*π*c/λ) - α0_f(omega=2*π*c/λ)
         return fsolve(f, estimate)
+    
+    #test change
+    #another test change
