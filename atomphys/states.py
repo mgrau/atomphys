@@ -274,7 +274,7 @@ class State(dict):
         return self.scalar_polarizability(omega=omega)
         
     def tensor_polarizability(self,omega=0):
-        return self.polarizability.tensor(omega=0)
+        return polarizability.tensor(omega=0)
             
     def α2(self, omega=0):
         return self.tensor_polarizability(omega=omega)
