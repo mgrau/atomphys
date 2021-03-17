@@ -298,11 +298,15 @@ class Transition(dict):
 
     def magic_wavelength(self, estimate):
         c = self._ureg['c']
-        α0_i = self._state_i.α0
-        α0_f = self._state_f.α0
-
+        #α0_i = self._state_i.α0
+        #α0_f = self._state_f.α0
+        #def f(λ):
+        #    return α0_i(omega=2*π*c/λ) - α0_f(omega=2*π*c/λ)
+        #return fsolve(f, estimate)
+        α_i = self._state_i.Polarizability
+        α_f = self._state_f.Polarizability
+        
         def f(λ):
-            return α0_i(omega=2*π*c/λ) - α0_f(omega=2*π*c/λ)
-        return fsolve(f, estimate)
-    
+            return α_i(omega=2*π*c/λ) -  α_f(omega=2*π*c/λ)
+        return fsolve(f,estimate)
 
