@@ -279,8 +279,8 @@ class State(dict):
     def α2(self, omega=0):
         return self.tensor_polarizability(omega)
         
-    def Polarizability(self, omega=0):
-        #mj = self.mj
+    def Polarizability(self, mj,omega=0):
+        #mj = self.mj? 
         j = self.J
         α_tot = self.α0(omega)+((3*mj**2-j(j+1))/j(2*j-1))*self.α2(omega)
         return α_tot
