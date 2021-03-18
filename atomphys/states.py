@@ -279,10 +279,13 @@ class State(dict):
     def α2(self, omega=0):
         return self.tensor_polarizability(omega)
         
-    def Polarizability(self, mj,omega=0):
-        #mj = self.mj? 
-        j = self.J
-        α_tot = self.α0(omega)+((3*mj**2-j*(j+1))/(j*(2*j-1)))*self.α2(omega)
+    def Polarizability(self, mJ,omega=0):
+        J = self.J
+        try:
+            term2 = (3*mJ**2 - J*(J+1)) / (J * (2*J-1))
+        except ZeroDivisionError:
+            term2 = 0
+        α_tot = self.α0(omega)+term2*self.α2(omega)
         return α_tot
 
 LS_term = re.compile(r'^(?P<S>\d+)(?P<L>[A-Z])\*?')
