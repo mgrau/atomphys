@@ -282,7 +282,7 @@ class State(dict):
     def Polarizability(self, mj,omega=0):
         #mj = self.mj? 
         j = self.J
-        α_tot = self.α0(omega)+((3*mj**2-j(j+1))/j(2*j-1))*self.α2(omega)
+        α_tot = self.α0(omega)+((3*mj**2-j*(j+1))/(j*(2*j-1)))*self.α2(omega)
         return α_tot
 
 LS_term = re.compile(r'^(?P<S>\d+)(?P<L>[A-Z])\*?')
