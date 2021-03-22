@@ -270,23 +270,34 @@ class State(dict):
     def scalar_polarizability(self, omega=0):
         return polarizability.scalar(self, omega)
 
-    def α0(self, omega=0):
-        return self.scalar_polarizability(omega=omega)
-        
-    def tensor_polarizability(self,omega=0):
-        return polarizability.tensor(self,omega)
-            
-    def α2(self, omega=0):
-        return self.tensor_polarizability(omega)
-        
-    def Polarizability(self, mJ,omega=0):
+    @property
+    def α0(self):
+        return self.scalar_polarizability
+
+    def tensor_polarizability(self, omega=0):
+        return polarizability.tensor(self, omega)
+
+    @property
+    def α2(self):
+        return self.tensor_polarizability
+
+    def polarizability(self, omega=0, mJ=None):
         J = self.J
+        α0 = self.α0(omega)
+        α2 = self.α2(omega)
+        if mJ is None:
+            return α0
+
         try:
-            term2 = (3*mJ**2 - J*(J+1)) / (J * (2*J-1))
+            C2 = (3*mJ**2 - J*(J+1)) / (J * (2*J-1))
         except ZeroDivisionError:
-            term2 = 0
-        α_tot = self.α0(omega)+term2*self.α2(omega)
-        return α_tot
+            C2 = 0
+        return α0+C2*α2
+
+    @property
+    def α(self):
+        return self.polarizability
+
 
 LS_term = re.compile(r'^(?P<S>\d+)(?P<L>[A-Z])\*?')
 JJ_term = re.compile(r'^\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?')
