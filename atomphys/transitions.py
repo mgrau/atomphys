@@ -296,17 +296,11 @@ class Transition(dict):
     def cross_section(self):
         return self.σ0
 
-    def magic_wavelength(self,estimate, mJ_i = None, mJ_f = None):
+    def magic_wavelength(self, estimate, mJ_i=None, mJ_f=None):
         c = self._ureg['c']
-        if mJ_i is None and mJ_f is None :
-             α_i = self._state_i.scalar_polarizability
-             α_f = self._state_f.scalar_polarizability
-             def f(λ):
-                 return α_i(omega=2*π*c/λ) -  α_f(omega=2*π*c/λ)        
-        else:
-            α_i = self._state_i.Polarizability
-            α_f = self._state_f.Polarizability        
-            def f(λ):
-                return α_i(mJ_i,omega=2*π*c/λ) -  α_f(mJ_f,omega=2*π*c/λ)        
-        return fsolve(f,estimate)
+        α_i = self._state_i.α
+        α_f = self._state_f.α
 
+        def f(λ):
+            return α_i(omega=2*π*c/λ, mJ=mJ_i) - α_f(omega=2*π*c/λ, mJ=mJ_f)
+        return fsolve(f, estimate)
