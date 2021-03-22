@@ -20,7 +20,7 @@ def fsolve(func, x0, x1=None, tol=1.49012e-08, maxfev=100):
         The maximum number of calls to the function.
     '''
     if x1 is None:
-        x1 = x0*1.1
+        x1 = x0*1.001
     fx0, fx1 = func(x0), func(x1)
     i = 2
     while (abs(fx0) > 0) and (abs((fx1-fx0)/fx0) > tol) and (i < maxfev+1):
