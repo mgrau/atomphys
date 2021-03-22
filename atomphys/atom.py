@@ -6,7 +6,6 @@ import os
 import json
 import math
 import numpy as np
-import matplotlib.pyplot as plt  #is this ok?
 
 
 try:
@@ -116,3 +115,7 @@ class Atom():
     @property
     def transitions(self):
         return self._transitions
+
+    @property
+    def units(self):
+        return self._ureg
