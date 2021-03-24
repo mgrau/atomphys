@@ -94,7 +94,7 @@ class Transition(dict):
             self._ureg = {}
 
         if not self._USE_UNITS:
-            self._ureg['hbar'] = 1
+            self._ureg['ħ'] = 1
             self._ureg['h'] = 2*π
             self._ureg['ε_0'] = 1/(4*π)
             self._ureg['c'] = 137.03599908356244
@@ -107,7 +107,7 @@ class Transition(dict):
         elif 'Aki(s^-1)' in transition:
             if self._USE_UNITS:
                 Gamma = self._ureg.Quantity(
-                    float(transition['Aki(s^-1)']), 's^-1').to('Eh/hbar')
+                    float(transition['Aki(s^-1)']), 's^-1').to('Eh/ħ')
             else:
                 Gamma = 2.4188843265856806e-17 * float(transition['Aki(s^-1)'])
         else:
@@ -194,7 +194,7 @@ class Transition(dict):
         if self._USE_UNITS:
             return self.Γ.to('MHz')
         else:
-            return self.Γ * 41341373335.18245  # E_h / hbar / MHz
+            return self.Γ * 41341373335.18245  # E_h / ħ / MHz
 
     @ property
     def i(self):
@@ -206,8 +206,8 @@ class Transition(dict):
 
     @ property
     def ω(self):
-        ℏ = self._ureg['hbar']
-        return (self.Ef-self.Ei)/ℏ
+        ħ = self._ureg['ħ']
+        return (self.Ef-self.Ei)/ħ
 
     @ property
     def angular_frequency(self):
@@ -265,12 +265,12 @@ class Transition(dict):
     def reduced_dipole_matrix_element(self):
         ω0 = self.ω
         ε_0 = self._ureg['ε_0']
-        ℏ = self._ureg['hbar']
+        ħ = self._ureg['ħ']
         c = self._ureg['c']
         Jg = self.i.J
         Je = self.f.J
         Γ = self.Γ
-        return ((3*π*ε_0*ℏ*c**3)/(ω0**3)*(2*Je+1)/(2*Jg+1)*Γ)**(1/2)
+        return ((3*π*ε_0*ħ*c**3)/(ω0**3)*(2*Je+1)/(2*Jg+1)*Γ)**(1/2)
 
     @property
     def reduced_dipole_matrix_element_conjugate(self):
@@ -289,8 +289,8 @@ class Transition(dict):
 
     @property
     def σ0(self):
-        ℏ = self._ureg['hbar']
-        return ℏ*self.ω*self.Γ/(2*self.Isat)
+        ħ = self._ureg['ħ']
+        return ħ*self.ω*self.Γ/(2*self.Isat)
 
     @property
     def cross_section(self):

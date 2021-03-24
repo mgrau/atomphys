@@ -91,7 +91,7 @@ class State(dict):
             self._ureg = {}
 
         if not self._USE_UNITS:
-            self._ureg['hbar'] = 1
+            self._ureg['ħ'] = 1
             self._ureg['ε_0'] = 1/(4*π)
             self._ureg['c'] = 137.03599908356244
 
