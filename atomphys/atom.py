@@ -41,27 +41,7 @@ class Atom():
             self.name = atom
             self.load_nist(self.name)
 
-        # reverse sort by Gamma first
-        self._transitions.sort(
-            key=lambda transition: transition.Gamma, reverse=True)
-        # then sort by upper state energy
-        self._transitions.sort(key=lambda transition: transition.Ef)
-        # sort then by lower state energy
-        self._transitions.sort(key=lambda transition: transition.Ei)
-        # because sort is stable, this produces a list sorted by both upper and lower state energy
-
-        # index the transitions to the states
-        for transition in self._transitions:
-            transition._atom = self
-            transition._state_i = next(
-                state for state in self._states if state.energy == transition.Ei)
-            transition._state_f = next(
-                state for state in self._states if state.energy == transition.Ef)
-
-        # index the states to the transitions
-        for state in self._states:
-            state._transitions_down = self._transitions.down_from(state)
-            state._transitions_up = self._transitions.up_from(state)
+        self._sort_transitions()
 
     def __getitem__(self, state):
         return self.states[state]
@@ -75,6 +55,16 @@ class Atom():
             f'{len(self.states)} States\n'
             f'{len(self.transitions)} Transitions'
         )
+
+    def _sort_transitions(self):
+        # reverse sort by Gamma first
+        self._transitions.sort(
+            key=lambda transition: transition.Gamma, reverse=True)
+        # then sort by upper state energy
+        self._transitions.sort(key=lambda transition: transition.Ef)
+        # sort then by lower state energy
+        self._transitions.sort(key=lambda transition: transition.Ei)
+        # because sort is stable, this produces a list sorted by both upper and lower state energy
 
     def to_dict(self):
         return {'name': self.name, 'states': self.states.to_dict(), 'transitions': self.transitions.to_dict()}
@@ -107,6 +97,19 @@ class Atom():
             **state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in fetch_states(atom)), parent=self)
         self._transitions = TransitionRegistry(Transition(
             **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in fetch_transitions(atom))
+
+        # index the transitions to the states
+        for transition in self._transitions:
+            transition._atom = self
+            transition._state_i = next(
+                state for state in self._states if state.energy == transition.Ei)
+            transition._state_f = next(
+                state for state in self._states if state.energy == transition.Ef)
+
+        # index the states to the transitions
+        for state in self._states:
+            state._transitions_down = self._transitions.down_from(state)
+            state._transitions_up = self._transitions.up_from(state)
 
     @property
     def states(self):
