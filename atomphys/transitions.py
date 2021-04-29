@@ -270,14 +270,14 @@ class Transition(dict):
         Jg = self.i.J
         Je = self.f.J
         Γ = self.Γ
-        return ((3*π*ε_0*ħ*c**3)/(ω0**3)*(2*Je+1)/(2*Jg+1)*Γ)**(1/2)
+        return ((3*π*ε_0*ħ*c**3)/(ω0**3)*(2*Je+1)*Γ)**(1/2)
 
     @property
     def reduced_dipole_matrix_element_conjugate(self):
         Jg = self.i.J
         Je = self.f.J
         d = self.reduced_dipole_matrix_element
-        return (-1)**(Je-Jg)*((2*Jg+1)/(2*Je+1))**(1/2)*d
+        return (-1)**(Je-Jg)*d
 
     @property
     def d(self):
