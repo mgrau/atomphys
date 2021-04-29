@@ -5,8 +5,6 @@ from math import pi as π
 import os
 import json
 import math
-import numpy as np
-
 
 try:
     from . import _ureg, _HAS_PINT
