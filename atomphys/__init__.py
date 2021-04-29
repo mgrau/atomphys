@@ -8,3 +8,4 @@ except ImportError:
     _ureg = None
 
 from .atom import *
+from .laser import Laser
