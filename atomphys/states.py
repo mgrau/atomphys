@@ -281,18 +281,8 @@ class State(dict):
     def α2(self):
         return self.tensor_polarizability
 
-    def polarizability(self, omega=0, mJ=None):
-        J = self.J
-        α0 = self.α0(omega)
-        α2 = self.α2(omega)
-        if mJ is None:
-            return α0
-
-        try:
-            C2 = (3*mJ**2 - J*(J+1)) / (J * (2*J-1))
-        except ZeroDivisionError:
-            C2 = 0
-        return α0+C2*α2
+    def polarizability(self, omega=0, mJ=None, A=0, theta_k=0, theta_p=0):
+        return polarizability.total(self, omega, mJ, A, theta_k, theta_p)
 
     @property
     def α(self):
