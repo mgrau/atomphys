@@ -310,3 +310,7 @@ class Transition(dict):
         def f(λ):
             return α_i(mJ=mJ_i, λ=λ, **kwargs) - α_f(mJ=mJ_f, λ=λ, **kwargs)
         return fsolve(f, estimate)
+
+    @property
+    def λ_magic(self):
+        return self.magic_wavelength
