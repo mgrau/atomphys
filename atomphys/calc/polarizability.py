@@ -21,7 +21,7 @@ def scalar(state, omega=0):
         d = transition.reduced_dipole_matrix_element_conjugate
         α += (1/(ω0-ω) + 1/(ω0+ω))*d**2
 
-    return α*X
+    return (α*X).to_base_units()
 
 
 def vector(state, omega=0):
@@ -45,7 +45,7 @@ def vector(state, omega=0):
         sixJ = wigner_6j(1, 1, 1, J, J, Jp)
         α += -(-1)**(J+Jp+1)*sixJ*(1/(ω0-ω) + 1/(ω0+ω))*d**2
 
-    return α*X
+    return (α*X).to_base_units()
 
 
 def tensor(state, omega=0):
@@ -69,7 +69,7 @@ def tensor(state, omega=0):
         sixJ = wigner_6j(1, 1, 2, J, J, Jp)
         α += (-1)**(J+Jp+1)*sixJ*(1/(ω0-ω) + 1/(ω0+ω))*d**2
 
-    return α*X
+    return (α*X).to_base_units()
 
 
 def total(state, mJ=None, omega=0, A=0, theta_k=0, theta_p=π/2):
@@ -90,4 +90,4 @@ def total(state, mJ=None, omega=0, A=0, theta_k=0, theta_p=π/2):
     except ZeroDivisionError:
         C2 = 0
 
-    return α0 + C1*α1 + C2*α2
+    return (α0 + C1*α1 + C2*α2).to_base_units()
