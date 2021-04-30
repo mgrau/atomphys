@@ -43,7 +43,7 @@ def vector(state, omega=0):
         d = transition.reduced_dipole_matrix_element_conjugate
         Jp = transition.i.J
         sixJ = wigner_6j(1, 1, 1, J, J, Jp)
-        α += (-1)**(J+Jp+1)*sixJ*(1/(ω0-ω) + 1/(ω0+ω))*d**2
+        α += -(-1)**(J+Jp+1)*sixJ*(1/(ω0-ω) + 1/(ω0+ω))*d**2
 
     return α*X
 
@@ -72,7 +72,7 @@ def tensor(state, omega=0):
     return α*X
 
 
-def total(state, omega=0, mJ=None, A=0, theta_k=0, theta_p=0):
+def total(state, mJ=None, omega=0, A=0, theta_k=0, theta_p=π/2):
     θk = theta_k
     θp = theta_p
 

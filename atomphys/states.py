@@ -8,6 +8,7 @@ from .util import sanitize_energy
 from .data import nist
 from .calc import polarizability
 from .transitions import TransitionRegistry
+from .laser import Laser
 from .constants import gs
 from math import pi as π
 from itertools import chain
@@ -267,22 +268,12 @@ class State(dict):
     def τ(self):
         return self.lifetime
 
-    def scalar_polarizability(self, omega=0):
-        return polarizability.scalar(self, omega)
-
-    @property
-    def α0(self):
-        return self.scalar_polarizability
-
-    def tensor_polarizability(self, omega=0):
-        return polarizability.tensor(self, omega)
-
-    @property
-    def α2(self):
-        return self.tensor_polarizability
-
-    def polarizability(self, omega=0, mJ=None, A=0, theta_k=0, theta_p=0):
-        return polarizability.total(self, omega, mJ, A, theta_k, theta_p)
+    def polarizability(self, mJ=None, laser=None, **kwargs):
+        if laser is None:
+            laser = Laser(**kwargs)
+        return polarizability.total(self, mJ=mJ,
+                                    omega=laser.omega,
+                                    A=laser.A, theta_k=laser.theta_k, theta_p=laser.theta_p)
 
     @property
     def α(self):
