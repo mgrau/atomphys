@@ -1,6 +1,7 @@
 
 from . import _ureg as _units
 from math import pi as π
+from math import inf
 
 
 class Laser:
@@ -10,7 +11,7 @@ class Laser:
     __theta_k = 0
     __theta_p = π/2
 
-    def __init__(self, units=None, **laser):
+    def __init__(self, units=None, laser=None, **new_laser):
         if units:
             self.__units = units
         else:
@@ -18,9 +19,16 @@ class Laser:
 
         self.__omega = self.__units('0 Hz')
 
-        for attr in laser:
+        if laser is not None:
+            self.__units = laser.__units
+            self.__omega = laser.__omega
+            self.__A = laser.__A
+            self.__theta_k = laser.__theta_k
+            self.__theta_p = laser.__theta_p
+
+        for attr in new_laser:
             if attr in dir(self):
-                self.__setattr__(attr, laser[attr])
+                self.__setattr__(attr, new_laser[attr])
 
     def __repr__(self):
         fmt = '0.4g~P'

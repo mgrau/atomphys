@@ -1,6 +1,7 @@
 import csv
 import io
 import urllib.request
+from collections.abc import Iterable
 from .util import sanitize_energy, fsolve
 from .data import nist
 
@@ -28,10 +29,15 @@ class TransitionRegistry(list):
         elif isinstance(key, slice):
             return TransitionRegistry(super().__getitem__(key), parent=self._parent)
         elif isinstance(key, str):
+            if ':' in key:
+                state_i, state_f = key.split(':')
+                return next(transition for transition in self if ((transition.i.match(state_i) and transition.f.match(state_f))))
             return next(transition for transition in self if (
                 (transition.i.match(key) and transition.i != self._parent) or
                 (transition.f.match(key) and transition.f != self._parent)
             ))
+        elif isinstance(key, Iterable):
+            return TransitionRegistry((self.__getitem__(item) for item in key), parent=self._parent)
         elif isinstance(key, float):
             energy = self._parent._ureg.Quantity(
                 key, 'E_h') if self._parent._USE_UNITS else key
@@ -296,11 +302,11 @@ class Transition(dict):
     def cross_section(self):
         return self.σ0
 
-    def magic_wavelength(self, estimate, mJ_i=None, mJ_f=None):
+    def magic_wavelength(self, estimate, mJ_i=None, mJ_f=None, **kwargs):
         c = self._ureg['c']
         α_i = self._state_i.α
         α_f = self._state_f.α
 
         def f(λ):
-            return α_i(omega=2*π*c/λ, mJ=mJ_i) - α_f(omega=2*π*c/λ, mJ=mJ_f)
+            return α_i(mJ=mJ_i, λ=λ, **kwargs) - α_f(mJ=mJ_f, λ=λ, **kwargs)
         return fsolve(f, estimate)

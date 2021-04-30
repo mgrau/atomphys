@@ -4,6 +4,7 @@ import re
 import enum
 import urllib.request
 from fractions import Fraction
+from collections.abc import Iterable
 from .util import sanitize_energy
 from .data import nist
 from .calc import polarizability
@@ -41,6 +42,8 @@ class StateRegistry(list):
             return StateRegistry(super().__getitem__(key), parent=self._parent)
         elif isinstance(key, str):
             return next(state for state in self if state.match(key))
+        elif isinstance(key, Iterable):
+            return StateRegistry((self.__getitem__(item) for item in key), parent=self._parent)
         elif isinstance(key, float):
             energy = self._parent._ureg.Quantity(
                 key, 'E_h') if self._parent.USE_UNITS else key
@@ -271,6 +274,8 @@ class State(dict):
     def polarizability(self, mJ=None, laser=None, **kwargs):
         if laser is None:
             laser = Laser(**kwargs)
+        else:
+            laser = Laser(laser=laser, **kwargs)
         return polarizability.total(self, mJ=mJ,
                                     omega=laser.omega,
                                     A=laser.A, theta_k=laser.theta_k, theta_p=laser.theta_p)
