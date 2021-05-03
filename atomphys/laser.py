@@ -7,9 +7,12 @@ from math import inf
 class Laser:
     __units = {}
     __omega = None
+    __linewidth = None
+
     __A = 0
     __theta_k = 0
     __theta_p = π/2
+    __electric_field = None
 
     def __init__(self, units=None, laser=None, **new_laser):
         if units:
@@ -18,6 +21,8 @@ class Laser:
             self.__units = _units
 
         self.__omega = self.__units('0 Hz')
+        self.__linewidth = self.__units('0 Hz')
+        self.__intensity = self.__units('0 V/m')
 
         if laser is not None:
             self.__units = laser.__units
@@ -144,3 +149,62 @@ class Laser:
     @theta_p.setter
     def theta_p(self, theta_p):
         self.__theta_p = theta_p
+
+    @property
+    def E(self):
+        return self.__electric_field
+
+    @E.setter
+    def E(self, E):
+        if not E.check('[mass]*[length]/[current]/[time]^3'):
+            raise ValueError('E must be an electric field')
+        self.__electric_field = E
+
+    @property
+    def electric_field(self):
+        return self.E
+
+    @electric_field.setter
+    def electric_field(self, E):
+        if not E.check('[mass]*[length]/[current]/[time]^3'):
+            raise ValueError('electric_field must be an electric field')
+        self.E = E
+
+    @property
+    def I(self):
+        c = self.__units['c']
+        ε_0 = self.__units['ε_0']
+        return self.E**2*(c*ε_0/2)
+
+    @I.setter
+    def I(self, I):
+        if not I.check('[mass]/[time]^3'):
+            raise ValueError('I must be an intensity')
+        c = self.__units['c']
+        ε_0 = self.__units['ε_0']
+        self.E = (2*I/(c*ε_0))**(1/2)
+
+    @property
+    def intensity(self):
+        return self.I
+
+    @intensity.setter
+    def intensity(self, I):
+        if not I.check('[mass]/[time]^3'):
+            raise ValueError('intensity must be an intensity')
+        self.I = I
+
+    def Ω(self, transition, Rabi_frequency=None):
+        # this is not quite right, as d is reduced dipole matrix element.
+        # also transition is not necessarily dipole
+        ħ = self.__units['ħ']
+        if Rabi_frequency is None:
+            return (transition.d * self.E / ħ).to_base_units()
+        else:
+            if not Rabi_frequency.check('1/[time]'):
+                raise ValueError('Rabi_frequency must be a frequency')
+            self.E = ħ*Rabi_frequency/transition.d
+
+    @property
+    def Rabi_frequency(self):
+        return self.Ω
