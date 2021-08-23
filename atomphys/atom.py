@@ -5,6 +5,8 @@ from math import pi as π
 import os
 import json
 import math
+import re
+import pandas as pd
 
 try:
     from . import _ureg, _HAS_PINT
@@ -19,11 +21,12 @@ periodic_table = os.path.join(
 with open(periodic_table) as f:
     pt = json.load(f)
     symbols = [element['symbol'] for element in pt['elements']]
-
+    names = [element['name'] for element in pt['elements']]
+nucdata = pd.read_csv('atomphys/data/nucdata.csv')
 
 class Atom():
 
-    name = ''
+    symbol = ''
 
     def __init__(self, atom, USE_UNITS=True, ureg=None):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
@@ -36,8 +39,23 @@ class Atom():
         try:
             self.load(atom)
         except FileNotFoundError:
-            self.name = atom
-            self.load_nist(self.name)
+            self.name = ''
+            self.isotope = None
+            atom_str = re.search('^(\d*)([A-Za-z]+)([0-9+]*)',atom)
+            if atom_str is not None:
+                atom_mass = atom_str.group(1)
+                atom_sym = atom_str.group(2)
+                atom_charge = atom_str.group(3)
+                if atom_sym in symbols:
+                    self.symbol = atom
+                    self.name = names[symbols.index(atom_sym)]
+                    self.load_nist(atom_sym + atom_charge)
+                    if len(atom_mass) > 0 :
+                        self.isotope = int(atom_mass)
+                else:
+                    raise ValueError('"%s" is not in the periodic table!' % (atom))
+            else:
+                raise ValueError('regex did not yield a valid atom name string')
 
         # reverse sort by Gamma first
         self._transitions.sort(
@@ -75,7 +93,7 @@ class Atom():
         )
 
     def to_dict(self):
-        return {'name': self.name, 'states': self.states.to_dict(), 'transitions': self.transitions.to_dict()}
+        return {'symbol': self.symbol, 'name': self.name, 'states': self.states.to_dict(), 'transitions': self.transitions.to_dict()}
 
     def save(self, filename):
         with open(filename, 'w') as file:
@@ -86,18 +104,19 @@ class Atom():
             data = json.load(file)
 
         self.name = data['name']
+        self.symbol = data['symbol']
         self._states = StateRegistry((State(
             **state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in data['states']), parent=self)
         self._transitions = TransitionRegistry(Transition(
             **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in data['transitions'])
 
-    def load_nist(self, name):
-        if name in symbols:
-            atom = name + ' i'
-        elif name[-1] == '+' and name[:-1] in symbols:
-            atom = name[:-1] + ' ii'
+    def load_nist(self, symbol):
+        if symbol in symbols:
+            atom = symbol + ' i'
+        elif symbol[-1] == '+' and symbol[:-1] in symbols:
+            atom = symbol[:-1] + ' ii'
         else:
-            atom = name
+            atom = symbol
             raise Exception(
                 f'{atom} does not match a known neutral atom or ionic ion name')
 

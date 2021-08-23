@@ -50,3 +50,4 @@ def fetch_transitions(atom):
     data = csv.DictReader(io.StringIO(response.decode()), dialect='excel-tab')
 
     return data
+    
