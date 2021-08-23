@@ -4,19 +4,19 @@ import os
 
 current_file = os.path.realpath(__file__)
 directory = os.path.dirname(current_file)
-nuc_data_file = os.path.join(directory, "tabula_nuc_data.json")
+NuclearDataJSON_file = os.path.join(directory, "tabula_NuclearDataJSON.json")
 
-with open(nuc_data_file) as f:
-    nuc_data = json.load(f)
+with open(NuclearDataJSON_file) as f:
+    NuclearDataJSON = json.load(f)
 
-header_row = nuc_data[0]['data'][0]
+header_row = NuclearDataJSON[0]['data'][0]
 col_headers = []
 for col in header_row:
     col_headers.append(col['text'])
 
 table_data = []
 p = 0
-for page in nuc_data:
+for page in NuclearDataJSON:
     r = 0
     page['data'].pop(0)
     for row in page['data']:
@@ -41,6 +41,6 @@ for row in table_data:
         row['Z'] = nuc_re.group(1)
         table_data_cut.append(row)
 
-output_data_file = os.path.join(directory, "nuc_data.json")
-with open(output_data_file, 'w') as fout:
-    json.dump(table_data_cut, fout)
+output_data_file = os.path.join(directory, "NuclearDataJSON.json")
+with open(output_data_file, 'w') as f:
+    json.dump(table_data_cut, f)
