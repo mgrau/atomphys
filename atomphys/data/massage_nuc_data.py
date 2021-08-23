@@ -1,52 +1,46 @@
 import json
-import pandas as pd
 import re
+import os
 
-with open('atomphys/data/tabula-nucdata.json') as f:
-    nucdata = json.load(f)
+current_file = os.path.realpath(__file__)
+directory = os.path.dirname(current_file)
+nuc_data_file = os.path.join(directory, "tabula_nuc_data.json")
 
-header_row = nucdata[0]['data'][0]
+with open(nuc_data_file) as f:
+    nuc_data = json.load(f)
+
+header_row = nuc_data[0]['data'][0]
 col_headers = []
 for col in header_row:
     col_headers.append(col['text'])
 
-
 table_data = []
 p = 0
-for page in nucdata:
-    #print("page = %d" % p)
+for page in nuc_data:
     r = 0
     page['data'].pop(0)
     for row in page['data']:
-        #print("r = %d" % r)
-        this_row_data = {key:None for key in col_headers}
+        this_row_data = {key: None for key in col_headers}
         c = 0
         for col in row:
-            #print("c = %d" % c)
             try:
                 this_row_data[col_headers[c]] = col['text']
             except Exception:
                 pass
-                #print("skipping page %d row %d col %d" % (page,r,c))
-            c = c+1
-        if not(all([len(item)==0 for item in this_row_data.values()])):
+            c = c + 1
+        if not (all([len(item) == 0 for item in this_row_data.values()])):
             table_data.append(this_row_data)
-        r = r+1
-    p = p+1
+        r = r + 1
+    p = p + 1
 
-df = pd.DataFrame(table_data)
-
-new_nuc_string = []
-r = 0
-keep_rows = []
-for nuc_string in df.Nucleus:
-    nuc_re = re.search('^(\d+) (\w+) (\d+)',nuc_string)
+table_data_cut = []
+for row in table_data:
+    nuc_re = re.search('^(\d+) (\w+) (\d+)', row['Nucleus'])
     if nuc_re is not None:
-        new_nuc_string.append(nuc_re.group(3) + nuc_re.group(2))
-        keep_rows.append(r)
-    r = r+1
+        row['Nucleus'] = nuc_re.group(3) + nuc_re.group(2)
+        row['Z'] = nuc_re.group(1)
+        table_data_cut.append(row)
 
-df = df.iloc[keep_rows]
-df['Nucleus'] = new_nuc_string
-
-df.to_csv(r'atomphys/data/nucdata.csv',index=False)
+output_data_file = os.path.join(directory, "nuc_data.json")
+with open(output_data_file, 'w') as fout:
+    json.dump(table_data_cut, fout)
