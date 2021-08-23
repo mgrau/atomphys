@@ -126,6 +126,9 @@ class Atom():
         self._transitions = TransitionRegistry(Transition(
             **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in fetch_transitions(atom))
 
+    def load_nuc(self, isotope):
+        pass
+
     @property
     def states(self):
         return self._states
