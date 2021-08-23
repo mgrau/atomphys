@@ -20,8 +20,8 @@ periodic_table = os.path.join(
     directory, "data", "PeriodicTableJSON.json")
 with open(periodic_table) as f:
     pt = json.load(f)
-    symbols = [element['symbol'] for element in pt['elements']]
-    names = [element['name'] for element in pt['elements']]
+    pt_symbols = [element['symbol'] for element in pt['elements']]
+    pt_names = [element['name'] for element in pt['elements']]
 nucdata = pd.read_csv('atomphys/data/nucdata.csv')
 
 class Atom():
@@ -41,14 +41,15 @@ class Atom():
         except FileNotFoundError:
             self.name = ''
             self.isotope = None
-            atom_str = re.search('^(\d*)([A-Za-z]+)([0-9+]*)',atom)
-            if atom_str is not None:
-                atom_mass = atom_str.group(1)
-                atom_sym = atom_str.group(2)
-                atom_charge = atom_str.group(3)
-                if atom_sym in symbols:
+
+            atom_regex = re.search('^(\d*)([A-Za-z]+)([0-9+]*)',atom)
+            if atom_regex is not None:
+                atom_mass = atom_regex.group(1)
+                atom_sym = atom_regex.group(2)
+                atom_charge = atom_regex.group(3)
+                if atom_sym in pt_symbols:
                     self.symbol = atom
-                    self.name = names[symbols.index(atom_sym)]
+                    self.name = pt_names[pt_symbols.index(atom_sym)]
                     self.load_nist(atom_sym + atom_charge)
                     if len(atom_mass) > 0 :
                         self.isotope = int(atom_mass)
@@ -111,9 +112,9 @@ class Atom():
             **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in data['transitions'])
 
     def load_nist(self, symbol):
-        if symbol in symbols:
+        if symbol in pt_symbols:
             atom = symbol + ' i'
-        elif symbol[-1] == '+' and symbol[:-1] in symbols:
+        elif symbol[-1] == '+' and symbol[:-1] in pt_symbols:
             atom = symbol[:-1] + ' ii'
         else:
             atom = symbol
