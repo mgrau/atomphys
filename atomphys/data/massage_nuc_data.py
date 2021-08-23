@@ -4,7 +4,7 @@ import os
 
 current_file = os.path.realpath(__file__)
 directory = os.path.dirname(current_file)
-NuclearDataJSON_file = os.path.join(directory, "tabula_NuclearDataJSON.json")
+NuclearDataJSON_file = os.path.join(directory, "raw_NuclearDataJSON.json")
 
 with open(NuclearDataJSON_file) as f:
     NuclearDataJSON = json.load(f)
