@@ -83,7 +83,7 @@ def fetch_isotopes(name, symbol):
     nuc_table_nuclides = [row['Nucleus'] for row in nuc_table]
     
     for row in range(len(data_out)):
-        if data_out[row]['Nuclide'] in nuc_table_nuclides:
+        if data_out[row]['Nuclide'] in nuc_table_nuclides and not('0' in data_out[row]['Spin (physics)']):
             indx = nuc_table_nuclides.index(data_out[row]['Nuclide'])
             data_out[row].update( {"mag_moment_μN": nuc_table[indx]['μ(nm)']})    
         else:
