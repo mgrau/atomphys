@@ -9,3 +9,4 @@ except ImportError:
 
 from .atom import *
 from .laser import Laser
+from .hamiltonian import *

@@ -275,3 +275,7 @@ class Isotope(dict):
     @property
     def μ(self):
         return self['magnetic_moment']
+
+    @property
+    def gI(self):
+        return self['magnetic_moment']
