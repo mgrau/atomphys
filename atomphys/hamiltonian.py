@@ -14,6 +14,9 @@ class Qnums(dict):
         else:
             pass
 
+        super(Qnums, self).__init__(
+            {'energy': energy, 'configuration': configuration, 'J': J,  **term})
+
 class Ops(dict):
     def __init__(self, **state):
         if state.coupling == 'LS':

@@ -52,9 +52,7 @@ class Atom:
             self.name = pt_names[pt_symbols.index(atom_sym)]
             self.load_nist(atom_sym + atom_charge)
             self.load_nuc(self.name, atom_sym, atom_isotope)
-
-        if len(atom_isotope) > 0:
-            self.set_isotope(int(atom_isotope))
+            self.set_isotope(atom_isotope)
 
         # reverse sort by Gamma first
         self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
@@ -157,6 +155,7 @@ class Atom:
         )
 
     def set_isotope(self, mass = None):
+        print(mass)
         if mass is not None:
             self._isotope_index = [round(mass)==round(iso.Z) for iso in self._isotopes].index(True)
         else:
