@@ -43,7 +43,7 @@ class Atom:
 
             atom_regex = re.search("^(\d*)([A-Za-z]+)([0-9+]*)", atom)
             if atom_regex is not None:
-                atom_isotope = atom_regex.group(1)
+                atom_isotope = int(atom_regex.group(1))
                 atom_sym = atom_regex.group(2)
                 atom_charge = atom_regex.group(3)
             else:
@@ -52,6 +52,9 @@ class Atom:
             self.name = pt_names[pt_symbols.index(atom_sym)]
             self.load_nist(atom_sym + atom_charge)
             self.load_nuc(self.name, atom_sym, atom_isotope)
+
+        if atom_isotope is not None:
+            self.set_isotope(atom_isotope)
 
         # reverse sort by Gamma first
         self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)

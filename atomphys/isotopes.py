@@ -97,9 +97,9 @@ class Isotope(dict):
                     except AttributeError:
                         atomic_number = isotope['Atomic number']
                 else:
-                    atomic_number = nan
+                    atomic_number = 0.0
             else:
-                atomic_number = nan
+                atomic_number = 0.0
         else:
             atomic_number = None
 
@@ -111,9 +111,9 @@ class Isotope(dict):
                     except AttributeError:
                         neutron_number = isotope['Neutron number']
                 else:
-                    neutron_number = nan
+                    neutron_number = 0.0
             else:
-                neutron_number = nan
+                neutron_number = 0.0
         else:
             neutron_number = None
 
@@ -125,9 +125,9 @@ class Isotope(dict):
                     except AttributeError:
                         atomic_mass = isotope['Atomic mass']
                 else:
-                    atomic_mass = nan
+                    atomic_mass = 0.0
             else:
-                atomic_mass = nan
+                atomic_mass = 0.0
         else:
             atomic_mass = None
 
@@ -161,7 +161,7 @@ class Isotope(dict):
                     else:
                         half_life = value * parse_time(t_factor)
                 else:
-                    half_life = nan
+                    half_life = 0.0
         else:
             half_life = None
 
@@ -190,9 +190,18 @@ class Isotope(dict):
         if 'mag_moment_μN' in isotope:
             if isotope['mag_moment_μN'] is not None:
                 try:
-                    magnetic_moment = float(re.search('\d+\.+\d+',isotope['mag_moment_μN']).group())
+                    value = float(re.search('\d+\.+\d+',isotope['mag_moment_μN']).group())
                 except AttributeError:
-                    magnetic_moment = isotope['mag_moment_μN']
+                    value = isotope['mag_moment_μN']
+
+                if self._USE_UNITS:
+                    try:
+                        magnetic_moment = self._ureg.Quantity(value,'nuclear_magneton')
+                    except Exception:
+                        magnetic_moment = value 
+                else:
+                    magnetic_moment = value 
+
             else:
                 magnetic_moment = 0.0
         else:
@@ -204,7 +213,7 @@ class Isotope(dict):
             'half_life': half_life, 'abundance': abundance})
 
     def __repr__(self):
-        return f'isotope({self.nuclide}: mass = {self.atomic_mass}, spin = {self.spin}, abundance = {self.abundance}, half_life: {self.half_life})'
+        return f'isotope({self.nuclide}: atomic_mass = {self.atomic_mass}, spin = {self.spin}, abundance = {self.abundance}, half_life: {self.half_life})'
 
     def to_dict(self):
         return {'nuclide': str(self.nuclide), 'atomic_number': self.atomic_number,
