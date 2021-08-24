@@ -2,7 +2,7 @@ from atomphys import Atom
 from fractions import Fraction
 
 def test_Sr():
-    Sr = Atom('87Sr')
+    Sr = Atom('Sr')
 
     assert Sr.isotopes[17].I == Fraction(9,2)
     assert Sr.isotopes[17].A == 38
