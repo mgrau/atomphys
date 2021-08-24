@@ -10,8 +10,10 @@ from .calc import polarizability
 from .transitions import TransitionRegistry
 from .laser import Laser
 from .constants import gs
-from math import pi as π, inf
+from math import nan, pi as π, inf
 from itertools import chain
+from fractions import Fraction
+from .util import parse_time
 
 try:
     from . import _ureg, _HAS_PINT
@@ -83,46 +85,114 @@ class Isotope(dict):
             self._ureg['c'] = 137.03599908356244
 
         if 'Nuclide' in isotope:
-            print('here')
-            nuclide = isotope['Nuclide']
+            nuclide = re.search('^\d+[m]*\d*[A-Za-z]+',isotope['Nuclide']).group()
         else:
             nuclide = ''
 
         if 'Atomic number' in isotope:
-            atomic_number = isotope['Atomic number']
+            if isotope['Atomic number'] is not None:
+                if len(isotope['Atomic number']) > 0:
+                    try:
+                        atomic_number = int(re.search('\d+',isotope['Atomic number']).group())
+                    except AttributeError:
+                        atomic_number = isotope['Atomic number']
+                else:
+                    atomic_number = nan
+            else:
+                atomic_number = nan
         else:
             atomic_number = None
 
         if 'Neutron number' in isotope:
-            neutron_number = isotope['Neutron number']
+            if isotope['Neutron number'] is not None:
+                if len(isotope['Neutron number']) > 0:
+                    try:
+                        neutron_number = int(re.search('\d+',isotope['Neutron number']).group())
+                    except AttributeError:
+                        neutron_number = isotope['Neutron number']
+                else:
+                    neutron_number = nan
+            else:
+                neutron_number = nan
         else:
             neutron_number = None
 
         if 'Atomic mass' in isotope:
-            atomic_mass = isotope['Atomic mass']
+            if isotope['Atomic mass'] is not None:
+                if len(isotope['Atomic mass']) > 0:
+                    try:
+                        atomic_mass = float(re.search('\d+\.*\d*',isotope['Atomic mass']).group())
+                    except AttributeError:
+                        atomic_mass = isotope['Atomic mass']
+                else:
+                    atomic_mass = nan
+            else:
+                atomic_mass = nan
         else:
             atomic_mass = None
 
         if 'Half-life' in isotope:
-            half_life = isotope['Half-life']
+            if 'Stable' in isotope['Half-life']:
+                half_life = self._ureg.Quantity(inf,'s')
+            elif len(isotope['Half-life'])==0:
+                half_life = None
+            else:
+                #half_life = isotope['Half-life']
+                #print(isotope['Half-life'])
+                s = isotope['Half-life']
+                s = re.search('^(\d+\.*\d*).*\\xa0(\w+)$',s)
+                if s is not None:
+                    #print(s)
+                    value = float(s.group(1))
+                    t_factor = s.group(2)
+
+                    if t_factor == 'h':
+                        t_factor = 'hours'
+                    elif t_factor == 'y':
+                        t_factor = 'years'
+                    elif t_factor == 'μs':
+                        t_factor = 'microsecond'
+
+                    if self._USE_UNITS:
+                        try:
+                            half_life = self._ureg.Quantity(value,t_factor)
+                        except Exception:
+                            half_life = value * parse_time(t_factor)
+                    else:
+                        half_life = value * parse_time(t_factor)
+                else:
+                    half_life = nan
         else:
-            half_life = inf
+            half_life = None
 
         if 'Spin (physics)' in isotope:
-            spin = isotope['Spin (physics)']
+            if len(isotope['Spin (physics)']) > 0:
+                try:
+                    spin = Fraction(re.search('\d+[/]*\d*',isotope['Spin (physics)']).group())
+                except AttributeError:
+                    spin = isotope['Spin (physics)']
+            else:
+                spin = None
         else:
-            spin = 0.0
+            spin = None
 
         if 'Natural abundance' in isotope:
-            abundance = isotope['Natural abundance']
+            if len(isotope['Natural abundance']) > 0:
+                try:
+                    abundance = float(re.search('^\d+\.\d+',isotope['Natural abundance']).group())
+                except AttributeError:
+                    abundance = isotope['Natural abundance']
+            else:
+                abundance = None
         else:
-            abundance = 1.0
+            abundance = None
 
         super(Isotope, self).__init__(
-            {'nuclide': nuclide, 'spin': spin, 'half-life': half_life, 'abundance': abundance})
+            {'nuclide': nuclide, 'atomic_number': atomic_number, 'neutron_number': neutron_number, 
+            'atomic_mass': atomic_mass, 'spin': spin, 'half_life': half_life, 'abundance': abundance})
 
     def __repr__(self):
-        return f'isotope({self.nuclide}: {self.spin})'
+        return f'isotope({self.nuclide}: spin = {self.spin}, abundance = {self.abundance}, half_life: {self.half_life})'
 
     def to_dict(self):
         return {'nuclide': str(self.nuclide), 'atomic_number': self.atomic_number,
@@ -136,6 +206,18 @@ class Isotope(dict):
     @property
     def I(self):
         return self['spin']
+
+    @property
+    def Z(self):
+        return self['atomic_mass']
+
+    @property
+    def A(self):
+        return self['atomic_number']
+
+    @property
+    def N(self):
+        return self['neutron_number']
 
     @property
     def nuclide(self):

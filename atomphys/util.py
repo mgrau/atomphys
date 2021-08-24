@@ -1,6 +1,27 @@
 def sanitize_energy(s):
     return s.strip('[]au +?')
 
+def parse_time(f):
+    if 'y' in f or 'year' in f:
+        return 365.0*24.0*3600.0
+    elif 'd' in f or 'day' in f:
+        return 24.0*3600.0
+    elif 'h' in f or 'hour' in f:
+        return 3600.0
+    elif 'm' in f or 'minute' in f:
+        return 60.0
+    elif 's' in f or 'second' in f:
+        return 1.0
+    elif 'ms' in f or 'millisecond' in f:
+        return 1.0e-3
+    elif f=='us' or f=='μs' or 'microsecond' in f:
+        return 1.0e-6
+    elif f=='ns' or 'nanosecond' in f:
+        return 1.0e-9
+    elif f=='ps' or 'picosecond' in f:
+        return 1.0e-12
+    elif f=='fs' or 'femtosecond' in f:
+        return 1.0e-15
 
 def fsolve(func, x0, x1=None, tol=1.49012e-08, maxfev=100):
     '''
