@@ -1,6 +1,14 @@
 import urllib
 from bs4 import BeautifulSoup
+import os
+import json
+import re
 
+current_file = os.path.realpath(__file__)
+directory = os.path.dirname(current_file)
+nuc_table_filename = os.path.join(directory, "NuclearDataJSON.json")
+with open(nuc_table_filename) as f:
+    nuc_table = json.load(f)
 
 def fetch_isotopes(name, symbol):
     url = 'https://en.wikipedia.org/wiki/Isotopes_of_' + name.lower()
@@ -68,5 +76,17 @@ def fetch_isotopes(name, symbol):
         if len(result) > 0:
             data_out.append(result)
         i = i + 1
+
+    # clean up nuclide column so we can compare to nuc_table
+    [[row.update({'Nuclide': re.search('^\d+[m]*\d*[A-Za-z]+',row['Nuclide']).group()})] for row in data_out]
+
+    nuc_table_nuclides = [row['Nucleus'] for row in nuc_table]
+    
+    for row in range(len(data_out)):
+        if data_out[row]['Nuclide'] in nuc_table_nuclides:
+            indx = nuc_table_nuclides.index(data_out[row]['Nuclide'])
+            data_out[row].update( {"mag_moment_μN": nuc_table[indx]['μ(nm)']})    
+        else:
+            data_out[row].update( {"mag_moment_μN": '0.0'})
 
     return data_out

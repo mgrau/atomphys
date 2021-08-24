@@ -187,9 +187,21 @@ class Isotope(dict):
         else:
             abundance = None
 
+        if 'mag_moment_μN' in isotope:
+            if isotope['mag_moment_μN'] is not None:
+                try:
+                    magnetic_moment = float(re.search('\d+\.+\d+',isotope['mag_moment_μN']).group())
+                except AttributeError:
+                    magnetic_moment = isotope['mag_moment_μN']
+            else:
+                magnetic_moment = 0.0
+        else:
+            magnetic_moment = None
+
         super(Isotope, self).__init__(
             {'nuclide': nuclide, 'atomic_number': atomic_number, 'neutron_number': neutron_number, 
-            'atomic_mass': atomic_mass, 'spin': spin, 'half_life': half_life, 'abundance': abundance})
+            'atomic_mass': atomic_mass, 'spin': spin, 'magnetic_moment': magnetic_moment, 
+            'half_life': half_life, 'abundance': abundance})
 
     def __repr__(self):
         return f'isotope({self.nuclide}: mass = {self.atomic_mass}, spin = {self.spin}, abundance = {self.abundance}, half_life: {self.half_life})'
@@ -246,3 +258,11 @@ class Isotope(dict):
     @property
     def proton_number(self):
         return self['proton_number']
+
+    @property
+    def magnetic_moment(self):
+        return self['magnetic_moment']
+
+    @property
+    def μ(self):
+        return self['magnetic_moment']
