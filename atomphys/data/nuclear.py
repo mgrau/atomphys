@@ -1,7 +1,8 @@
 import urllib
 from bs4 import BeautifulSoup
 
-def fetch_isotopes(name,symbol):
+
+def fetch_isotopes(name, symbol):
     url = 'https://en.wikipedia.org/wiki/Isotopes_of_' + name.lower()
     with urllib.request.urlopen(url) as response:
         response = response.read()
@@ -54,7 +55,7 @@ def fetch_isotopes(name,symbol):
         data_index = 0
         j = 0
         cols_remaining_with_this_header = colspans[i][0]
-        while j < most_freq_num_cols-1:
+        while j < most_freq_num_cols - 1:
             if symbol in data[i][0]:
                 col_names_cut.append(col_headers[j])
                 col_data_cut.append(data[i][data_index])
