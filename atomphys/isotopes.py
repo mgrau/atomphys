@@ -192,7 +192,7 @@ class Isotope(dict):
             'atomic_mass': atomic_mass, 'spin': spin, 'half_life': half_life, 'abundance': abundance})
 
     def __repr__(self):
-        return f'isotope({self.nuclide}: spin = {self.spin}, abundance = {self.abundance}, half_life: {self.half_life})'
+        return f'isotope({self.nuclide}: mass = {self.atomic_mass}, spin = {self.spin}, abundance = {self.abundance}, half_life: {self.half_life})'
 
     def to_dict(self):
         return {'nuclide': str(self.nuclide), 'atomic_number': self.atomic_number,
@@ -234,3 +234,15 @@ class Isotope(dict):
     @property
     def abundance(self):
         return self['abundance']
+
+    @property
+    def atomic_mass(self):
+        return self['atomic_mass']
+
+    @property
+    def neutron_number(self):
+        return self['neutron_number']
+
+    @property
+    def proton_number(self):
+        return self['proton_number']

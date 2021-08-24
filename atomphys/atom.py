@@ -29,6 +29,7 @@ class Atom:
 
     def __init__(self, atom, USE_UNITS=True, ureg=None):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
+        self._isotope_index = None
 
         if ureg:
             self._ureg = ureg
@@ -39,8 +40,6 @@ class Atom:
             self.load(atom)
         except FileNotFoundError:
             self.name = ""
-            self.isotope = ""
-            self.nuclear_spin = ""
 
             atom_regex = re.search("^(\d*)([A-Za-z]+)([0-9+]*)", atom)
             if atom_regex is not None:
@@ -53,8 +52,6 @@ class Atom:
             self.name = pt_names[pt_symbols.index(atom_sym)]
             self.load_nist(atom_sym + atom_charge)
             self.load_nuc(self.name, atom_sym, atom_isotope)
-
-        self._isotopes = self._isotopes
 
         # reverse sort by Gamma first
         self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
@@ -97,7 +94,6 @@ class Atom:
         return {
             "symbol": self.symbol,
             "name": self.name,
-            "nuclear_spin": self.nuclear_spin,
             "states": self.states.to_dict(),
             "transitions": self.transitions.to_dict(),
             "isotopes": self.isotopes.to_dict(),
@@ -157,6 +153,14 @@ class Atom:
             parent=self,
         )
 
+    def set_isotope(self, mass = None):
+        if mass is not None:
+            self._isotope_index = [round(mass)==round(iso.Z) for iso in self._isotopes].index(True)
+        else:
+            abundance = [iso.abundance for iso in self._isotopes]
+            self._isotope_index = abundance.index(max(abundance))
+
+
     @property
     def states(self):
         return self._states
@@ -172,3 +176,8 @@ class Atom:
     @property
     def units(self):
         return self._ureg
+
+    @property
+    def isotope(self):
+        return self._isotopes(self._isotope_index)
+
