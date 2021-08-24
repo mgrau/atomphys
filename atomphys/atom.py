@@ -1,5 +1,6 @@
 from .states import State, StateRegistry
 from .transitions import Transition, TransitionRegistry
+from .isotopes import Isotope, IsotopeRegistry
 from .data import fetch_states, fetch_transitions, fetch_isotopes
 from math import pi as π
 import os
@@ -21,10 +22,6 @@ with open(periodic_table) as f:
     pt = json.load(f)
     pt_symbols = [element["symbol"] for element in pt["elements"]]
     pt_names = [element["name"] for element in pt["elements"]]
-
-# nuc_table_filename = os.path.join(directory, "data", "NuclearDataJSON.json")
-# with open(nuc_table_filename) as f:
-#     nuc_table = json.load(f)
 
 
 class Atom:
@@ -52,14 +49,12 @@ class Atom:
                 atom_charge = atom_regex.group(3)
             else:
                 raise ValueError("regex did not yield a valid atom name string")
-
             self.symbol = atom_sym
             self.name = pt_names[pt_symbols.index(atom_sym)]
             self.load_nist(atom_sym + atom_charge)
+            self.load_nuc(self.name, atom_sym, atom_isotope)
 
-            if len(atom_isotope) > 0:
-                self.isotope = atom_isotope
-                self.load_nuc()
+        self._isotopes = self._isotopes
 
         # reverse sort by Gamma first
         self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
@@ -95,6 +90,7 @@ class Atom:
             f"Ground State: {self.states[0]}\n"
             f"{len(self.states)} States\n"
             f"{len(self.transitions)} Transitions"
+            f"{len(self.isotopes)} Isotopes"
         )
 
     def to_dict(self):
@@ -104,6 +100,7 @@ class Atom:
             "nuclear_spin": self.nuclear_spin,
             "states": self.states.to_dict(),
             "transitions": self.transitions.to_dict(),
+            "isotopes": self.isotopes.to_dict(),
         }
 
     def save(self, filename):
@@ -151,10 +148,14 @@ class Atom:
             for transition in fetch_transitions(atom)
         )
 
-    def load_nuc(self):
-        isotope_data = fetch_isotopes(self.name, self.symbol)
-        self.nuclear_spin = next(iso['Spin (physics)'] for iso in isotope_data
-                                 if self.isotope+self.symbol in iso['Nuclide'])
+    def load_nuc(self, name, sym, iso):
+        self._isotopes = IsotopeRegistry(
+            (
+                Isotope(**isotope, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
+                for isotope in fetch_isotopes(name, sym)
+            ),
+            parent=self,
+        )
 
     @property
     def states(self):
@@ -163,6 +164,10 @@ class Atom:
     @property
     def transitions(self):
         return self._transitions
+
+    @property
+    def isotopes(self):
+        return self._isotopes
 
     @property
     def units(self):
