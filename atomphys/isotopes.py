@@ -83,6 +83,7 @@ class Isotope(dict):
             self._ureg['c'] = 137.03599908356244
 
         if 'Nuclide' in isotope:
+            print('here')
             nuclide = isotope['Nuclide']
         else:
             nuclide = ''
@@ -121,8 +122,7 @@ class Isotope(dict):
             {'nuclide': nuclide, 'spin': spin, 'half-life': half_life, 'abundance': abundance})
 
     def __repr__(self):
-        fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
-        return f'isotope({self.nuclide}: {self.spin:{fmt}})'
+        return f'isotope({self.nuclide}: {self.spin})'
 
     def to_dict(self):
         return {'nuclide': str(self.nuclide), 'atomic_number': self.atomic_number,
@@ -136,3 +136,19 @@ class Isotope(dict):
     @property
     def I(self):
         return self['spin']
+
+    @property
+    def nuclide(self):
+        return self['nuclide']
+
+    @property
+    def spin(self):
+        return self['spin']
+
+    @property
+    def half_life(self):
+        return self['half_life']
+
+    @property
+    def abundance(self):
+        return self['abundance']

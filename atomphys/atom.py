@@ -89,7 +89,7 @@ class Atom:
         return (
             f"Ground State: {self.states[0]}\n"
             f"{len(self.states)} States\n"
-            f"{len(self.transitions)} Transitions"
+            f"{len(self.transitions)} Transitions\n"
             f"{len(self.isotopes)} Isotopes"
         )
 
