@@ -25,3 +25,10 @@ class Ops(dict):
             state.J
         else:
             pass
+
+class Sublevel(dict):
+    def __init__(self):
+        super(Sublevel, self).__init__({})
+
+
+
