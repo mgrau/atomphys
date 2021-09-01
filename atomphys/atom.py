@@ -155,9 +155,8 @@ class Atom:
         )
 
     def set_isotope(self, mass = None):
-        print(mass)
         if mass is not None:
-            self._isotope_index = [round(mass)==round(iso.Z) for iso in self._isotopes].index(True)
+            self._isotope_index = [int(mass)==round(iso.Z) for iso in self._isotopes].index(True)
         else:
             abundance = [iso.abundance for iso in self._isotopes]
             self._isotope_index = abundance.index(max(abundance))

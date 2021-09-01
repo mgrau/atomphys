@@ -193,6 +193,14 @@ class State(dict):
         return self['K']
 
     @property
+    def I(self):
+        I = self._Parent.isotope.I
+        # not really sure about the structure of Atom.isotopes, haven't reviewed it yet.
+        # yeah one second
+        # i'll try this
+        return I
+
+    @property
     def parity(self):
         return self['parity']
 
