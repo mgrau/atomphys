@@ -138,17 +138,13 @@ class Isotope(dict):
             atomic_mass = None
 
         if "Half-life" in isotope:
-            if "stable" in isotope["Half-life"].lower():
+            if "stable" in str(isotope["Half-life"]).lower():
                 half_life = self._ureg.Quantity(inf, "s")
             elif len(isotope["Half-life"]) == 0:
                 half_life = None
             else:
-                # half_life = isotope['Half-life']
-                # print(isotope['Half-life'])
-                s = isotope["Half-life"]
-                s = re.search("^(\\d+\\.*\\d*).*\\xa0(\\w+)$", s)
+                s = re.search("^(\\d+\\.*\\d*).*\\xa0(\\w+)$", isotope["Half-life"])
                 if s is not None:
-                    # print(s)
                     value = float(s.group(1))
                     t_factor = s.group(2)
 
