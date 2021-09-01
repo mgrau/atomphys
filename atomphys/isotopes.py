@@ -1,17 +1,8 @@
 import csv
 import io
 import re
-import enum
-import urllib.request
-from fractions import Fraction
 from collections.abc import Iterable
-from .data import nist
-from .calc import polarizability
-from .transitions import TransitionRegistry
-from .laser import Laser
-from .constants import gs
 from math import nan, pi as π, inf
-from itertools import chain
 from fractions import Fraction
 from .util import parse_time
 
