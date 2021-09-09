@@ -18,12 +18,14 @@ nuc_table_file = os.path.join(directory, "NuclearMomentDataJSON.json")
 with open(nuc_table_file) as f:
     nuc_table = json.load(f)
 
+
 def build_nuclear_ptable():
     wiki_data = get_all_wiki_data()
     nuc_ptable_data = wiki_append_nuc_mag_moments(wiki_data)
 
     with open(nuc_ptable_file, 'w') as f:
         json.dump(nuc_ptable_data, f, indent=4, ensure_ascii=False)
+
 
 def get_all_wiki_data():
     with open(periodic_table) as f:
@@ -32,14 +34,15 @@ def get_all_wiki_data():
     for element in pt['elements']:
         try:
             print('loading isotope data for %s...' % element['name'])
-            new_wiki_data = get_wiki_isotope_data(element['name'],element['symbol'])
+            new_wiki_data = get_wiki_isotope_data(element['name'], element['symbol'])
             wiki_nuc_data = wiki_nuc_data + new_wiki_data
             print('done')
-        except:
+        except BaseException:
             print('failed to get data for %s' % element['name'])
     return wiki_nuc_data
 
-def get_wiki_isotope_data(name,symbol):
+
+def get_wiki_isotope_data(name, symbol):
     url = 'https://en.wikipedia.org/wiki/Isotopes_of_' + name.lower()
     with urllib.request.urlopen(url) as response:
         response = response.read()
@@ -56,7 +59,7 @@ def get_wiki_isotope_data(name,symbol):
             pass
     table_proto = dict.fromkeys(col_headers)
     col_headers[0] = "Nuclide"
-    spin_col = [i for i,s in enumerate(col_headers) if 'spin' in str(s).lower()]
+    spin_col = [i for i, s in enumerate(col_headers) if 'spin' in str(s).lower()]
     if len(spin_col) > 0:
         col_headers[spin_col[0]] = 'Spin'
 
@@ -111,17 +114,20 @@ def get_wiki_isotope_data(name,symbol):
 
     return data_out
 
+
 def wiki_append_nuc_mag_moments(wiki_nuc_data):
     nuc_table_nuclides = [row['Nucleus'] for row in nuc_table]
-    
+
     for row in range(len(wiki_nuc_data)):
-        if wiki_nuc_data[row]['Nuclide'] in nuc_table_nuclides and 'Spin' in wiki_nuc_data[row].keys() and not('0' in wiki_nuc_data[row]['Spin']):
-            indx = nuc_table_nuclides.index(wiki_nuc_data[row]['Nuclide'])
-            wiki_nuc_data[row].update( {"mag_moment_μN": nuc_table[indx]['μ(nm)']})    
+        indx = [i for i, name in enumerate(nuc_table_nuclides) if name in wiki_nuc_data[row]['Nuclide']]
+        if len(indx) > 0 and 'Spin' in wiki_nuc_data[row].keys() and not ('0' in wiki_nuc_data[row]['Spin']):
+            # indx = nuc_table_nuclides.index(wiki_nuc_data[row]['Nuclide'])
+            wiki_nuc_data[row].update({"mag_moment_μN": nuc_table[indx[0]]['μ(nm)']})
         else:
-            wiki_nuc_data[row].update( {"mag_moment_μN": '0.0'})
+            wiki_nuc_data[row].update({"mag_moment_μN": '0.0'})
 
     return wiki_nuc_data
+
 
 def massage_nuclear_data():
     with open(raw_nuc_table_file) as f:
@@ -153,7 +159,7 @@ def massage_nuclear_data():
 
     table_data_after_cut = []
     for row in table_data:
-        nuc_re = re.search('^(\d+) (\w+) (\d+)', row['Nucleus'])
+        nuc_re = re.search('^(\\d+) (\\w+) (\\d+)', row['Nucleus'])
         if nuc_re is not None:
             row['Nucleus'] = nuc_re.group(3) + nuc_re.group(2)
             row['Z'] = nuc_re.group(1)

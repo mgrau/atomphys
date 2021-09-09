@@ -1,10 +1,12 @@
 from .states import State, StateRegistry
 from .transitions import Transition, TransitionRegistry
-from .data import fetch_states, fetch_transitions
+from .data import fetch_states, fetch_transitions, nuclear
+from .util import parse_atom_name, parse_nuc_data
 from math import pi as π
 import os
 import json
 import math
+import re
 
 try:
     from . import _ureg, _HAS_PINT
@@ -14,16 +16,24 @@ except ImportError:
 
 current_file = os.path.realpath(__file__)
 directory = os.path.dirname(current_file)
-periodic_table = os.path.join(
-    directory, "data", "PeriodicTableJSON.json")
+periodic_table = os.path.join(directory, "data", "PeriodicTableJSON.json")
 with open(periodic_table) as f:
     pt = json.load(f)
     symbols = [element['symbol'] for element in pt['elements']]
 
+nuc_periodic_table = os.path.join(directory, "data", "NuclearPeriodicTableJSON.json")
+with open(nuc_periodic_table) as f:
+    nuc_ptable = json.load(f)
 
-class Atom():
+
+class Atom:
 
     name = ''
+    nuc_spin = 0
+    g_nuc = 0
+    abundance = 1.0
+    half_life = ''
+    mass = 0.0
 
     def __init__(self, atom, USE_UNITS=True, ureg=None):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
@@ -98,13 +108,24 @@ class Atom():
             atom = name[:-1] + ' ii'
         else:
             atom = name
-            raise Exception(
-                f'{atom} does not match a known neutral atom or ionic ion name')
+            raise Exception(f'{atom} does not match a known neutral atom or ionic ion name')
 
-        self._states = StateRegistry((State(
-            **state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in fetch_states(atom)), parent=self)
-        self._transitions = TransitionRegistry(Transition(
-            **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in fetch_transitions(atom))
+        self._states = StateRegistry(
+            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in fetch_states(atom)), parent=self
+        )
+        self._transitions = TransitionRegistry(
+            Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
+            for transition in fetch_transitions(atom)
+        )
+
+    def load_nuc(self, name):
+        nuc_data = [row for row in nuc_ptable if name in row['Nuclide']][0]
+        nuc_data = parse_nuc_data(nuc_data)
+        self.nuc_spin = nuc_data['spin']
+        self.g_nuc = nuc_data['gI']
+        self.abundance = nuc_data['abundance']
+        self.half_life = nuc_data['half_life']
+        self.mass = nuc_data['mass']
 
     @property
     def states(self):
@@ -117,3 +138,11 @@ class Atom():
     @property
     def units(self):
         return self._ureg
+
+    @property
+    def I(self):
+        return self.nuc_spin
+
+    @property
+    def gI(self):
+        return self.g_nuc

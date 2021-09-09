@@ -69,7 +69,7 @@
         "Decay product": "Stable[n 8]",
         "Spin": "1/2+",
         "Natural abundance": "1.34(3)×10−6",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "4He[n 7]",
@@ -201,7 +201,7 @@
         "Decay product": "Stable",
         "Spin": "1+",
         "Natural abundance": "0.0759(4)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.8220473(6)"
     },
     {
         "Nuclide": "6mLi",
@@ -225,7 +225,7 @@
         "Decay product": "Stable",
         "Spin": "3/2−",
         "Natural abundance": "0.9241(4)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.256427(2)"
     },
     {
         "Nuclide": "8Li",
@@ -297,7 +297,7 @@
         "Decay product": "10Be",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.6712(3)"
     },
     {
         "Nuclide": "12Li",
@@ -345,7 +345,7 @@
         "Decay product": "7Li",
         "Spin": "3/2−",
         "Natural abundance": "Trace[n 8]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.39928(2)"
     },
     {
         "Nuclide": "8Be[n 9]",
@@ -405,7 +405,7 @@
         "Decay product": "11B",
         "Spin": "1/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.6814(13)"
     },
     {
         "Nuclide": "11mBe",
@@ -453,7 +453,7 @@
         "Decay product": "12Be",
         "Spin": "(1/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.1778(5) K,d"
     },
     {
         "Nuclide": "14Be[n 12]",
@@ -477,7 +477,7 @@
         "Decay product": "14Be",
         "Spin": "(5/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.659(15)"
     },
     {
         "Nuclide": "16Be",
@@ -513,7 +513,7 @@
         "Decay product": "2 4He",
         "Spin": "2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "9B",
@@ -537,7 +537,7 @@
         "Decay product": "Stable",
         "Spin": "3+",
         "Natural abundance": "0.199(7)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.80064478(6)"
     },
     {
         "Nuclide": "11B",
@@ -621,7 +621,7 @@
         "Decay product": "16C",
         "Spin": "(3/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.55(2)"
     },
     {
         "Nuclide": "18B",
@@ -633,7 +633,7 @@
         "Decay product": "17B",
         "Spin": "(2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "19B[n 12]",
@@ -717,7 +717,7 @@
         "Decay product": "11B",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.964(1)"
     },
     {
         "Nuclide": "12C",
@@ -741,7 +741,7 @@
         "Decay product": "Stable",
         "Spin": "1/2−",
         "Natural abundance": "0.0107(8)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.7024118(14)"
     },
     {
         "Nuclide": "14C[n 12]",
@@ -813,7 +813,7 @@
         "Decay product": "18N",
         "Spin": "(1/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "20C",
@@ -909,7 +909,7 @@
         "Decay product": "13C",
         "Spin": "1/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.3222(4)"
     },
     {
         "Nuclide": "14N[n 10]",
@@ -921,7 +921,7 @@
         "Decay product": "Stable",
         "Spin": "1+",
         "Natural abundance": "0.99636(20)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.40376100(6)"
     },
     {
         "Nuclide": "15N",
@@ -1149,7 +1149,7 @@
         "Decay product": "Stable",
         "Spin": "5/2+",
         "Natural abundance": "3.8(1)×10−4",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.89379(9)"
     },
     {
         "Nuclide": "18O[n 7][n 9]",
@@ -1329,7 +1329,7 @@
         "Decay product": "18O",
         "Spin": "1+",
         "Natural abundance": "Trace",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.6(2)"
     },
     {
         "Nuclide": "18mF",
@@ -1509,7 +1509,7 @@
         "Decay product": "13O",
         "Spin": "(3/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.28318884(5)"
     },
     {
         "Nuclide": "16Ne",
@@ -1533,7 +1533,7 @@
         "Decay product": "16O",
         "Spin": "1/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.3551(4)"
     },
     {
         "Nuclide": "18Ne",
@@ -1557,7 +1557,7 @@
         "Decay product": "19F",
         "Spin": "1/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "-1.8846(8)"
+        "mag_moment_μN": "0.305(15)"
     },
     {
         "Nuclide": "20Ne",
@@ -1737,7 +1737,7 @@
         "Decay product": "17Ne",
         "Spin": "(1−)#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.3273(4)"
     },
     {
         "Nuclide": "19Na",
@@ -1749,7 +1749,7 @@
         "Decay product": "18Ne",
         "Spin": "(5/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.305(15)"
     },
     {
         "Nuclide": "20Na",
@@ -2049,7 +2049,7 @@
         "Decay product": "21Na",
         "Spin": "5/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.983(7)"
     },
     {
         "Nuclide": "22Mg ",
@@ -2073,7 +2073,7 @@
         "Decay product": "23Na",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.5364(3)"
     },
     {
         "Nuclide": "24Mg ",
@@ -2097,7 +2097,7 @@
         "Decay product": "Stable",
         "Spin": "5/2+",
         "Natural abundance": "0.1000(1)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.85545(8)"
     },
     {
         "Nuclide": "26Mg[n 6] ",
@@ -2121,7 +2121,7 @@
         "Decay product": "27Al",
         "Spin": "1/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.411(2)"
     },
     {
         "Nuclide": "28Mg ",
@@ -2145,7 +2145,7 @@
         "Decay product": "29Al",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.9780(6)"
     },
     {
         "Nuclide": "30Mg ",
@@ -2169,7 +2169,7 @@
         "Decay product": "31Al",
         "Spin": "1/2(+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.88355(15)"
     },
     {
         "Nuclide": "32Mg ",
@@ -2193,7 +2193,7 @@
         "Decay product": "33Al",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.7456(5)"
     },
     {
         "Nuclide": "34Mg ",
@@ -2337,7 +2337,7 @@
         "Decay product": "26Mg",
         "Spin": "5+",
         "Natural abundance": "Trace[n 9]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.804(4)"
     },
     {
         "Nuclide": "26mAl",
@@ -2697,7 +2697,7 @@
         "Decay product": "31P",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.48793(8)"
     },
     {
         "Nuclide": "32Si",
@@ -2853,7 +2853,7 @@
         "Decay product": "",
         "Spin": "3/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.110(14)"
     },
     {
         "Nuclide": "44Si",
@@ -3477,7 +3477,7 @@
         "Decay product": "28S",
         "Spin": "(1/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "30Cl[3]",
@@ -3573,7 +3573,7 @@
         "Decay product": "36Ar",
         "Spin": "2+",
         "Natural abundance": "Trace[n 9]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.28547(5)"
     },
     {
         "Nuclide": "37Cl",
@@ -3621,7 +3621,7 @@
         "Decay product": "39Ar",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "40Cl",
@@ -3741,7 +3741,7 @@
         "Decay product": "49Ar",
         "Spin": "3/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "50Cl",
@@ -3921,7 +3921,7 @@
         "Decay product": "39K",
         "Spin": "7/2−",
         "Natural abundance": "Trace[n 10]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.588(15)"
     },
     {
         "Nuclide": "40Ar[n 11]",
@@ -4222,7 +4222,7 @@
         "Decay mode": "β− (89.28%)",
         "Decay product": "40Ca",
         "Spin": "4−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.298100(3)"
     },
     {
         "Nuclide": "40mK",
@@ -4513,7 +4513,7 @@
         "Decay product": "39K",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "1.02168(12)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "40Ca[n 7]",
@@ -4633,7 +4633,7 @@
         "Decay product": "49Sc",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "-1.38(6)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "50Ca",
@@ -4753,7 +4753,7 @@
         "Decay product": "59Sc",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "60Ca[6]",
@@ -4789,7 +4789,7 @@
         "Decay product": "40Ca",
         "Spin": "4-",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.02(12)"
     },
     {
         "Nuclide": "41Sc",
@@ -4837,7 +4837,7 @@
         "Decay product": "43Ca",
         "Spin": "7/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+4.528(10)"
+        "mag_moment_μN": "1.110(14)"
     },
     {
         "Nuclide": "43m1Sc",
@@ -5677,7 +5677,7 @@
         "Decay product": "50Ti",
         "Spin": "6+",
         "Natural abundance": "0.00250(4)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.3456889(14)"
     },
     {
         "Nuclide": "52V",
@@ -5989,7 +5989,7 @@
         "Decay product": "49V",
         "Spin": "5/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.476(3)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "50Cr",
@@ -6109,7 +6109,7 @@
         "Decay product": "59Mn",
         "Spin": "5/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "59mCr",
@@ -7057,7 +7057,7 @@
         "Decay product": "48Fe",
         "Spin": "7/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "50Co",
@@ -7237,7 +7237,7 @@
         "Decay product": "Stable",
         "Spin": "7/2−",
         "Natural abundance": "1.0000",
-        "mag_moment_μN": "+4.627(9)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "60Co",
@@ -7417,7 +7417,7 @@
         "Decay product": "69Ni",
         "Spin": "7/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "70Co",
@@ -8089,7 +8089,7 @@
         "Decay product": "59Ni",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+1.8910(9)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "60Cu",
@@ -8221,7 +8221,7 @@
         "Decay product": "69Zn",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+2.8383(10)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "69mCu",
@@ -8413,7 +8413,7 @@
         "Decay product": "78Zn",
         "Spin": "3/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "80Cu",
@@ -9061,7 +9061,7 @@
         "Decay product": "67Zn",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.8507(3)"
     },
     {
         "Nuclide": "68Ga[n 9]",
@@ -9073,7 +9073,7 @@
         "Decay product": "68Zn",
         "Spin": "1+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.01175(5)"
     },
     {
         "Nuclide": "69Ga",
@@ -10621,7 +10621,7 @@
         "Decay product": "79Br",
         "Spin": "7/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.018(15)"
     },
     {
         "Nuclide": "79mSe",
@@ -10849,7 +10849,7 @@
         "Decay product": "67Se",
         "Spin": "3+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "69Br",
@@ -11029,7 +11029,7 @@
         "Decay product": "78Se",
         "Spin": "1+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.13(3)"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "78mBr",
@@ -11245,7 +11245,7 @@
         "Decay product": "88Kr",
         "Spin": "(2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "88mBr",
@@ -11377,7 +11377,7 @@
         "Decay product": "",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "101Br[3]",
@@ -11569,7 +11569,7 @@
         "Decay product": "81Br",
         "Spin": "7/2+",
         "Natural abundance": "trace",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.908(2) d"
     },
     {
         "Nuclide": "81mKr",
@@ -11605,7 +11605,7 @@
         "Decay product": "Stable",
         "Spin": "9/2+",
         "Natural abundance": "0.11500(19)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.970669(3)"
     },
     {
         "Nuclide": "83m1Kr",
@@ -11665,7 +11665,7 @@
         "Decay product": "85Rb",
         "Spin": "9/2+",
         "Natural abundance": "trace",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.005(2) d"
     },
     {
         "Nuclide": "85m1Kr",
@@ -12169,7 +12169,7 @@
         "Decay product": "Stable",
         "Spin": "5/2−",
         "Natural abundance": "0.7217(2)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.35298(10)"
     },
     {
         "Nuclide": "86Rb",
@@ -12205,7 +12205,7 @@
         "Decay product": "87Sr",
         "Spin": "3/2−",
         "Natural abundance": "0.2783(2)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.75131(12)"
     },
     {
         "Nuclide": "88Rb",
@@ -12697,7 +12697,7 @@
         "Decay product": "Stable",
         "Spin": "9/2+",
         "Natural abundance": "0.0700",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.0928(7)"
     },
     {
         "Nuclide": "87mSr",
@@ -12733,7 +12733,7 @@
         "Decay product": "89Y",
         "Spin": "5/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.147(2)"
     },
     {
         "Nuclide": "90Sr[n 11]",
@@ -13293,7 +13293,7 @@
         "Decay mode": "Stable",
         "Decay product": "Stable",
         "Spin": "1/2−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.1374154(3)"
     },
     {
         "Nuclide": "89mY",
@@ -13315,7 +13315,7 @@
         "Decay mode": "β−",
         "Decay product": "90Zr",
         "Spin": "2−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.630(8)"
     },
     {
         "Nuclide": "90mY",
@@ -13337,7 +13337,7 @@
         "Decay mode": "β−",
         "Decay product": "91Zr",
         "Spin": "1/2−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.1641(8)"
     },
     {
         "Nuclide": "91mY",
@@ -14369,7 +14369,7 @@
         "Decay product": "",
         "Spin": "2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.4571(1)"
     },
     {
         "Nuclide": "113Nb",
@@ -14381,7 +14381,7 @@
         "Decay product": "",
         "Spin": "5/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.3222(4)"
     },
     {
         "Nuclide": "114Nb[2]",
@@ -14393,7 +14393,7 @@
         "Decay product": "",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.40376100(6)"
     },
     {
         "Nuclide": "115Nb[2]",
@@ -14405,7 +14405,7 @@
         "Decay product": "",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.28318884(5)"
     },
     {
         "Nuclide": "116Nb[3]",
@@ -14417,7 +14417,7 @@
         "Decay product": "",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.9859(11) d"
     },
     {
         "Nuclide": "117Nb[4]",
@@ -14429,7 +14429,7 @@
         "Decay product": "",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.3551(4)"
     },
     {
         "Nuclide": "83Mo",
@@ -14645,7 +14645,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "5/2+",
         "Natural abundance": "0.15873(30)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.9142(1)"
     },
     {
         "Nuclide": "96Mo",
@@ -14669,7 +14669,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "5/2+",
         "Natural abundance": "0.09582(15)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.9335(1)"
     },
     {
         "Nuclide": "98Mo[n 11]",
@@ -14693,7 +14693,7 @@
         "Decay product": "99mTc",
         "Spin": "1/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.375(3)"
     },
     {
         "Nuclide": "99m1Mo",
@@ -15240,7 +15240,7 @@
         "Decay mode": "β−",
         "Decay product": "99Ru",
         "Spin": "9/2+",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+5.6847(4)"
     },
     {
         "Nuclide": "99mTc[n 10]",
@@ -15765,7 +15765,7 @@
         "Decay product": "Stable[n 9]",
         "Spin": "5/2+",
         "Natural abundance": "0.1706(2)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.719(6)"
     },
     {
         "Nuclide": "101mRu",
@@ -15801,7 +15801,7 @@
         "Decay product": "103Rh",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.206(3)"
     },
     {
         "Nuclide": "103mRu",
@@ -15837,7 +15837,7 @@
         "Decay product": "105Rh",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "(-)0.32(+8/-20)"
     },
     {
         "Nuclide": "106Ru[n 10]",
@@ -16377,7 +16377,7 @@
         "Decay product": "Stable[n 9]",
         "Spin": "1/2−",
         "Natural abundance": "1.0000",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.8840(2)"
     },
     {
         "Nuclide": "103mRh",
@@ -16425,7 +16425,7 @@
         "Decay product": "105Pd",
         "Spin": "7/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "4.41(5)"
     },
     {
         "Nuclide": "105mRh",
@@ -17116,7 +17116,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "1/2−",
         "Natural abundance": "0.51839(8)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.11357(2)"
     },
     {
         "Nuclide": "107mAg",
@@ -17164,7 +17164,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "1/2−",
         "Natural abundance": "0.48161(8)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.13056(2)"
     },
     {
         "Nuclide": "109mAg",
@@ -17224,7 +17224,7 @@
         "Decay product": "111Cd",
         "Spin": "1/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.146(2)"
     },
     {
         "Nuclide": "111mAg",
@@ -17716,7 +17716,7 @@
         "Decay product": "99Ag",
         "Spin": "(5/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "100Cd",
@@ -17836,7 +17836,7 @@
         "Decay product": "109Ag",
         "Spin": "5/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "-0.8278461(15)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "109m1Cd",
@@ -17884,7 +17884,7 @@
         "Decay product": "Stable[n 12]",
         "Spin": "1/2+",
         "Natural abundance": "0.1280(12)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.964(1)"
     },
     {
         "Nuclide": "111mCd",
@@ -17920,7 +17920,7 @@
         "Decay product": "113In",
         "Spin": "1/2+",
         "Natural abundance": "0.1222(12)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.7024118(14)"
     },
     {
         "Nuclide": "113mCd[n 13]",
@@ -17956,7 +17956,7 @@
         "Decay product": "115mIn",
         "Spin": "1/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.720(9)"
     },
     {
         "Nuclide": "115mCd",
@@ -17992,7 +17992,7 @@
         "Decay product": "117mIn",
         "Spin": "1/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "-0.7436(2)"
+        "mag_moment_μN": "0.758(4)"
     },
     {
         "Nuclide": "117mCd",
@@ -18028,7 +18028,7 @@
         "Decay product": "119mIn",
         "Spin": "(3/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "119mCd",
@@ -18196,7 +18196,7 @@
         "Decay product": "129In",
         "Spin": "3/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "129mCd",
@@ -18568,7 +18568,7 @@
         "Decay product": "111Cd",
         "Spin": "9/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+5.503(7)"
     },
     {
         "Nuclide": "111mIn",
@@ -18772,7 +18772,7 @@
         "Decay product": "117Sn",
         "Spin": "9/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "3.1(2)"
     },
     {
         "Nuclide": "117mIn",
@@ -19084,7 +19084,7 @@
         "Decay product": "128Sn",
         "Spin": "(3)+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.72(3)"
     },
     {
         "Nuclide": "128m1In",
@@ -19120,7 +19120,7 @@
         "Decay product": "129Sn",
         "Spin": "9/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.6210(3)"
     },
     {
         "Nuclide": "129m1In",
@@ -19156,7 +19156,7 @@
         "Decay product": "130Sn",
         "Spin": "1(−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "3.349(7)"
     },
     {
         "Nuclide": "130m1In",
@@ -19192,7 +19192,7 @@
         "Decay product": "131Sn",
         "Spin": "(9/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.742(1)"
     },
     {
         "Nuclide": "131m1In",
@@ -19228,7 +19228,7 @@
         "Decay product": "132Sn",
         "Spin": "(7−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "3.088(7)"
     },
     {
         "Nuclide": "133In",
@@ -19240,7 +19240,7 @@
         "Decay product": "132Sn",
         "Spin": "(9/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.856(5)"
     },
     {
         "Nuclide": "133mIn",
@@ -19276,7 +19276,7 @@
         "Decay product": "135Sn",
         "Spin": "9/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "(+)2.940(2)"
     },
     {
         "Nuclide": "136In",
@@ -19660,7 +19660,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "5/2+",
         "Natural abundance": "0.5721(5)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.3634(3)"
     },
     {
         "Nuclide": "122Sb",
@@ -19720,7 +19720,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "7/2+",
         "Natural abundance": "0.4279(5)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.5498(2)"
     },
     {
         "Nuclide": "124Sb",
@@ -19948,7 +19948,7 @@
         "Decay product": "131mTe",
         "Spin": "(7/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "2.89(1)"
+        "mag_moment_μN": "0.48793(8)"
     },
     {
         "Nuclide": "132Sb",
@@ -19960,7 +19960,7 @@
         "Decay product": "132Te",
         "Spin": "(4+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.9(2)"
     },
     {
         "Nuclide": "132m1Sb",
@@ -19996,7 +19996,7 @@
         "Decay product": "133mTe",
         "Spin": "(7/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.6438212(14)"
     },
     {
         "Nuclide": "134Sb",
@@ -20032,7 +20032,7 @@
         "Decay product": "135Te",
         "Spin": "(7/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.00(4) or +1.07(4)"
     },
     {
         "Nuclide": "136Sb",
@@ -20080,7 +20080,7 @@
         "Decay product": "138Te",
         "Spin": "2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.26(10)"
     },
     {
         "Nuclide": "139Sb",
@@ -20428,7 +20428,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "1/2+",
         "Natural abundance": "0.0707(15)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.8885051(4)"
     },
     {
         "Nuclide": "125mTe",
@@ -20464,7 +20464,7 @@
         "Decay product": "127I",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.635(4)"
     },
     {
         "Nuclide": "127mTe",
@@ -20512,7 +20512,7 @@
         "Decay product": "129I",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.702(4)"
     },
     {
         "Nuclide": "129mTe",
@@ -20584,7 +20584,7 @@
         "Decay product": "131I",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.696(9)"
     },
     {
         "Nuclide": "131mTe",
@@ -20668,7 +20668,7 @@
         "Decay product": "135I",
         "Spin": "(7/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.69(5)"
     },
     {
         "Nuclide": "135mTe",
@@ -21028,7 +21028,7 @@
         "Decay product": "123Te",
         "Spin": "5/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.818(7)"
     },
     {
         "Nuclide": "124I[n 9]",
@@ -21040,7 +21040,7 @@
         "Decay product": "124Te",
         "Spin": "2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.446(4)"
     },
     {
         "Nuclide": "125I[n 9]",
@@ -21052,7 +21052,7 @@
         "Decay product": "125Te",
         "Spin": "5/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.821(5)"
     },
     {
         "Nuclide": "126I",
@@ -21076,7 +21076,7 @@
         "Decay product": "Stable[n 11]",
         "Spin": "5/2+",
         "Natural abundance": "1.0000",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.81327(8)"
     },
     {
         "Nuclide": "128I",
@@ -21124,7 +21124,7 @@
         "Decay product": "129Xe",
         "Spin": "7/2+",
         "Natural abundance": "Trace[n 13]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.6210(3)"
     },
     {
         "Nuclide": "130I",
@@ -21196,7 +21196,7 @@
         "Decay product": "131Xe",
         "Spin": "7/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.742(1)"
     },
     {
         "Nuclide": "132I",
@@ -21292,7 +21292,7 @@
         "Decay product": "135Xe",
         "Spin": "7/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "(+)2.940(2)"
     },
     {
         "Nuclide": "136I",
@@ -21724,7 +21724,7 @@
         "Decay product": "Stable[n 11]",
         "Spin": "1/2+",
         "Natural abundance": "0.264006(82)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.777976(8)"
     },
     {
         "Nuclide": "129mXe",
@@ -21760,7 +21760,7 @@
         "Decay product": "Stable[n 11]",
         "Spin": "3/2+",
         "Natural abundance": "0.212324(30)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.6915(2) d"
     },
     {
         "Nuclide": "131mXe",
@@ -21808,7 +21808,7 @@
         "Decay product": "133Cs",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.8129(5) d"
     },
     {
         "Nuclide": "133mXe",
@@ -21868,7 +21868,7 @@
         "Decay product": "135Cs",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.9032(7) d"
     },
     {
         "Nuclide": "135mXe",
@@ -22067,7 +22067,7 @@
         "Decay product": "115Cs",
         "Spin": "(5/2+)#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.659(15)"
     },
     {
         "Nuclide": "116Ba",
@@ -22091,7 +22091,7 @@
         "Decay product": "117Cs",
         "Spin": "(3/2)(+#)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.55(2)"
     },
     {
         "Nuclide": "118Ba",
@@ -22475,7 +22475,7 @@
         "Decay product": "139La",
         "Spin": "7/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.973(5)"
     },
     {
         "Nuclide": "140Ba[n 13]",
@@ -22499,7 +22499,7 @@
         "Decay product": "141La",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.337(5)"
     },
     {
         "Nuclide": "142Ba[n 13]",
@@ -22523,7 +22523,7 @@
         "Decay product": "143La",
         "Spin": "5/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.443(11)"
     },
     {
         "Nuclide": "144Ba[n 13]",
@@ -23015,7 +23015,7 @@
         "Decay product": "138Ba",
         "Spin": "5+",
         "Natural abundance": "9.0(1)×10−4",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.713646(7)"
     },
     {
         "Nuclide": "138mLa",
@@ -23039,7 +23039,7 @@
         "Decay product": "Stable[n 12]",
         "Spin": "7/2+",
         "Natural abundance": "0.99910(1)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.7830455(9)"
     },
     {
         "Nuclide": "140La[n 11]",
@@ -23051,7 +23051,7 @@
         "Decay product": "140Ce",
         "Spin": "3−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.730(15)"
     },
     {
         "Nuclide": "141La",
@@ -23255,7 +23255,7 @@
         "Decay product": "119La",
         "Spin": "5/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "120Ce",
@@ -23375,7 +23375,7 @@
         "Decay product": "129La",
         "Spin": "(5/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "-0.83(5)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "130Ce",
@@ -23591,7 +23591,7 @@
         "Decay product": "139La",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "1.06(4)"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "139mCe",
@@ -23639,7 +23639,7 @@
         "Decay product": "141Pr",
         "Spin": "7/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.09(4)"
     },
     {
         "Nuclide": "142Ce[n 10]",
@@ -23663,7 +23663,7 @@
         "Decay product": "143Pr",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.43(1)"
     },
     {
         "Nuclide": "144Ce[n 10]",
@@ -23735,7 +23735,7 @@
         "Decay product": "149Pr",
         "Spin": "(3/2−)#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.3914(5)"
     },
     {
         "Nuclide": "150Ce",
@@ -23939,7 +23939,7 @@
         "Decay product": "128Ce",
         "Spin": "(3+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.312(3)"
     },
     {
         "Nuclide": "129Pr",
@@ -23951,7 +23951,7 @@
         "Decay product": "129Ce",
         "Spin": "(11/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.2346(3)"
     },
     {
         "Nuclide": "129mPr",
@@ -23999,7 +23999,7 @@
         "Decay product": "131Ce",
         "Spin": "(3/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.13160(3)"
     },
     {
         "Nuclide": "131mPr",
@@ -24023,7 +24023,7 @@
         "Decay product": "132Ce",
         "Spin": "(2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.2524(3)"
     },
     {
         "Nuclide": "132mPr",
@@ -24227,7 +24227,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "5/2+",
         "Natural abundance": "1.0000",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+4.2754(5)"
     },
     {
         "Nuclide": "142Pr",
@@ -24263,7 +24263,7 @@
         "Decay product": "143Nd",
         "Spin": "7/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.701(4)"
     },
     {
         "Nuclide": "144Pr",
@@ -24839,7 +24839,7 @@
         "Decay product": "Observationally Stable[n 11]",
         "Spin": "7/2−",
         "Natural abundance": "0.122(2)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-1.065(5)"
     },
     {
         "Nuclide": "144Nd[n 10][n 12]",
@@ -24863,7 +24863,7 @@
         "Decay product": "Observationally Stable[n 13]",
         "Spin": "7/2−",
         "Natural abundance": "0.083(1)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.656(4)"
     },
     {
         "Nuclide": "146Nd[n 10]",
@@ -24887,7 +24887,7 @@
         "Decay product": "147Pm",
         "Spin": "5/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.578(3)"
     },
     {
         "Nuclide": "148Nd[n 10]",
@@ -24911,7 +24911,7 @@
         "Decay product": "149Pm",
         "Spin": "5/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.351(10)"
     },
     {
         "Nuclide": "150Nd[n 10][n 12]",
@@ -25124,7 +25124,7 @@
         "Decay mode": "β+",
         "Decay product": "128Nd",
         "Spin": "6+#",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.312(3)"
     },
     {
         "Nuclide": "129Pm",
@@ -25135,7 +25135,7 @@
         "Decay mode": "β+",
         "Decay product": "129Nd",
         "Spin": "5/2+#",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.2346(3)"
     },
     {
         "Nuclide": "130Pm",
@@ -25157,7 +25157,7 @@
         "Decay mode": "β+, p",
         "Decay product": "130Pr",
         "Spin": "5/2+#",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.13160(3)"
     },
     {
         "Nuclide": "132Pm",
@@ -25168,7 +25168,7 @@
         "Decay mode": "β+",
         "Decay product": "132Nd",
         "Spin": "(3+)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.2524(3)"
     },
     {
         "Nuclide": "133Pm",
@@ -25476,7 +25476,7 @@
         "Decay mode": "β−",
         "Decay product": "147Sm",
         "Spin": "7/2+",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.58(7)"
     },
     {
         "Nuclide": "148Pm",
@@ -25509,7 +25509,7 @@
         "Decay mode": "β−",
         "Decay product": "149Sm",
         "Spin": "7/2+",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "3.3(5)"
     },
     {
         "Nuclide": "149mPm",
@@ -25542,7 +25542,7 @@
         "Decay mode": "β−",
         "Decay product": "151Sm",
         "Spin": "5/2+",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.8(2)"
     },
     {
         "Nuclide": "152Pm",
@@ -26056,7 +26056,7 @@
         "Decay product": "Observationally Stable[n 13]",
         "Spin": "3/2−",
         "Natural abundance": "0.1480(12)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.2572(4)"
     },
     {
         "Nuclide": "155mGd",
@@ -26104,7 +26104,7 @@
         "Decay product": "Stable[n 14]",
         "Spin": "3/2−",
         "Natural abundance": "0.1565(2)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.3398(7)"
     },
     {
         "Nuclide": "158Gd[n 12]",
@@ -26128,7 +26128,7 @@
         "Decay product": "159Tb",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.44(3)"
     },
     {
         "Nuclide": "160Gd[n 12]",
@@ -26872,7 +26872,7 @@
         "Decay product": "Stable[n 10]",
         "Spin": "3/2+",
         "Natural abundance": "1.0000",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.014(4)"
     },
     {
         "Nuclide": "160Tb",
@@ -26896,7 +26896,7 @@
         "Decay product": "161Dy",
         "Spin": "3/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.2(1)"
     },
     {
         "Nuclide": "162Tb",
@@ -27616,7 +27616,7 @@
         "Decay product": "",
         "Spin": "(7/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "141mHo",
@@ -27640,7 +27640,7 @@
         "Decay product": "142Dy",
         "Spin": "(6 to 9)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "143Ho",
@@ -27652,7 +27652,7 @@
         "Decay product": "143Dy",
         "Spin": "11/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "144Ho",
@@ -27736,7 +27736,7 @@
         "Decay product": "148Dy",
         "Spin": "(6)−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "148m2Ho",
@@ -27772,7 +27772,7 @@
         "Decay product": "149Dy",
         "Spin": "(1/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "149m2Ho",
@@ -27784,7 +27784,7 @@
         "Decay product": "",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "150Ho",
@@ -27808,7 +27808,7 @@
         "Decay product": "150Dy",
         "Spin": "(9)+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "150m2Ho",
@@ -27820,7 +27820,7 @@
         "Decay product": "",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "151Ho",
@@ -27832,7 +27832,7 @@
         "Decay product": "151Dy",
         "Spin": "11/2(−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "151mHo",
@@ -27856,7 +27856,7 @@
         "Decay product": "152Dy",
         "Spin": "2−",
         "Natural abundance": "",
-        "mag_moment_μN": "-1.02(2)"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "152m1Ho",
@@ -27868,7 +27868,7 @@
         "Decay product": "",
         "Spin": "9+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "152m2Ho",
@@ -27880,7 +27880,7 @@
         "Decay product": "",
         "Spin": "19−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "153Ho",
@@ -27892,7 +27892,7 @@
         "Decay product": "153Dy",
         "Spin": "11/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+6.81(5)"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "153m1Ho",
@@ -27904,7 +27904,7 @@
         "Decay product": "153Dy",
         "Spin": "1/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "153m2Ho",
@@ -27916,7 +27916,7 @@
         "Decay product": "",
         "Spin": "(31/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "154Ho",
@@ -27988,7 +27988,7 @@
         "Decay product": "156Dy",
         "Spin": "(9+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "156m2Ho",
@@ -28000,7 +28000,7 @@
         "Decay product": "",
         "Spin": "1−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "157Ho",
@@ -28036,7 +28036,7 @@
         "Decay product": "158Ho",
         "Spin": "2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "158m2Ho",
@@ -28048,7 +28048,7 @@
         "Decay product": "",
         "Spin": "(9+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "159Ho",
@@ -28096,7 +28096,7 @@
         "Decay product": "160Ho",
         "Spin": "2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "160m2Ho",
@@ -28108,7 +28108,7 @@
         "Decay product": "",
         "Spin": "(9+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "161Ho",
@@ -28120,7 +28120,7 @@
         "Decay product": "161Dy",
         "Spin": "7/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+4.25(3)"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "161mHo",
@@ -28144,7 +28144,7 @@
         "Decay product": "162Dy",
         "Spin": "1+",
         "Natural abundance": "",
-        "mag_moment_μN": "+3.60(4)"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "162mHo",
@@ -28168,7 +28168,7 @@
         "Decay product": "163Dy",
         "Spin": "7/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+4.23(4)"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "163mHo",
@@ -28240,7 +28240,7 @@
         "Decay product": "166Er",
         "Spin": "(7)−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "166m2Ho",
@@ -28252,7 +28252,7 @@
         "Decay product": "",
         "Spin": "3+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "167Ho",
@@ -28300,7 +28300,7 @@
         "Decay product": "168Ho",
         "Spin": "(6+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "168m2Ho",
@@ -28312,7 +28312,7 @@
         "Decay product": "",
         "Spin": "(1)−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "168m3Ho",
@@ -28324,7 +28324,7 @@
         "Decay product": "",
         "Spin": "1+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "169Ho",
@@ -28372,7 +28372,7 @@
         "Decay product": "171Er",
         "Spin": "7/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "172Ho",
@@ -28384,7 +28384,7 @@
         "Decay product": "172Er",
         "Spin": "",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "173Ho",
@@ -28396,7 +28396,7 @@
         "Decay product": "173Er",
         "Spin": "7/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "174Ho",
@@ -30964,7 +30964,7 @@
         "Decay mode": "β−",
         "Decay product": "176Hf",
         "Spin": "7−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.162(12)"
     },
     {
         "Nuclide": "176mLu",
@@ -31163,7 +31163,7 @@
         "Decay product": "",
         "Spin": "1/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "153mHf",
@@ -31283,7 +31283,7 @@
         "Decay product": "161Lu",
         "Spin": "3/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "162Hf",
@@ -31307,7 +31307,7 @@
         "Decay product": "163Lu",
         "Spin": "3/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "g(avge) = +0.18(6)"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "164Hf",
@@ -31403,7 +31403,7 @@
         "Decay product": "171Lu",
         "Spin": "7/2(+)",
         "Natural abundance": "",
-        "mag_moment_μN": "-0.674(12)"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "171mHf",
@@ -31451,7 +31451,7 @@
         "Decay product": "173Lu",
         "Spin": "1/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+0.502(7)"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "174Hf[n 9]",
@@ -31475,7 +31475,7 @@
         "Decay product": "",
         "Spin": "(6+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "174m2Hf",
@@ -31487,7 +31487,7 @@
         "Decay product": "",
         "Spin": "(8−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "174m3Hf",
@@ -31499,7 +31499,7 @@
         "Decay product": "",
         "Spin": "(14+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "175Hf",
@@ -31547,7 +31547,7 @@
         "Decay product": "",
         "Spin": "23/2+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "177m2Hf",
@@ -31559,7 +31559,7 @@
         "Decay product": "",
         "Spin": "(19/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "177m3Hf",
@@ -31571,7 +31571,7 @@
         "Decay product": "",
         "Spin": "37/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "178Hf",
@@ -31595,7 +31595,7 @@
         "Decay product": "",
         "Spin": "8−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "178m2Hf",
@@ -31607,7 +31607,7 @@
         "Decay product": "",
         "Spin": "16+",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "178m3Hf",
@@ -31619,7 +31619,7 @@
         "Decay product": "",
         "Spin": "(14−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "179Hf",
@@ -31643,7 +31643,7 @@
         "Decay product": "",
         "Spin": "1/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "179m2Hf",
@@ -31655,7 +31655,7 @@
         "Decay product": "",
         "Spin": "25/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "180Hf",
@@ -31679,7 +31679,7 @@
         "Decay product": "",
         "Spin": "8−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "180m2Hf",
@@ -31691,7 +31691,7 @@
         "Decay product": "",
         "Spin": "(4−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "180m3Hf",
@@ -31751,7 +31751,7 @@
         "Decay product": "181Ta",
         "Spin": "1/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "181m1Hf",
@@ -31763,7 +31763,7 @@
         "Decay product": "",
         "Spin": "(9/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "181m2Hf",
@@ -31775,7 +31775,7 @@
         "Decay product": "",
         "Spin": "(17/2+)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "181m3Hf",
@@ -31787,7 +31787,7 @@
         "Decay product": "",
         "Spin": "(27/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "182Hf",
@@ -31823,7 +31823,7 @@
         "Decay product": "183Ta",
         "Spin": "(3/2−)",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "184Hf",
@@ -33887,7 +33887,7 @@
         "Decay product": "187Os",
         "Spin": "5/2+",
         "Natural abundance": "0.6260(2)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.2197(3)"
     },
     {
         "Nuclide": "188Re",
@@ -34379,7 +34379,7 @@
         "Decay product": "Observationally Stable[n 12]",
         "Spin": "1/2−",
         "Natural abundance": "0.0196(2)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.06465189(6)"
     },
     {
         "Nuclide": "188Os[n 11]",
@@ -36815,7 +36815,7 @@
         "Decay product": "Observationally Stable[n 10]",
         "Spin": "3/2+",
         "Natural abundance": "1.0000",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.145746(9)"
     },
     {
         "Nuclide": "197mAu",
@@ -37079,7 +37079,7 @@
         "Decay product": "167Pt",
         "Spin": "3/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "172Hg",
@@ -37103,7 +37103,7 @@
         "Decay product": "169Pt",
         "Spin": "3/2−#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "174Hg",
@@ -37199,7 +37199,7 @@
         "Decay product": "181Au",
         "Spin": "1/2(−)",
         "Natural abundance": "",
-        "mag_moment_μN": "+0.5071(7)"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "181mHg",
@@ -37235,7 +37235,7 @@
         "Decay product": "183Au",
         "Spin": "1/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+0.524(5)"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "183m1Hg",
@@ -37247,7 +37247,7 @@
         "Decay product": "",
         "Spin": "13/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "183m2Hg",
@@ -37259,7 +37259,7 @@
         "Decay product": "183Au",
         "Spin": "13/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.857438228(9) d"
     },
     {
         "Nuclide": "184Hg",
@@ -37415,7 +37415,7 @@
         "Decay product": "191Au",
         "Spin": "3/2(−)",
         "Natural abundance": "",
-        "mag_moment_μN": "-0.618(11)"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "191mHg",
@@ -37451,7 +37451,7 @@
         "Decay product": "193Au",
         "Spin": "3/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "-0.6276(2)"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "193mHg",
@@ -37595,7 +37595,7 @@
         "Decay product": "Observationally Stable[n 13]",
         "Spin": "3/2−",
         "Natural abundance": "0.1318(9)",
-        "mag_moment_μN": "-0.5602257(14)"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "201mHg",
@@ -37631,7 +37631,7 @@
         "Decay product": "203Tl",
         "Spin": "5/2−",
         "Natural abundance": "",
-        "mag_moment_μN": "+0.84895(13)"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "203mHg",
@@ -37751,7 +37751,7 @@
         "Decay product": "",
         "Spin": "9/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.79284734(3) d"
     },
     {
         "Nuclide": "212Hg",
@@ -37775,7 +37775,7 @@
         "Decay product": "",
         "Spin": "5/2+#",
         "Natural abundance": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.97896244(4)"
     },
     {
         "Nuclide": "214Hg",
@@ -38708,7 +38708,7 @@
         "Spin": "Observationally Stable[n 11]",
         "Natural abundance": "1/2+",
         "null": "0.7048(1)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.63821461(12)"
     },
     {
         "Nuclide": "205m1Tl",
@@ -39839,7 +39839,7 @@
         "Spin": "Observationally Stable[n 13]",
         "Natural abundance": "0+",
         "null": "0.241(1)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "<0.03"
     },
     {
         "Nuclide": "206m1Pb",
@@ -39878,7 +39878,7 @@
         "Spin": "Observationally Stable[n 15]",
         "Natural abundance": "1/2−",
         "null": "0.221(1)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.592583(9)"
     },
     {
         "Nuclide": "207mPb",
@@ -39904,7 +39904,7 @@
         "Spin": "Observationally Stable[n 17]",
         "Natural abundance": "0+",
         "null": "0.524(1)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.9(2)"
     },
     {
         "Nuclide": "208mPb",
@@ -40229,7 +40229,7 @@
         "Spin": "184Tl",
         "Natural abundance": "3+#",
         "null": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "188mBi",
@@ -40606,7 +40606,7 @@
         "Spin": "198Pb",
         "Natural abundance": "(2+, 3+)",
         "null": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "198m1Bi",
@@ -41087,7 +41087,7 @@
         "Spin": "212Po",
         "Natural abundance": "1(−)",
         "null": "Trace[n 14]",
-        "mag_moment_μN": "+0.32(4)"
+        "mag_moment_μN": "+1.00(2)"
     },
     {
         "Nuclide": "212m1Bi",
@@ -41126,7 +41126,7 @@
         "Spin": "213Po",
         "Natural abundance": "9/2−",
         "null": "Trace[n 17]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.1778(5) K,d"
     },
     {
         "Nuclide": "214Bi",
@@ -41139,7 +41139,7 @@
         "Spin": "214Po",
         "Natural abundance": "1−",
         "null": "Trace[n 12]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.185(5)"
     },
     {
         "Nuclide": "215Bi",
@@ -41152,7 +41152,7 @@
         "Spin": "215Po",
         "Natural abundance": "(9/2−)",
         "null": "Trace[n 13]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.659(15)"
     },
     {
         "Nuclide": "215mBi",
@@ -41204,7 +41204,7 @@
         "Spin": "217Po",
         "Natural abundance": "9/2−#",
         "null": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "2.55(2)"
     },
     {
         "Nuclide": "217mBi",
@@ -41230,7 +41230,7 @@
         "Spin": "218Po",
         "Natural abundance": "(6-, 7-, 8-)",
         "null": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.0355(3)"
     },
     {
         "Nuclide": "219Bi",
@@ -42972,7 +42972,7 @@
         "Decay product": "α",
         "Spin": "213At",
         "Natural abundance": "9/2−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+4.7213(3)"
     },
     {
         "Nuclide": "218Fr",
@@ -42984,7 +42984,7 @@
         "Decay product": "α",
         "Spin": "214At",
         "Natural abundance": "1−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+1.6(2)"
     },
     {
         "Nuclide": "218m1Fr",
@@ -43020,7 +43020,7 @@
         "Decay product": "α",
         "Spin": "215At",
         "Natural abundance": "9/2−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.628868(8)"
     },
     {
         "Nuclide": "220Fr",
@@ -43032,7 +43032,7 @@
         "Decay product": "α (99.65%)",
         "Spin": "216At",
         "Natural abundance": "1+",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+2.09335(9)"
     },
     {
         "Nuclide": "221Fr",
@@ -43044,7 +43044,7 @@
         "Decay product": "α (99.9%)",
         "Spin": "217At",
         "Natural abundance": "5/2−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "3.9194(12)"
     },
     {
         "Nuclide": "222Fr",
@@ -43056,7 +43056,7 @@
         "Decay product": "β−",
         "Spin": "222Ra",
         "Natural abundance": "2−",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "(+)2.6944(4)"
     },
     {
         "Nuclide": "223Fr",
@@ -43572,7 +43572,7 @@
         "Decay product": "α",
         "Spin": "219Rn",
         "Natural abundance": "3/2+",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+0.271(2)"
     },
     {
         "Nuclide": "224Ra",
@@ -44548,7 +44548,7 @@
         "Spin": "228Ra",
         "Natural abundance": "0+",
         "Template:Isotopes table": "0.9998(2)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "g(18-24)>g(10-16)"
     },
     {
         "Nuclide": "233Th",
@@ -44899,7 +44899,7 @@
         "Spin": "228Th",
         "Natural abundance": "3+",
         "Template:Isotopes table": "",
-        "mag_moment_μN": "3.5(5)"
+        "mag_moment_μN": "0.312(3)"
     },
     {
         "Nuclide": "229Pa",
@@ -44912,7 +44912,7 @@
         "Spin": "229Th",
         "Natural abundance": "(5/2+)",
         "Template:Isotopes table": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "1.2346(3)"
     },
     {
         "Nuclide": "229mPa",
@@ -44951,7 +44951,7 @@
         "Spin": "227Ac",
         "Natural abundance": "3/2−",
         "Template:Isotopes table": "1.0000[n 8]",
-        "mag_moment_μN": "2.01(2)"
+        "mag_moment_μN": "+1.13160(3)"
     },
     {
         "Nuclide": "232Pa",
@@ -44964,7 +44964,7 @@
         "Spin": "232U",
         "Natural abundance": "(2−)",
         "Template:Isotopes table": "",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.2524(3)"
     },
     {
         "Nuclide": "233Pa",
@@ -45380,7 +45380,7 @@
         "Spin": "231Th",
         "Natural abundance": "7/2−",
         "null": "[0.007204(6)]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "-0.38(3)"
     },
     {
         "Nuclide": "235mU",
@@ -45458,7 +45458,7 @@
         "Spin": "234Th",
         "Natural abundance": "0+",
         "null": "[0.992742(10)]",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "g(18-24)>g(10-16)"
     },
     {
         "Nuclide": "238mU",
@@ -45547,7 +45547,7 @@
         "Decay mode": "α",
         "Decay product": "215Pa",
         "Spin": "(9/2−)",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "0.305(15)"
     },
     {
         "Nuclide": "220Np[6]",
@@ -45745,7 +45745,7 @@
         "Decay mode": "α",
         "Decay product": "233Pa",
         "Spin": "5/2+",
-        "mag_moment_μN": "0.0"
+        "mag_moment_μN": "+3.14(4)"
     },
     {
         "Nuclide": "238Np",
