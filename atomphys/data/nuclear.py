@@ -121,14 +121,14 @@ def massage_nuclear_data():
             r = r + 1
         p = p + 1
 
-    table_data_cut = []
+    table_data_after_cut = []
     for row in table_data:
         nuc_re = re.search('^(\d+) (\w+) (\d+)', row['Nucleus'])
         if nuc_re is not None:
             row['Nucleus'] = nuc_re.group(3) + nuc_re.group(2)
             row['Z'] = nuc_re.group(1)
-            table_data_cut.append(row)
+            table_data_after_cut.append(row)
 
     output_data_file = os.path.join(directory, "NuclearDataJSON.json")
     with open(output_data_file, 'w') as f:
-        json.dump(table_data_cut, f, indent=4, ensure_ascii=False)
+        json.dump(table_data_after_cut, f, indent=4, ensure_ascii=False)
