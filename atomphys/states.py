@@ -178,6 +178,14 @@ class State(dict):
         return f'{self.valence} {self.term}'
 
     @property
+    def I(self):
+        return self._parent.I
+
+    @property
+    def gI(self):
+        return self._parent.gI
+
+    @property
     def J(self):
         return self['J']
 
