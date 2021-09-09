@@ -9,7 +9,8 @@ c = _ureg.c
 ε_0 = _ureg.ε_0
 
 # %%
-Yb = Atom('171Yb')
+# Yb = Atom('171Yb')
+Yb = Atom('Yb')
 
 # import atomphys as at
 # sr_data = at.data.nuclear.get_wiki_isotope_data('Strontium','Sr')

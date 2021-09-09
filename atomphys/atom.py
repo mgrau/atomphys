@@ -54,7 +54,8 @@ class Atom:
             self.name = atom_sym + atom_charge
             self.isotope = atom_isotope
             self.load_nist(self.name)
-            self.load_nuc(self.isotope + atom_sym)
+            if len(atom_isotope)>0:
+                self.load_nuc(self.isotope + atom_sym)
 
         # reverse sort by Gamma first
         self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
