@@ -5,7 +5,7 @@
     "gI": 0.49367,
     "abundance": 0.1428,
     "half_life": "stable",
-    "mass": "stable",
+    "mass": 170.9363258,
     "states": [
         {
             "energy": "0.0 E_h",
@@ -1719,35 +1719,55 @@
     "transitions": [
         {
             "i": 0,
+            "i_config": "4f14.6s2",
+            "i_term": "1S0",
             "f": 2,
+            "f_config": "4f14.6s.6p",
+            "f_term": "3P1*",
             "Ei": "0.0 E_h",
             "Ef": "0.081977615 E_h",
             "Gamma": "2.781716975573533×10⁻¹¹ E_h/ħ"
         },
         {
             "i": 0,
+            "i_config": "4f14.6s2",
+            "i_term": "1S0",
             "f": 7,
+            "f_config": "4f14.6s.6p",
+            "f_term": "1P1*",
             "Ei": "0.0 E_h",
             "Ef": "0.114219225 E_h",
             "Gamma": "4.644257907044507×10⁻⁹ E_h/ħ"
         },
         {
             "i": 0,
+            "i_config": "4f14.6s2",
+            "i_term": "1S0",
             "f": 15,
+            "f_config": "4f13.(2F*<7/2>).5d<5/2>.6s2",
+            "f_term": "(7/2,5/2)1*",
             "Ei": "0.0 E_h",
             "Ef": "0.13148223 E_h",
             "Gamma": "1.65209799505802×10⁻⁹ E_h/ħ"
         },
         {
             "i": 0,
+            "i_config": "4f14.6s2",
+            "i_term": "1S0",
             "f": 27,
+            "f_config": "4f13.(2F*).5d2.6s?",
+            "f_term": "Ionization Limit",
             "Ei": "0.0 E_h",
             "Ef": "0.1704734 E_h",
             "Gamma": "3.459004587017524×10⁻¹⁰ E_h/ħ"
         },
         {
             "i": 0,
+            "i_config": "4f14.6s2",
+            "i_term": "1S0",
             "f": 37,
+            "f_config": "4f14.6s.7p",
+            "f_term": "1P1*",
             "Ei": "0.0 E_h",
             "Ef": "0.18482305 E_h",
             "Gamma": "2.4188843265856808×10⁻⁹ E_h/ħ"

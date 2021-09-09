@@ -74,6 +74,7 @@ class Atom:
 
         # index the states to the transitions
         for state in self._states:
+            state._atom = self
             state._transitions_down = self._transitions.down_from(state)
             state._transitions_up = self._transitions.up_from(state)
 
@@ -99,7 +100,7 @@ class Atom:
             'gI': self.gI,
             'abundance': self.abundance,
             'half_life': self.half_life,
-            'mass': self.half_life,
+            'mass': self.mass,
             'states': self.states.to_dict(),
             'transitions': self.transitions.to_dict(),
         }

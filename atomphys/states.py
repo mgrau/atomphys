@@ -78,14 +78,12 @@ class StateRegistry(list):
 
 
 class State(dict):
-    _parent = None
     _USE_UNITS = False
     _ureg = {}
     _transitions_down = []
     _transitions_up = []
 
-    def __init__(self, USE_UNITS=False, ureg=None, parent=None, **state):
-        self._parent = parent
+    def __init__(self, USE_UNITS=False, ureg=None, **state):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
         if ureg and self._USE_UNITS:
             self._ureg = ureg
@@ -179,11 +177,11 @@ class State(dict):
 
     @property
     def I(self):
-        return self._parent.I
+        return self._atom.I
 
     @property
     def gI(self):
-        return self._parent.gI
+        return self._atom.gI
 
     @property
     def J(self):

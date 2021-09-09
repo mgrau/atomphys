@@ -165,7 +165,11 @@ class Transition(dict):
     def to_dict(self):
         return {
             'i': self._atom.states.index(self.i),
+            'i_config': self.i.configuration,
+            'i_term': self.i.term,
             'f': self._atom.states.index(self.f),
+            'f_config': self.f.configuration,
+            'f_term': self.f.term,
             'Ei': str(self.Ei),
             'Ef': str(self.Ef),
             'Gamma': str(self.Gamma),

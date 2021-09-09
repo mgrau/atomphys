@@ -1,4 +1,4 @@
-# %%
+
 from atomphys import _ureg, Atom
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,9 +8,11 @@ _ureg.default_format = '~0.3gP'
 c = _ureg.c
 ε_0 = _ureg.ε_0
 
-# %%
-# Yb = Atom('171Yb')
-Yb = Atom('Yb')
+
+Yb = Atom('171Yb')
+
+Yb.save('171Yb.json')
+#Yb = Atom('Yb')
 
 # import atomphys as at
 # sr_data = at.data.nuclear.get_wiki_isotope_data('Strontium','Sr')
