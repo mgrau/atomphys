@@ -46,25 +46,30 @@ class Atom:
         try:
             self.load(atom)
         except FileNotFoundError:
-            self.name = atom
+            (
+                atom_sym,
+                atom_charge,
+                atom_isotope,
+            ) = parse_atom_name(atom)
+            self.name = atom_sym + atom_charge
+            self.isotope = atom_isotope
             self.load_nist(self.name)
+            self.load_nuc(self.isotope + atom_sym)
 
         # reverse sort by Gamma first
-        self._transitions.sort(
-            key=lambda transition: transition.Gamma, reverse=True)
+        self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
         # then sort by upper state energy
         self._transitions.sort(key=lambda transition: transition.Ef)
         # sort then by lower state energy
         self._transitions.sort(key=lambda transition: transition.Ei)
-        # because sort is stable, this produces a list sorted by both upper and lower state energy
+        # because sort is stable, this produces a list sorted by both upper and
+        # lower state energy
 
         # index the transitions to the states
         for transition in self._transitions:
             transition._atom = self
-            transition._state_i = next(
-                state for state in self._states if state.energy == transition.Ei)
-            transition._state_f = next(
-                state for state in self._states if state.energy == transition.Ef)
+            transition._state_i = next(state for state in self._states if state.energy == transition.Ei)
+            transition._state_f = next(state for state in self._states if state.energy == transition.Ef)
 
         # index the states to the transitions
         for state in self._states:
@@ -78,11 +83,7 @@ class Atom:
         return self.states[state]
 
     def __repr__(self):
-        return (
-            f'Ground State: {self.states[0]}\n'
-            f'{len(self.states)} States\n'
-            f'{len(self.transitions)} Transitions'
-        )
+        return f'Ground State: {self.states[0]}\n' f'{len(self.states)} States\n' f'{len(self.transitions)} Transitions'
 
     def to_dict(self):
         return {'name': self.name, 'states': self.states.to_dict(), 'transitions': self.transitions.to_dict()}
@@ -96,10 +97,12 @@ class Atom:
             data = json.load(file)
 
         self.name = data['name']
-        self._states = StateRegistry((State(
-            **state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in data['states']), parent=self)
-        self._transitions = TransitionRegistry(Transition(
-            **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in data['transitions'])
+        self._states = StateRegistry(
+            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in data['states']), parent=self
+        )
+        self._transitions = TransitionRegistry(
+            Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in data['transitions']
+        )
 
     def load_nist(self, name):
         if name in symbols:

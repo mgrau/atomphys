@@ -16,15 +16,14 @@ def fetch_states(atom):
         'unc_out': 0,  # uncertainty on energy
         'j_out': 'on',  # output the J level
         'g_out': 'on',  # output the g-factor
-        'lande_out': 'off'  # output experimentally measured g-factor
+        'lande_out': 'off',  # output experimentally measured g-factor
     }
 
     get_postfix = urllib.parse.urlencode(values)
     with urllib.request.urlopen(url + '?' + get_postfix) as response:
         response = response.read()
 
-    data = csv.DictReader(io.StringIO(response.decode()),
-                          dialect='excel-tab', restkey='None')
+    data = csv.DictReader(io.StringIO(response.decode()), dialect='excel-tab', restkey='None')
 
     return data
 
@@ -40,7 +39,7 @@ def fetch_transitions(atom):
         'show_av': 5,
         'allowed_out': 1,
         'forbid_out': 1,
-        'enrg_out': 'on'
+        'enrg_out': 'on',
     }
 
     get_postfix = urllib.parse.urlencode(values)

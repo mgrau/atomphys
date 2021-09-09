@@ -45,8 +45,7 @@ class StateRegistry(list):
         elif isinstance(key, Iterable):
             return StateRegistry((self.__getitem__(item) for item in key), parent=self._parent)
         elif isinstance(key, float):
-            energy = self._parent._ureg.Quantity(
-                key, 'E_h') if self._parent.USE_UNITS else key
+            energy = self._parent._ureg.Quantity(key, 'E_h') if self._parent.USE_UNITS else key
             return min(self, key=lambda state: abs(state.energy - energy))
         elif self._parent.USE_UNITS and isinstance(key, self._parent._ureg.Quantity):
             return min(self, key=lambda state: abs(state.energy - key))
@@ -96,7 +95,7 @@ class State(dict):
 
         if not self._USE_UNITS:
             self._ureg['ħ'] = 1
-            self._ureg['ε_0'] = 1/(4*π)
+            self._ureg['ε_0'] = 1 / (4 * π)
             self._ureg['c'] = 137.03599908356244
 
         if 'energy' in state:
@@ -106,8 +105,7 @@ class State(dict):
                 energy = float(state['energy'])
         elif 'Level (Ry)' in state:
             if self._USE_UNITS:
-                energy = self._ureg.Quantity(
-                    float(sanitize_energy(state['Level (Ry)'])), 'Ry').to('Eh')
+                energy = self._ureg.Quantity(float(sanitize_energy(state['Level (Ry)'])), 'Ry').to('Eh')
             else:
                 energy = 0.5 * float(sanitize_energy(state['Level (Ry)']))
         else:
@@ -123,7 +121,7 @@ class State(dict):
         if 'J' in state:
             try:
                 J = float(Fraction(state['J'].strip('?')))
-            except:
+            except BaseException:
                 J = 0
         else:
             J = 0
@@ -134,21 +132,26 @@ class State(dict):
             term = parse_term(state['Term'])
         else:
             term = {}
-        
+
         if 'Lande' in state and len(state['Lande']) > 0:
-                gJ = float(state['Lande'])
+            gJ = float(state['Lande'])
         else:
             gJ = 0.0
 
-        super(State, self).__init__(
-            {'energy': energy, 'configuration': configuration, 'J': J,  **term, 'gJ':gJ})
+        super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, **term, 'gJ': gJ})
 
     def __repr__(self):
         fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
         return f'State({self.name}: {self.energy:{fmt}})'
 
     def to_dict(self):
-        return {'energy': str(self.energy), 'configuration': self.configuration, 'term': self.term, 'J': str(Fraction(self.J)), 'gJ': self.gJ}
+        return {
+            'energy': str(self.energy),
+            'configuration': self.configuration,
+            'term': self.term,
+            'J': str(Fraction(self.J)),
+            'gJ': self.gJ,
+        }
 
     def match(self, name):
         return name in self.name
@@ -215,7 +218,7 @@ class State(dict):
     def g(self):
         if self.coupling == Coupling.LS:
             L, S, J = self.L, self.S, self.J
-            return (gs+1)/2 + (gs-1)/2 * (S*(S+1) - L*(L-1))/(J*(J+1))
+            return (gs + 1) / 2 + (gs - 1) / 2 * (S * (S + 1) - L * (L - 1)) / (J * (J + 1))
         else:
             return None
 
@@ -266,7 +269,7 @@ class State(dict):
     def lifetime(self):
         Gamma = [transition.Gamma for transition in self.transitions_down]
         try:
-            lifetime = 1/sum(Gamma)
+            lifetime = 1 / sum(Gamma)
         except ZeroDivisionError:
             lifetime = float('inf')
 
@@ -281,9 +284,9 @@ class State(dict):
             laser = Laser(**kwargs)
         else:
             laser = Laser(laser=laser, **kwargs)
-        return polarizability.total(self, mJ=mJ,
-                                    omega=laser.omega,
-                                    A=laser.A, theta_k=laser.theta_k, theta_p=laser.theta_p)
+        return polarizability.total(
+            self, mJ=mJ, omega=laser.omega, A=laser.A, theta_k=laser.theta_k, theta_p=laser.theta_p
+        )
 
     @property
     def α(self):
@@ -295,10 +298,23 @@ JJ_term = re.compile(r'^\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?')
 LK_term = re.compile(r'^(?P<S>\d+)\[(?P<K>\d+/?\d*)\]\*?')
 
 L = {
-    'S': 0, 'P': 1, 'D': 2, 'F': 3,
-    'G': 4, 'H': 5, 'I': 6, 'K': 7,
-    'L': 8, 'M': 9, 'N': 10, 'O': 11,
-    'Q': 12, 'R': 13, 'T': 14, 'U': 15}
+    'S': 0,
+    'P': 1,
+    'D': 2,
+    'F': 3,
+    'G': 4,
+    'H': 5,
+    'I': 6,
+    'K': 7,
+    'L': 8,
+    'M': 9,
+    'N': 10,
+    'O': 11,
+    'Q': 12,
+    'R': 13,
+    'T': 14,
+    'U': 15,
+}
 L_inv = {value: key for key, value in L.items()}
 
 
@@ -321,13 +337,12 @@ def parse_term(term):
 
     def convert(key, value):
         if key == 'S':
-            return float(Fraction((int(value)-1)/2))
+            return float(Fraction((int(value) - 1) / 2))
         if key == 'J1' or key == 'J2' or key == 'K':
             return float(Fraction(value))
         if key == 'L':
             return L[value]
 
-    term = {key: convert(key, value)
-            for key, value in match.groupdict().items()}
+    term = {key: convert(key, value) for key, value in match.groupdict().items()}
 
     return {**term, 'parity': parity}

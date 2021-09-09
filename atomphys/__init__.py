@@ -1,5 +1,6 @@
 try:
     from pint import UnitRegistry
+
     _ureg = UnitRegistry(system='atomic', auto_reduce_dimensions=True)
     _ureg.default_format = '~P'
     _HAS_PINT = True
