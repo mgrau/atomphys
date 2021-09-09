@@ -1,7 +1,6 @@
 import re
 from fractions import Fraction
 
-
 def sanitize_energy(s):
     return s.strip('[]au +?')
 
@@ -93,7 +92,7 @@ def parse_nuc_data(isotope):
     if 'Spin' in isotope:
         if len(isotope['Spin']) > 0:
             try:
-                spin = Fraction(re.search('\\d+[/]*\\d*', isotope['Spin']).group())
+                spin = float(Fraction(re.search('\\d+[/]*\\d*', isotope['Spin']).group()))
             except AttributeError:
                 spin = isotope['Spin (physics)']
         else:

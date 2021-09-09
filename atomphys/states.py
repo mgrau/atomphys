@@ -78,13 +78,14 @@ class StateRegistry(list):
 
 
 class State(dict):
-
+    _parent = None
     _USE_UNITS = False
     _ureg = {}
     _transitions_down = []
     _transitions_up = []
 
-    def __init__(self, USE_UNITS=False, ureg=None, **state):
+    def __init__(self, USE_UNITS=False, ureg=None, parent=None, **state):
+        self._parent = parent
         self._USE_UNITS = USE_UNITS and _HAS_PINT
         if ureg and self._USE_UNITS:
             self._ureg = ureg
@@ -138,7 +139,7 @@ class State(dict):
         else:
             gJ = 0.0
 
-        super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, **term, 'gJ': gJ})
+        super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, 'gJ': gJ, **term})
 
     def __repr__(self):
         fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
@@ -179,6 +180,10 @@ class State(dict):
     @property
     def J(self):
         return self['J']
+
+    @property
+    def gJ(self):
+        return self['gJ']
 
     @property
     def S(self):

@@ -1,0 +1,1756 @@
+{
+    "name": "Yb",
+    "isotope": "171",
+    "I": 0.5,
+    "gI": 0.49367,
+    "abundance": 0.1428,
+    "half_life": "stable",
+    "mass": "stable",
+    "states": [
+        {
+            "energy": "0.0 E_h",
+            "configuration": "4f14.6s2",
+            "term": "1S0",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.078771925 E_h",
+            "configuration": "4f14.6s.6p",
+            "term": "3P0*",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.081977615 E_h",
+            "configuration": "4f14.6s.6p",
+            "term": "3P1*",
+            "J": "1",
+            "gJ": 1.49282
+        },
+        {
+            "energy": "0.089807135 E_h",
+            "configuration": "4f14.6s.6p",
+            "term": "3P2*",
+            "J": "2",
+            "gJ": 1.5
+        },
+        {
+            "energy": "0.10565466 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<3/2>.6s2",
+            "term": "(7/2,3/2)2*",
+            "J": "2",
+            "gJ": 1.45
+        },
+        {
+            "energy": "0.11158056 E_h",
+            "configuration": "4f14.5d.6s",
+            "term": "3D1",
+            "J": "1",
+            "gJ": 0.5
+        },
+        {
+            "energy": "0.112778175 E_h",
+            "configuration": "4f14.5d.6s",
+            "term": "3D2",
+            "J": "2",
+            "gJ": 1.16
+        },
+        {
+            "energy": "0.114219225 E_h",
+            "configuration": "4f14.6s.6p",
+            "term": "1P1*",
+            "J": "1",
+            "gJ": 1.035
+        },
+        {
+            "energy": "0.1151427 E_h",
+            "configuration": "4f14.5d.6s",
+            "term": "3D3",
+            "J": "3",
+            "gJ": 1.34
+        },
+        {
+            "energy": "0.11782538 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<3/2>.6s2",
+            "term": "(7/2,3/2)5*",
+            "J": "5",
+            "gJ": 1.04
+        },
+        {
+            "energy": "0.12445593 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<5/2>.6s2",
+            "term": "(7/2,5/2)6*",
+            "J": "6",
+            "gJ": 1.16
+        },
+        {
+            "energy": "0.12505153 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<3/2>.6s2",
+            "term": "(7/2,3/2)3*",
+            "J": "3",
+            "gJ": 1.22
+        },
+        {
+            "energy": "0.12610872 E_h",
+            "configuration": "4f14.5d.6s",
+            "term": "1D2",
+            "J": "2",
+            "gJ": 1.01
+        },
+        {
+            "energy": "0.128418085 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<3/2>.6s2",
+            "term": "(7/2,3/2)4*",
+            "J": "4",
+            "gJ": 1.14
+        },
+        {
+            "energy": "0.128470245 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<5/2>.6s2",
+            "term": "(7/2,5/2)2*",
+            "J": "2",
+            "gJ": 1.02
+        },
+        {
+            "energy": "0.13148223 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<5/2>.6s2",
+            "term": "(7/2,5/2)1*",
+            "J": "1",
+            "gJ": 1.2635
+        },
+        {
+            "energy": "0.13566469 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<5/2>.6s2",
+            "term": "(7/2,5/2)4*",
+            "J": "4",
+            "gJ": 1.09
+        },
+        {
+            "energy": "0.13763495 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<5/2>.6s2",
+            "term": "(7/2,5/2)3*",
+            "J": "3",
+            "gJ": 1.08
+        },
+        {
+            "energy": "0.13908083 E_h",
+            "configuration": "4f13.(2F*<7/2>).5d<5/2>.6s2",
+            "term": "(7/2,5/2)5*",
+            "J": "5",
+            "gJ": 1.18
+        },
+        {
+            "energy": "0.146100175 E_h",
+            "configuration": "4f13.(2F*<7/2>).6s2.6p<1/2>",
+            "term": "(7/2,1/2)3",
+            "J": "3",
+            "gJ": 1.23
+        },
+        {
+            "energy": "0.14704933 E_h",
+            "configuration": "4f13.(2F*<7/2>).6s2.6p<1/2>",
+            "term": "(7/2,1/2)4",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.14896798 E_h",
+            "configuration": "4f14.6s.7s",
+            "term": "3S1",
+            "J": "1",
+            "gJ": 2.01
+        },
+        {
+            "energy": "0.1565131 E_h",
+            "configuration": "4f14.6s.7s",
+            "term": "1S0",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.1602863 E_h",
+            "configuration": "4f13.(2F*<7/2>).6s2.6p<3/2>",
+            "term": "(7/2,3/2)5",
+            "J": "5",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.16036925 E_h",
+            "configuration": "4f13.(2F*<7/2>).6s2.6p<3/2>",
+            "term": "(7/2,3/2)2",
+            "J": "2",
+            "gJ": 1.05
+        },
+        {
+            "energy": "0.16315105 E_h",
+            "configuration": "4f13.(2F*<7/2>).6s2.6p<3/2>",
+            "term": "(7/2,3/2)3",
+            "J": "3",
+            "gJ": 1.08
+        },
+        {
+            "energy": "0.1643059 E_h",
+            "configuration": "4f13.(2F*<7/2>).6s2.6p<3/2>",
+            "term": "(7/2,3/2)4",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.1704734 E_h",
+            "configuration": "4f13.(2F*).5d2.6s?",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 1.02
+        },
+        {
+            "energy": "0.17355405 E_h",
+            "configuration": "4f14.6s.7p",
+            "term": "3P0*",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.1739343 E_h",
+            "configuration": "4f14.6s.7p",
+            "term": "3P1*",
+            "J": "1",
+            "gJ": 1.14
+        },
+        {
+            "energy": "0.17506515 E_h",
+            "configuration": "4f13.(2F*).5d2.6s?",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 1.07
+        },
+        {
+            "energy": "0.1756555 E_h",
+            "configuration": "4f14.6s.7p",
+            "term": "3P2*",
+            "J": "2",
+            "gJ": 1.5
+        },
+        {
+            "energy": "0.18138185 E_h",
+            "configuration": "4f14.6s.6d",
+            "term": "3D1",
+            "J": "1",
+            "gJ": 0.5
+        },
+        {
+            "energy": "0.18151545 E_h",
+            "configuration": "4f14.6s.6d",
+            "term": "3D2",
+            "J": "2",
+            "gJ": 1.16
+        },
+        {
+            "energy": "0.18170785 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<3/2>)",
+            "term": "(7/2,3/2)2",
+            "J": "2",
+            "gJ": 1.83
+        },
+        {
+            "energy": "0.1820989 E_h",
+            "configuration": "4f14.6s.6d",
+            "term": "3D3",
+            "J": "3",
+            "gJ": 1.33
+        },
+        {
+            "energy": "0.18253365 E_h",
+            "configuration": "4f14.6s.6d",
+            "term": "1D2",
+            "J": "2",
+            "gJ": 1.03
+        },
+        {
+            "energy": "0.18482305 E_h",
+            "configuration": "4f14.6s.7p",
+            "term": "1P1*",
+            "J": "1",
+            "gJ": 1.01
+        },
+        {
+            "energy": "0.18961205 E_h",
+            "configuration": "4f14.6s.8s",
+            "term": "3S1",
+            "J": "1",
+            "gJ": 2.02
+        },
+        {
+            "energy": "0.1905792 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.52
+        },
+        {
+            "energy": "0.19109225 E_h",
+            "configuration": "4f14.6s.8s",
+            "term": "1S0",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.19335585 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)",
+            "term": "(7/2,5/2)1",
+            "J": "1",
+            "gJ": 1.73
+        },
+        {
+            "energy": "0.1933568 E_h",
+            "configuration": "4f14.6p2",
+            "term": "3P0",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.19378945 E_h",
+            "configuration": "4f13.(2F*<5/2>).6s2.6p<1/2>",
+            "term": "(5/2,1/2)2",
+            "J": "2",
+            "gJ": 1.01
+        },
+        {
+            "energy": "0.1943173 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 1.25
+        },
+        {
+            "energy": "0.1946729 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 1.02
+        },
+        {
+            "energy": "0.1956298 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<3/2>)",
+            "term": "(7/2,3/2)5",
+            "J": "5",
+            "gJ": 0.89
+        },
+        {
+            "energy": "0.1969466 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 1.34
+        },
+        {
+            "energy": "0.1970833 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.06
+        },
+        {
+            "energy": "0.19727795 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.03
+        },
+        {
+            "energy": "0.1978992 E_h",
+            "configuration": "4f14.6s.5f",
+            "term": "3F2*",
+            "J": "2",
+            "gJ": 0.68
+        },
+        {
+            "energy": "0.1983499 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 1.54
+        },
+        {
+            "energy": "0.19872125 E_h",
+            "configuration": "4f14.6s.8p",
+            "term": "3P0*",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.19892675 E_h",
+            "configuration": "4f14.6s.8p",
+            "term": "3P1*",
+            "J": "1",
+            "gJ": 1.48
+        },
+        {
+            "energy": "0.1995922 E_h",
+            "configuration": "4f14.6p2",
+            "term": "3P1",
+            "J": "1",
+            "gJ": 1.47
+        },
+        {
+            "energy": "0.1995934 E_h",
+            "configuration": "4f14.6s.8p",
+            "term": "3P2*",
+            "J": "2",
+            "gJ": 1.49
+        },
+        {
+            "energy": "0.19963175 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)",
+            "term": "(7/2,5/2)6",
+            "J": "6",
+            "gJ": 1.08
+        },
+        {
+            "energy": "0.1996389 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.21
+        },
+        {
+            "energy": "0.20055895 E_h",
+            "configuration": "4f14.6s.8p",
+            "term": "1P1*",
+            "J": "1",
+            "gJ": 1.0
+        },
+        {
+            "energy": "0.20153885 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 1.48
+        },
+        {
+            "energy": "0.2016264 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 1.38
+        },
+        {
+            "energy": "0.2018975 E_h",
+            "configuration": "4f14.6s.7d",
+            "term": "3D1",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2019051 E_h",
+            "configuration": "4f14.6s.7d",
+            "term": "3D2",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2021081 E_h",
+            "configuration": "4f14.6s.7d",
+            "term": "1D2",
+            "J": "2",
+            "gJ": 1.1
+        },
+        {
+            "energy": "0.2022139 E_h",
+            "configuration": "4f14.6s.7d",
+            "term": "3D3",
+            "J": "3",
+            "gJ": 1.32
+        },
+        {
+            "energy": "0.202268 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2025449 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.1
+        },
+        {
+            "energy": "0.20372795 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<7/2>)",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.39
+        },
+        {
+            "energy": "0.20394325 E_h",
+            "configuration": "4f14.6p2",
+            "term": "3P2",
+            "J": "2",
+            "gJ": 1.34
+        },
+        {
+            "energy": "0.2042815 E_h",
+            "configuration": "4f13.(2F*<5/2>).6s2.6p<3/2>",
+            "term": "(5/2,3/2)1",
+            "J": "1",
+            "gJ": 0.66
+        },
+        {
+            "energy": "0.2049656 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<3/2>)",
+            "term": "(7/2,3/2)4",
+            "J": "4",
+            "gJ": 1.08
+        },
+        {
+            "energy": "0.2055881 E_h",
+            "configuration": "4f14.6s.9s",
+            "term": "3S1",
+            "J": "1",
+            "gJ": 1.98
+        },
+        {
+            "energy": "0.2057428 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.98
+        },
+        {
+            "energy": "0.20586295 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 1.28
+        },
+        {
+            "energy": "0.20657755 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (2D*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 1.3
+        },
+        {
+            "energy": "0.20690735 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 1.17
+        },
+        {
+            "energy": "0.20714255 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<3/2>)",
+            "term": "(7/2,3/2)3",
+            "J": "3",
+            "gJ": 1.2
+        },
+        {
+            "energy": "0.2073024 E_h",
+            "configuration": "4f13.(2F*<5/2>).6s2.6p<3/2>",
+            "term": "(5/2,3/2)4",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.20774675 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<7/2>)",
+            "term": "(7/2,7/2)1",
+            "J": "1",
+            "gJ": 1.19
+        },
+        {
+            "energy": "0.20856935 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 1.14
+        },
+        {
+            "energy": "0.20919895 E_h",
+            "configuration": "4f13.(2F*<5/2>).6s2.6p<3/2>",
+            "term": "(5/2,3/2)2",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.20939215 E_h",
+            "configuration": "4f14.6s.6f",
+            "term": "3F2*",
+            "J": "2",
+            "gJ": 0.72
+        },
+        {
+            "energy": "0.20995095 E_h",
+            "configuration": "4f14.6s.9p",
+            "term": "3P1*",
+            "J": "1",
+            "gJ": 1.34
+        },
+        {
+            "energy": "0.20996295 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<7/2>)",
+            "term": "(7/2,7/2)0",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2099658 E_h",
+            "configuration": "4f14.6s.9p",
+            "term": "3P0*",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2103852 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 1.22
+        },
+        {
+            "energy": "0.21043045 E_h",
+            "configuration": "4f14.6s.9p",
+            "term": "3P2*",
+            "J": "2",
+            "gJ": 1.5
+        },
+        {
+            "energy": "0.21073535 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.15
+        },
+        {
+            "energy": "0.21127865 E_h",
+            "configuration": "4f14.6s.9p",
+            "term": "1P1*",
+            "J": "1",
+            "gJ": 1.07
+        },
+        {
+            "energy": "0.2113939 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<1/2>)",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.35
+        },
+        {
+            "energy": "0.21155745 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<3/2>)",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2116188 E_h",
+            "configuration": "4f14.6s.8d",
+            "term": "3D1",
+            "J": "1",
+            "gJ": 0.49
+        },
+        {
+            "energy": "0.2117224 E_h",
+            "configuration": "4f14.6s.8d",
+            "term": "3D2",
+            "J": "2",
+            "gJ": 1.12
+        },
+        {
+            "energy": "0.2117814 E_h",
+            "configuration": "4f14.6s.8d",
+            "term": "3D3",
+            "J": "3",
+            "gJ": 1.35
+        },
+        {
+            "energy": "0.2121193 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4P*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "6",
+            "gJ": 1.25
+        },
+        {
+            "energy": "0.2135878 E_h",
+            "configuration": "4f14.6s.10s",
+            "term": "3S1",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2143146 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (2D*<5/2>)",
+            "term": "(7/2,5/2)6",
+            "J": "6",
+            "gJ": 1.18
+        },
+        {
+            "energy": "0.21436505 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<1/2>)",
+            "term": "(7/2,1/2)4",
+            "J": "4",
+            "gJ": 0.86
+        },
+        {
+            "energy": "0.2143986 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 1.08
+        },
+        {
+            "energy": "0.21454945 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<3/2>)",
+            "term": "(7/2,3/2)5",
+            "J": "5",
+            "gJ": 1.16
+        },
+        {
+            "energy": "0.21562945 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2156361 E_h",
+            "configuration": "4f14.6s.7f",
+            "term": "3F2*",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.21566165 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.95
+        },
+        {
+            "energy": "0.2157052 E_h",
+            "configuration": "4f14.5d2?",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.21601505 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).10p<1/2>",
+            "term": "(1/2,1/2)0*",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.21606565 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).10p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 1.36
+        },
+        {
+            "energy": "0.2160658 E_h",
+            "configuration": "4f14.6s.9d?",
+            "term": "1D2",
+            "J": "2",
+            "gJ": 1.04
+        },
+        {
+            "energy": "0.21629425 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).10p<3/2>",
+            "term": "(1/2,3/2)2*",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2164206 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).10p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 1.03
+        },
+        {
+            "energy": "0.2168102 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.73
+        },
+        {
+            "energy": "0.21703835 E_h",
+            "configuration": "4f14.5d2?",
+            "term": "3F2",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2170461 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 1.09
+        },
+        {
+            "energy": "0.2170884 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<5/2>)?",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.21709395 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.32
+        },
+        {
+            "energy": "0.2172162 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<3/2>)?",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2172174 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<3/2>)",
+            "term": "(7/2,3/2)4",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.21766955 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<7/2>)",
+            "term": "(7/2,7/2)4",
+            "J": "4",
+            "gJ": 1.22
+        },
+        {
+            "energy": "0.21789205 E_h",
+            "configuration": "4f14.6p2?",
+            "term": "1D2",
+            "J": "2",
+            "gJ": 1.04
+        },
+        {
+            "energy": "0.21798935 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.21806305 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 1.3
+        },
+        {
+            "energy": "0.2180675 E_h",
+            "configuration": "4f14.5d2?",
+            "term": "3F3",
+            "J": "3",
+            "gJ": 1.02
+        },
+        {
+            "energy": "0.2181838 E_h",
+            "configuration": "4f14.6s.11s",
+            "term": "3S1",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.21830075 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (2D*<3/2>)",
+            "term": "(7/2,3/2)5",
+            "J": "5",
+            "gJ": 1.21
+        },
+        {
+            "energy": "0.2184266 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2189673 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<7/2>)",
+            "term": "(7/2,7/2)5",
+            "J": "5",
+            "gJ": 1.13
+        },
+        {
+            "energy": "0.21932195 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (2D*<3/2>)",
+            "term": "(7/2,3/2)2",
+            "J": "2",
+            "gJ": 1.37
+        },
+        {
+            "energy": "0.219409 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2196705 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).11p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2197708 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2197857 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.24
+        },
+        {
+            "energy": "0.21988175 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).11p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22011385 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2201844 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22033315 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22034635 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2207511 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 1.15
+        },
+        {
+            "energy": "0.2209275 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.23
+        },
+        {
+            "energy": "0.22107205 E_h",
+            "configuration": "4f14.6s.12s",
+            "term": "3S1",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2216556 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22183965 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<7/2>)",
+            "term": "(7/2,7/2)6",
+            "J": "6",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2219008 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22198025 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).12p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2221753 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).12p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22229315 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (2D*<5/2>)",
+            "term": "(7/2,5/2)4",
+            "J": "4",
+            "gJ": 1.21
+        },
+        {
+            "energy": "0.2223791 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<7/2>)",
+            "term": "(7/2,7/2)6",
+            "J": "6",
+            "gJ": 1.22
+        },
+        {
+            "energy": "0.2225238 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<9/2>)",
+            "term": "(7/2,9/2)1",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22272785 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<9/2>)",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22300265 E_h",
+            "configuration": "4f14.6s.13s",
+            "term": "3S1",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2231017 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2232866 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22362195 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22373265 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (2D*<3/2>)",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 1.04
+        },
+        {
+            "energy": "0.22376195 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).13p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2238408 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).13p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2242781 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<9/2>)",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 1.32
+        },
+        {
+            "energy": "0.2243849 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4F*<9/2>)",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2244485 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<7/2>)",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 1.2
+        },
+        {
+            "energy": "0.22454695 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2248664 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).14p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22490345 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).14p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2252858 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (2D*<3/2>)",
+            "term": "Ionization Limit",
+            "J": "3",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2257046 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).15p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2257507 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).15p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2261707 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4D*<7/2>)",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22634775 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).16p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2263977 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).16p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2268435 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).17p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22690185 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).17p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22721135 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).18p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22745295 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22767595 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).19p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22789005 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).20p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2279135 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).20p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2281086 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).21p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22812495 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).21p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22829285 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).22p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22830655 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).22p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2284493 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).23p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2284616 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).23p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2285833 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).24p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22859405 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).24p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2286984 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).25p<1/2>",
+            "term": "(1/2,1/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2287087 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).25p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2288077 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).26p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2288944 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).27p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2289705 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).28p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2290381 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).29p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22909635 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).30p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22914925 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).31p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22919735 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).32p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2292392 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).33p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2292768 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).34p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22931245 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).35p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2293438 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).36p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2293721 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).37p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2293985 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).38p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2294225 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).39p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22944435 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).40p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22946495 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).41p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2294836 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).42p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2295009 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).43p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2295172 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).44p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2295318 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).45p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22954545 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).46p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2295582 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).47p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2295703 E_h",
+            "configuration": "4f14.6s.(2S<1/2>).48p<3/2>",
+            "term": "(1/2,3/2)1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.22983615 E_h",
+            "configuration": "Yb II (6s 2S<1/2>)",
+            "term": "Ionization Limit",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.236005 E_h",
+            "configuration": "4f14.5d.6p?",
+            "term": "3D1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.23939145 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.24091525 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (4P*<5/2>)",
+            "term": "(7/2,5/2)6",
+            "J": "6",
+            "gJ": 1.13
+        },
+        {
+            "energy": "0.242745 E_h",
+            "configuration": "4f14.5d.6p?",
+            "term": "3P1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.246235 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.247895 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.249 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2493147 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(3P*) (2P*<3/2>)",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2525 E_h",
+            "configuration": "4f14.5d.6p?",
+            "term": "1P1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2616689 E_h",
+            "configuration": "4f13.(2F*<5/2>) .5d.(2D).6s.6p.(3P*) (2D*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 1.11
+        },
+        {
+            "energy": "0.26167965 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "6",
+            "gJ": 1.16
+        },
+        {
+            "energy": "0.2619006 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 1.13
+        },
+        {
+            "energy": "0.26760295 E_h",
+            "configuration": "4f13.(2F*<7/2>) .5d.(2D).6s.6p.(1P*) (2F*<7/2>)",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 1.14
+        },
+        {
+            "energy": "0.26842005 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 1.09
+        },
+        {
+            "energy": "0.2691945 E_h",
+            "configuration": "4f13.(2F*<5/2>) .5d.(2D).6s.6p.(3P*) (2D*<5/2>)",
+            "term": "Ionization Limit",
+            "J": "4",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2705421 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.27088 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.27215 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.27362515 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.274 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2796861 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.27985 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2835 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.28389825 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.28429485 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 1.1
+        },
+        {
+            "energy": "0.2856248 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "6",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.2873 E_h",
+            "configuration": "4f14.5d.7p?",
+            "term": "3D1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.29 E_h",
+            "configuration": "4f14.5d.7p?",
+            "term": "3P1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.29011315 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "5",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.29241965 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 1.02
+        },
+        {
+            "energy": "0.294 E_h",
+            "configuration": "4f14.5d.7p?",
+            "term": "1P1*",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.3067 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.30912155 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "6",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.31345 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.3185 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "1",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.327417 E_h",
+            "configuration": "Tm II (4f13.6s2 2F*<7/2>)",
+            "term": "Ionization Limit",
+            "J": "0",
+            "gJ": 0.0
+        },
+        {
+            "energy": "0.32892275 E_h",
+            "configuration": "",
+            "term": "Ionization Limit",
+            "J": "2",
+            "gJ": 0.0
+        }
+    ],
+    "transitions": [
+        {
+            "i": 0,
+            "f": 2,
+            "Ei": "0.0 E_h",
+            "Ef": "0.081977615 E_h",
+            "Gamma": "2.781716975573533×10⁻¹¹ E_h/ħ"
+        },
+        {
+            "i": 0,
+            "f": 7,
+            "Ei": "0.0 E_h",
+            "Ef": "0.114219225 E_h",
+            "Gamma": "4.644257907044507×10⁻⁹ E_h/ħ"
+        },
+        {
+            "i": 0,
+            "f": 15,
+            "Ei": "0.0 E_h",
+            "Ef": "0.13148223 E_h",
+            "Gamma": "1.65209799505802×10⁻⁹ E_h/ħ"
+        },
+        {
+            "i": 0,
+            "f": 27,
+            "Ei": "0.0 E_h",
+            "Ef": "0.1704734 E_h",
+            "Gamma": "3.459004587017524×10⁻¹⁰ E_h/ħ"
+        },
+        {
+            "i": 0,
+            "f": 37,
+            "Ei": "0.0 E_h",
+            "Ef": "0.18482305 E_h",
+            "Gamma": "2.4188843265856808×10⁻⁹ E_h/ħ"
+        }
+    ]
+}

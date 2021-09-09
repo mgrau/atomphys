@@ -83,10 +83,20 @@ class Atom:
         return self.states[state]
 
     def __repr__(self):
-        return f'Ground State: {self.states[0]}\n' f'{len(self.states)} States\n' f'{len(self.transitions)} Transitions'
+        return f'Isotope: {self.isotope}, I = {self.nuc_spin}\n' f'Ground State: {self.states[0]}\n' f'{len(self.states)} States\n' f'{len(self.transitions)} Transitions'
 
     def to_dict(self):
-        return {'name': self.name, 'states': self.states.to_dict(), 'transitions': self.transitions.to_dict()}
+        return {
+            'name': self.name,
+            'isotope': self.isotope,
+            'I': self.I,
+            'gI': self.gI,
+            'abundance': self.abundance,
+            'half_life': self.half_life,
+            'mass': self.half_life,
+            'states': self.states.to_dict(),
+            'transitions': self.transitions.to_dict(),
+        }
 
     def save(self, filename):
         with open(filename, 'w') as file:
@@ -97,12 +107,20 @@ class Atom:
             data = json.load(file)
 
         self.name = data['name']
+        self.isotope = data['isotope']
+        self.nuc_spin = data['I']
+        self.g_nuc = data['gI']
+        self.abundance = data['abundance']
+        self.half_life = data['half_life']
+        self.mass = data['mass']
+
         self._states = StateRegistry(
             (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in data['states']), parent=self
         )
         self._transitions = TransitionRegistry(
             Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in data['transitions']
         )
+        print('loaded %s' % filename)
 
     def load_nist(self, name):
         if name in symbols:
@@ -114,7 +132,7 @@ class Atom:
             raise Exception(f'{atom} does not match a known neutral atom or ionic ion name')
 
         self._states = StateRegistry(
-            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in fetch_states(atom)), parent=self
+            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, parent=self) for state in fetch_states(atom)), parent=self
         )
         self._transitions = TransitionRegistry(
             Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
