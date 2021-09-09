@@ -1,6 +1,7 @@
 import re
 from fractions import Fraction
 
+
 def sanitize_energy(s):
     return s.strip('[]au +?')
 
@@ -46,7 +47,6 @@ def parse_atom_name(atom):
 
 
 def parse_nuc_data(isotope):
-
     if 'Atomic mass' in isotope:
         if isotope['Atomic mass'] is not None:
             if len(isotope['Atomic mass']) > 0:

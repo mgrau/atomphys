@@ -83,7 +83,12 @@ class Atom:
         return self.states[state]
 
     def __repr__(self):
-        return f'Isotope: {self.isotope}, I = {self.nuc_spin}\n' f'Ground State: {self.states[0]}\n' f'{len(self.states)} States\n' f'{len(self.transitions)} Transitions'
+        return (
+            f'Isotope: {self.isotope}, I = {self.nuc_spin}\n'
+            f'Ground State: {self.states[0]}\n'
+            f'{len(self.states)} States\n'
+            f'{len(self.transitions)} Transitions'
+        )
 
     def to_dict(self):
         return {
@@ -132,7 +137,8 @@ class Atom:
             raise Exception(f'{atom} does not match a known neutral atom or ionic ion name')
 
         self._states = StateRegistry(
-            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, parent=self) for state in fetch_states(atom)), parent=self
+            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, parent=self) for state in fetch_states(atom)),
+            parent=self,
         )
         self._transitions = TransitionRegistry(
             Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
