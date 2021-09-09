@@ -2,6 +2,8 @@ parsed_data/
 __pycache__/
 *.egg-info
 *.ipynb_checkpoints/
+.idea/
+Yb.json
 
 # don't version the virtual environment for testing
 venv
