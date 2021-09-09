@@ -11,6 +11,7 @@ c = _ureg.c
 
 Yb = Atom('171Yb')
 
+
 Yb.save('171Yb.json')
 #Yb = Atom('Yb')
 

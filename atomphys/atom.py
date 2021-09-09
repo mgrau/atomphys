@@ -7,6 +7,7 @@ import os
 import json
 import math
 import re
+import csv
 
 try:
     from . import _ureg, _HAS_PINT
@@ -108,6 +109,24 @@ class Atom:
     def save(self, filename):
         with open(filename, 'w') as file:
             json.dump(self.to_dict(), file, indent=4, ensure_ascii=False)
+
+    def save_csv(self):
+        states_file = self.isotope + self.name + '_states.csv'
+        transitions_file = self.isotope + self.name + '_transitions.csv'
+
+        states_data = self.states.to_dict()
+        col_headers = list(states_data[0].keys())
+        with open(states_file, 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=col_headers)
+            writer.writeheader()
+            [writer.writerow(data) for data in states_data]
+
+        transitions_data = self.transitions.to_dict()
+        col_headers = list(transitions_data[0].keys())
+        with open(transitions_file, 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=col_headers)
+            writer.writeheader()
+            [writer.writerow(data) for data in transitions_data]    
 
     def load(self, filename):
         with open(filename) as file:

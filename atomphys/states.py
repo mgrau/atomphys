@@ -82,6 +82,7 @@ class State(dict):
     _ureg = {}
     _transitions_down = []
     _transitions_up = []
+    _linewidth = None
 
     def __init__(self, USE_UNITS=False, ureg=None, **state):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
@@ -150,6 +151,7 @@ class State(dict):
             'term': self.term,
             'J': str(Fraction(self.J)),
             'gJ': self.gJ,
+            'linewidth': self._linewidth,
         }
 
     def match(self, name):
@@ -277,13 +279,23 @@ class State(dict):
         return TransitionRegistry(self.transitions_up, parent=self)
 
     @property
-    def lifetime(self):
-        Gamma = [transition.Gamma for transition in self.transitions_down]
-        try:
-            lifetime = 1 / sum(Gamma)
-        except ZeroDivisionError:
-            lifetime = float('inf')
+    def linewidth(self):
+        if self._linewidth is not None:
+            Gamma = self._linewidth
+        else:
+            Gamma = sum([transition.Gamma for transition in self.transitions_down])
+        return Gamma
 
+    @property
+    def lifetime(self):
+        if self._linewidth is not None:
+            lifetime = 1/self._linewidth
+        else:
+            Gamma = [transition.Gamma for transition in self.transitions_down]
+            try:
+                lifetime = 1 / sum(Gamma)
+            except ZeroDivisionError:
+                lifetime = float('inf')
         return lifetime
 
     @property
