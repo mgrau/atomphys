@@ -134,16 +134,21 @@ class State(dict):
             term = parse_term(state['Term'])
         else:
             term = {}
+        
+        if 'Lande' in state and len(state['Lande']) > 0:
+                gJ = float(state['Lande'])
+        else:
+            gJ = 0.0
 
         super(State, self).__init__(
-            {'energy': energy, 'configuration': configuration, 'J': J,  **term})
+            {'energy': energy, 'configuration': configuration, 'J': J,  **term, 'gJ':gJ})
 
     def __repr__(self):
         fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
         return f'State({self.name}: {self.energy:{fmt}})'
 
     def to_dict(self):
-        return {'energy': str(self.energy), 'configuration': self.configuration, 'term': self.term, 'J': str(Fraction(self.J))}
+        return {'energy': str(self.energy), 'configuration': self.configuration, 'term': self.term, 'J': str(Fraction(self.J)), 'gJ': self.gJ}
 
     def match(self, name):
         return name in self.name
