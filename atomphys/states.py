@@ -153,8 +153,16 @@ class State(dict):
         else:
             F = [0.0]
             mF = [0.0]
+        
+        if 'linewidth' in state:
+            if self._USE_UNITS:
+                linewidth = self._ureg.Quantity(state['linewidth'])
+            else:
+                linewidth = float(state['linewidth'])
+        else:
+            linewidth = None
 
-        super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, 'gJ': gJ, 'F':F, 'mF':mF, **term})
+        super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, 'gJ': gJ, 'F':F, 'mF':mF, '_linewidth':linewidth, **term})
 
     def __repr__(self):
         fmt = '0.10g~P' if self._USE_UNITS else '0.10g'
