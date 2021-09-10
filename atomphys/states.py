@@ -161,13 +161,14 @@ class State(dict):
         return f'State({self.name}: {self.energy:{fmt}})'
 
     def to_dict(self):
+        fmt = '0.10g~P' if self._USE_UNITS else '0.10g'
         return {
-            'energy': str(self.energy),
+            'energy': f'{self.energy.to(self._atom._energy_unit):{fmt}}',
             'configuration': self.configuration,
             'term': self.term,
             'J': str(Fraction(self.J)),
             'gJ': self.gJ,
-            'linewidth': self._linewidth,
+            'linewidth': f'{self.linewidth.to(self._atom._linewidth_unit):{fmt}}',
         }
 
     def index_to_transitions(self):
@@ -311,7 +312,10 @@ class State(dict):
         if self._linewidth is not None:
             Gamma = self._linewidth
         else:
-            Gamma = sum([transition.Gamma for transition in self.transitions_down])
+            if len(self.transitions_down)>0:
+                Gamma = sum([transition.Gamma for transition in self.transitions_down])
+            else: 
+                Gamma = _ureg.Quantity(0.0,self._atom._linewidth_unit)
         return Gamma
 
     @property
