@@ -29,25 +29,25 @@ class Coupling(enum.Enum):
 
 
 class StateRegistry(list):
-    _parent = None
+    _atom = None
 
-    def __init__(self, *args, parent=None, **kwargs):
+    def __init__(self, *args, atom=None, **kwargs):
         super().__init__(*args, **kwargs)
-        self._parent = parent
+        self._atom = atom
 
     def __getitem__(self, key):
         if isinstance(key, int):
             return super().__getitem__(key)
         elif isinstance(key, slice):
-            return StateRegistry(super().__getitem__(key), parent=self._parent)
+            return StateRegistry(super().__getitem__(key), atom=self._atom)
         elif isinstance(key, str):
             return next(state for state in self if state.match(key))
         elif isinstance(key, Iterable):
-            return StateRegistry((self.__getitem__(item) for item in key), parent=self._parent)
+            return StateRegistry((self.__getitem__(item) for item in key), atom=self._atom)
         elif isinstance(key, float):
-            energy = self._parent._ureg.Quantity(key, 'E_h') if self._parent.USE_UNITS else key
+            energy = self._atom._ureg.Quantity(key, 'E_h') if self._atom.USE_UNITS else key
             return min(self, key=lambda state: abs(state.energy - energy))
-        elif self._parent.USE_UNITS and isinstance(key, self._parent._ureg.Quantity):
+        elif self._atom.USE_UNITS and isinstance(key, self._atom._ureg.Quantity):
             return min(self, key=lambda state: abs(state.energy - key))
         else:
             raise TypeError('key must be integer, slice, or term string')
@@ -71,10 +71,15 @@ class StateRegistry(list):
 
     def __add__(self, other):
         assert isinstance(other, StateRegistry)
-        return StateRegistry(list(self) + list(other), parent=self._parent)
+        return StateRegistry(list(self) + list(other), atom=self._atom)
 
     def to_dict(self):
         return [state.to_dict() for state in self]
+    
+    def index_to_transitions(self):
+        for state in self:
+            state._transitions_down = self._atom._transitions.down_from(state)
+            state._transitions_up = self._atom._transitions.up_from(state)
 
 
 class State(dict):
@@ -83,8 +88,9 @@ class State(dict):
     _transitions_down = []
     _transitions_up = []
     _linewidth = None
+    _atom = None
 
-    def __init__(self, USE_UNITS=False, ureg=None, **state):
+    def __init__(self, USE_UNITS=False, ureg=None, atom=None, **state):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
         if ureg and self._USE_UNITS:
             self._ureg = ureg
@@ -92,6 +98,8 @@ class State(dict):
             self._ureg = _ureg
         else:
             self._ureg = {}
+        
+        self._atom = atom
 
         if not self._USE_UNITS:
             self._ureg['ħ'] = 1
@@ -264,7 +272,7 @@ class State(dict):
 
     @property
     def transitions(self):
-        return TransitionRegistry(self.transitions_down + self.transitions_up, parent=self)
+        return TransitionRegistry(self.transitions_down + self.transitions_up, atom=self)
 
     @property
     def to(self):
@@ -272,11 +280,11 @@ class State(dict):
 
     @property
     def down(self):
-        return TransitionRegistry(self.transitions_down, parent=self)
+        return TransitionRegistry(self.transitions_down, atom=self)
 
     @property
     def up(self):
-        return TransitionRegistry(self.transitions_up, parent=self)
+        return TransitionRegistry(self.transitions_up, atom=self)
 
     @property
     def linewidth(self):

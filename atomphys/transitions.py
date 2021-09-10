@@ -2,7 +2,7 @@ import csv
 import io
 import urllib.request
 from collections.abc import Iterable
-from .util import sanitize_energy, fsolve
+from .util import sanitize_energy, fsolve, dipole_allowed
 from .data import nist
 from itertools import combinations
 
@@ -18,17 +18,17 @@ except ImportError:
 
 
 class TransitionRegistry(list):
-    _parent = None
+    _atom = None
 
-    def __init__(self, *args, parent=None, **kwargs):
+    def __init__(self, *args, atom=None, **kwargs):
         super().__init__(*args, **kwargs)
-        self._parent = parent
+        self._atom = atom
 
     def __getitem__(self, key):
         if isinstance(key, int):
             return super().__getitem__(key)
         elif isinstance(key, slice):
-            return TransitionRegistry(super().__getitem__(key), parent=self._parent)
+            return TransitionRegistry(super().__getitem__(key), atom=self._atom)
         elif isinstance(key, str):
             if ':' in key:
                 state_i, state_f = key.split(':')
@@ -39,18 +39,18 @@ class TransitionRegistry(list):
                 transition
                 for transition in self
                 if (
-                    (transition.i.match(key) and transition.i != self._parent)
-                    or (transition.f.match(key) and transition.f != self._parent)
+                    (transition.i.match(key) and transition.i != self._atom)
+                    or (transition.f.match(key) and transition.f != self._atom)
                 )
             )
         elif isinstance(key, Iterable):
-            return TransitionRegistry((self.__getitem__(item) for item in key), parent=self._parent)
+            return TransitionRegistry((self.__getitem__(item) for item in key), atom=self._atom)
         elif isinstance(key, float):
-            energy = self._parent._ureg.Quantity(key, 'E_h') if self._parent._USE_UNITS else key
+            energy = self._atom._ureg.Quantity(key, 'E_h') if self._atom._USE_UNITS else key
             return min(
                 self, key=lambda transition: min(abs(transition.i.energy - energy), abs(transition.f.energy - energy))
             )
-        elif self._parent._USE_UNITS and isinstance(key, self._parent._ureg.Quantity):
+        elif self._atom._USE_UNITS and isinstance(key, self._atom._ureg.Quantity):
             return min(self, key=lambda transition: min(abs(transition.i.energy - key), abs(transition.f.energy - key)))
         else:
             raise TypeError('key must be integer, slice, or term string')
@@ -74,36 +74,50 @@ class TransitionRegistry(list):
 
     def __add__(self, other):
         assert isinstance(other, TransitionRegistry)
-        return TransitionRegistry(list(self) + list(other), parent=self._parent)
+        return TransitionRegistry(list(self) + list(other), atom=self._atom)
 
     def up_from(self, state):
-        return TransitionRegistry((transition for transition in self if transition.i == state), parent=self._parent)
+        return TransitionRegistry((transition for transition in self if transition.i == state), atom=self._atom)
 
     def down_from(self, state):
-        return TransitionRegistry((transition for transition in self if transition.f == state), parent=self._parent)
+        return TransitionRegistry((transition for transition in self if transition.f == state), atom=self._atom)
 
     def to_dict(self):
         return [transition.to_dict() for transition in self]
 
-    def populate_allowed(self, E_lower_max=0.114, wl_min=300, wl_max=1600):
+    def populate_allowed(self, E_lower_max=0.12, wl_min=350, wl_max=2000):
         energy_max = (_ureg['h'] * _ureg['c'] / _ureg.Quantity(wl_min,'nm')).to('E_h')
         energy_min = (_ureg['h'] * _ureg['c'] / _ureg.Quantity(wl_max,'nm')).to('E_h')
 
-        for pair in combinations(self._parent.states, 2):
+        for pair in combinations(self._atom.states, 2):
             pair = sorted(list(pair),key=lambda state: state.energy)
             si,sf, = pair[0:2]
             if (
-                si.energy <= _ureg.Quantity(E_lower_max, 'E_h')
+                dipole_allowed(si, sf)
+                and si.energy <= _ureg.Quantity(E_lower_max, 'E_h')
                 and not any([(si, sf) == (t.i, t.f) for t in self])
-                and abs(sf.J - si.J) <= 1.0
                 and energy_min < abs(sf.energy - si.energy) < energy_max
             ):
-                new_transition = Transition(Ei=si.energy, Ef=sf.energy, 
-                                            USE_UNITS=True, ureg=_ureg)
-                si
-                new_transition._state_i = si
-                new_transition._state_f = sf
-                self.append(new_transition)
+                self.append(Transition(Ei=si.energy, Ef=sf.energy, USE_UNITS=True, ureg=_ureg))
+        self._sort()
+        self.index_to_states()
+        self._atom._states.index_to_transitions()
+                
+
+    def _sort(self):
+        # reverse sort by Gamma first
+        self.sort(key=lambda transition: transition.Gamma, reverse=True)
+        # then sort by upper state energy
+        self.sort(key=lambda transition: transition.Ef)
+        # sort then by lower state energy
+        self.sort(key=lambda transition: transition.Ei)
+        # because sort is stable, this produces a list sorted by both upper and
+        # lower state energy
+
+    def index_to_states(self):
+        for transition in self:
+            transition._state_i = next(state for state in self._atom._states if state.energy == transition.Ei)
+            transition._state_f = next(state for state in self._atom._states if state.energy == transition.Ef)
 
 
 class Transition(dict):
@@ -114,7 +128,7 @@ class Transition(dict):
     _state_i = None
     _state_f = None
 
-    def __init__(self, USE_UNITS=False, ureg=None, **transition):
+    def __init__(self, USE_UNITS=False, ureg=None, atom=None, **transition):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
         if ureg and self._USE_UNITS:
             self._ureg = ureg
@@ -128,6 +142,8 @@ class Transition(dict):
             self._ureg['h'] = 2 * π
             self._ureg['ε_0'] = 1 / (4 * π)
             self._ureg['c'] = 137.03599908356244
+        
+        self._atom = atom
 
         if 'Gamma' in transition:
             if self._USE_UNITS:

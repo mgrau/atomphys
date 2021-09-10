@@ -131,11 +131,11 @@ def parse_nuc_data(isotope):
 
     return {'spin': spin, 'gI': magnetic_moment, 'abundance': abundance, 'half_life': half_life, 'mass': atomic_mass}
 
-def allowed_transition_q(state1,state2):
+def dipole_allowed(state1,state2):
     same_selection = state1 != state2
     if 'L' in state1 and 'L' in state2:
         L_selection = abs(state1.L - state2.L) <= 1 
     else:
         L_selection = True
-    J_selection = (abs(state1.J - state2.J) <= 1) and not (state1.J==0 and state2.J==0)
+    J_selection = (abs(state1.J - state2.J) <= 1)
     return (same_selection and J_selection and L_selection)

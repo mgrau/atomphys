@@ -59,26 +59,9 @@ class Atom:
             if len(atom_isotope) > 0:
                 self.load_nuc(self.isotope + atom_sym)
 
-        # reverse sort by Gamma first
-        self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
-        # then sort by upper state energy
-        self._transitions.sort(key=lambda transition: transition.Ef)
-        # sort then by lower state energy
-        self._transitions.sort(key=lambda transition: transition.Ei)
-        # because sort is stable, this produces a list sorted by both upper and
-        # lower state energy
-
-        # index the transitions to the states
-        for transition in self._transitions:
-            transition._atom = self
-            transition._state_i = next(state for state in self._states if state.energy == transition.Ei)
-            transition._state_f = next(state for state in self._states if state.energy == transition.Ef)
-
-        # index the states to the transitions
-        for state in self._states:
-            state._atom = self
-            state._transitions_down = self._transitions.down_from(state)
-            state._transitions_up = self._transitions.up_from(state)
+        self._transitions._sort()
+        self._transitions.index_to_states()
+        self._states.index_to_transitions()
 
     def __getitem__(self, state):
         return self.states[state]
@@ -183,15 +166,15 @@ class Atom:
             raise Exception(f'{atom} does not match a known neutral atom or ionic ion name')
 
         self._states = StateRegistry(
-            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, parent=self) for state in fetch_states(atom)),
-            parent=self,
+            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, atom=self) for state in fetch_states(atom)),
+            atom=self,
         )
         self._transitions = TransitionRegistry(
             (
-                Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
+                Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg, atom=self)
                 for transition in fetch_transitions(atom)
             ),
-            parent=self,
+            atom=self,
         )
 
     def load_nuc(self, name):
