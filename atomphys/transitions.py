@@ -27,7 +27,8 @@ class TransitionRegistry(list):
         if isinstance(key, int):
             return super().__getitem__(key)
         elif isinstance(key, slice):
-            return TransitionRegistry(super().__getitem__(key), parent=self._parent)
+            return TransitionRegistry(
+                super().__getitem__(key), parent=self._parent)
         elif isinstance(key, str):
             if ':' in key:
                 state_i, state_f = key.split(':')
@@ -43,14 +44,18 @@ class TransitionRegistry(list):
                 )
             )
         elif isinstance(key, Iterable):
-            return TransitionRegistry((self.__getitem__(item) for item in key), parent=self._parent)
+            return TransitionRegistry((self.__getitem__(item)
+                                      for item in key), parent=self._parent)
         elif isinstance(key, float):
-            energy = self._parent._ureg.Quantity(key, 'E_h') if self._parent._USE_UNITS else key
+            energy = self._parent._ureg.Quantity(
+                key, 'E_h') if self._parent._USE_UNITS else key
             return min(
-                self, key=lambda transition: min(abs(transition.i.energy - energy), abs(transition.f.energy - energy))
+                self, key=lambda transition: min(
+                    abs(transition.i.energy - energy), abs(transition.f.energy - energy))
             )
         elif self._parent._USE_UNITS and isinstance(key, self._parent._ureg.Quantity):
-            return min(self, key=lambda transition: min(abs(transition.i.energy - key), abs(transition.f.energy - key)))
+            return min(self, key=lambda transition: min(
+                abs(transition.i.energy - key), abs(transition.f.energy - key)))
         else:
             raise TypeError('key must be integer, slice, or term string')
 
@@ -73,16 +78,49 @@ class TransitionRegistry(list):
 
     def __add__(self, other):
         assert isinstance(other, TransitionRegistry)
-        return TransitionRegistry(list(self) + list(other), parent=self._parent)
+        return TransitionRegistry(
+            list(self) + list(other), parent=self._parent)
 
     def up_from(self, state):
-        return TransitionRegistry((transition for transition in self if transition.i == state), parent=self._parent)
+        return TransitionRegistry(
+            (transition for transition in self if transition.i == state), parent=self._parent)
 
     def down_from(self, state):
-        return TransitionRegistry((transition for transition in self if transition.f == state), parent=self._parent)
+        return TransitionRegistry(
+            (transition for transition in self if transition.f == state), parent=self._parent)
 
     def to_dict(self):
         return [transition.to_dict() for transition in self]
+
+    def populate_allowed(self, E_lower_max=0.114, wl_min=300, wl_max=1600):
+        energy_max = (
+            _ureg['h'] *
+            _ureg['c'] /
+            _ureg.Quantity(
+                wl_min,
+                'nm')).to('E_h')
+        energy_min = (
+            _ureg['h'] *
+            _ureg['c'] /
+            _ureg.Quantity(
+                wl_max,
+                'nm')).to('E_h')
+
+        for si in self._parent.states:
+            for sf in self._parent.states:
+                if (
+                    si.energy <= _ureg.Quantity(E_lower_max, 'E_h')
+                    and si != sf
+                    and not any([(si, sf) == (x.i, x.f) for x in self])
+                    and not any([(sf, si) == (x.i, x.f) for x in self])
+                    and abs(sf.J - si.J) <= 1.0
+                    and energy_min < abs(sf.energy - si.energy) < energy_max
+                ):
+                    new_transition = Transition(
+                        Ei=si.energy, Ef=sf.energy, USE_UNITS=True, ureg=_ureg)
+                    new_transition._state_i = si
+                    new_transition._state_f = sf
+                    self.append(new_transition)
 
 
 class Transition(dict):
@@ -115,7 +153,8 @@ class Transition(dict):
                 Gamma = float(transition['Gamma'])
         elif 'Aki(s^-1)' in transition:
             if self._USE_UNITS:
-                Gamma = self._ureg.Quantity(float(transition['Aki(s^-1)']), 's^-1').to('Eh/ħ')
+                Gamma = self._ureg.Quantity(
+                    float(transition['Aki(s^-1)']), 's^-1').to('Eh/ħ')
             else:
                 Gamma = 2.4188843265856806e-17 * float(transition['Aki(s^-1)'])
         else:
@@ -128,7 +167,11 @@ class Transition(dict):
                 Ei = float(transition['Ei'])
         elif 'Ei(Ry)' in transition:
             if self._USE_UNITS:
-                Ei = self._ureg.Quantity(float(sanitize_energy(transition['Ei(Ry)'])), 'Ry').to('Eh')
+                Ei = self._ureg.Quantity(
+                    float(
+                        sanitize_energy(
+                            transition['Ei(Ry)'])),
+                    'Ry').to('Eh')
             else:
                 Ei = 0.5 * float(sanitize_energy(transition['Ei(Ry)']))
         else:
@@ -141,7 +184,11 @@ class Transition(dict):
                 Ef = float(transition['Ef'])
         elif 'Ek(Ry)' in transition:
             if self._USE_UNITS:
-                Ef = self._ureg.Quantity(float(sanitize_energy(transition['Ek(Ry)'])), 'Ry').to('Eh')
+                Ef = self._ureg.Quantity(
+                    float(
+                        sanitize_energy(
+                            transition['Ek(Ry)'])),
+                    'Ry').to('Eh')
             else:
                 Ef = 0.5 * float(sanitize_energy(transition['Ek(Ry)']))
         else:
@@ -276,7 +323,8 @@ class Transition(dict):
         Jg = self.i.J
         Je = self.f.J
         Γ = self.Γ
-        return ((3 * π * ε_0 * ħ * c ** 3) / (ω0 ** 3) * (2 * Je + 1) * Γ) ** (1 / 2)
+        return ((3 * π * ε_0 * ħ * c ** 3) / (ω0 ** 3)
+                * (2 * Je + 1) * Γ) ** (1 / 2)
 
     @property
     def reduced_dipole_matrix_element_conjugate(self):
