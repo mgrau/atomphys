@@ -5,6 +5,7 @@ from collections.abc import Iterable
 from .util import sanitize_energy, fsolve, dipole_allowed
 from .data import nist
 from itertools import combinations
+from .calc.wigner import wigner_6j
 
 from math import pi as π
 from math import inf
@@ -318,6 +319,28 @@ class Transition(dict):
 
     @property
     def reduced_dipole_matrix_element(self):
+        j_rme = self.j_reduced_dipole_matrix_element
+        Fg = self.i.F
+        Fe = self.f.F
+        Jg = self.i.J
+        Je = self.f.J
+        rme = [[(
+            (-1)**(fe + Jg + 1 + self.i.I)
+            * ((2*fe+1)*(2*fg+1))**(1/2)
+            * wigner_6j(Je,fe,self.i.I,fg,Jg,1)
+            * j_rme
+        ) for fe in Fe] for fg in Fg]
+        return rme
+
+    @property
+    def reduced_dipole_matrix_element_conjugate(self):
+        Fg = self.i.F
+        Fe = self.f.F
+        d = self.reduced_dipole_matrix_element
+        return (-1) ** (Fe - Fg) * d
+
+    @property
+    def j_reduced_dipole_matrix_element(self):
         ω0 = self.ω
         ε_0 = self._ureg['ε_0']
         ħ = self._ureg['ħ']
@@ -328,7 +351,7 @@ class Transition(dict):
         return ((3 * π * ε_0 * ħ * c ** 3) / (ω0 ** 3) * (2 * Je + 1) * Γ) ** (1 / 2)
 
     @property
-    def reduced_dipole_matrix_element_conjugate(self):
+    def j_reduced_dipole_matrix_element_conjugate(self):
         Jg = self.i.J
         Je = self.f.J
         d = self.reduced_dipole_matrix_element

@@ -39,7 +39,7 @@ class Atom:
     _energy_unit = None
     _linewidth_unit = None
 
-    def __init__(self, atom, USE_UNITS=True, ureg=None, energy_unit='h*c/cm', linewidth_unit='Mrad/s'):
+    def __init__(self, atom, USE_UNITS=True, ureg=None, energy_unit='E_h', linewidth_unit='s^-1'):
         self._energy_unit = energy_unit
         self._linewidth_unit = linewidth_unit
         self._USE_UNITS = USE_UNITS and _HAS_PINT

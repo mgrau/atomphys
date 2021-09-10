@@ -114,9 +114,9 @@ class State(dict):
                 energy = 0.5 * float(sanitize_energy(state['Level (Ry)']))
         elif 'Level (cm-1)' in state:
             if self._USE_UNITS:
-                energy = self._ureg.Quantity(float(sanitize_energy(state['Level (cm-1)'])), self._atom._energy_unit)
+                energy = self._ureg.Quantity(float(sanitize_energy(state['Level (cm-1)'])), 'h*c/cm').to(self._atom._energy_unit)
             else:
-                energy = 0.5 * float(sanitize_energy(state['Level (Ry)']))
+                energy = 0.5 * float(sanitize_energy(state['Level (cm-1)']))
         else:
             energy = 0.0
 
