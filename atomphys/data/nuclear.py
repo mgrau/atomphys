@@ -10,8 +10,7 @@ directory = os.path.dirname(current_file)
 # various data file locations
 raw_nuc_table_file = os.path.join(directory, "raw_NuclearMomentDataJSON.json")
 periodic_table = os.path.join(directory, "PeriodicTableJSON.json")
-output_raw_nuc_data_file = os.path.join(
-    directory, "NuclearMomentDataJSON.json")
+output_raw_nuc_data_file = os.path.join(directory, "NuclearMomentDataJSON.json")
 nuc_ptable_file = os.path.join(directory, "NuclearPeriodicTableJSON.json")
 
 # nuclear data file is huge so load it only once
@@ -35,8 +34,7 @@ def get_all_wiki_data():
     for element in pt['elements']:
         try:
             print('loading isotope data for %s...' % element['name'])
-            new_wiki_data = get_wiki_isotope_data(
-                element['name'], element['symbol'])
+            new_wiki_data = get_wiki_isotope_data(element['name'], element['symbol'])
             wiki_nuc_data = wiki_nuc_data + new_wiki_data
             print('done')
         except BaseException:
@@ -61,8 +59,7 @@ def get_wiki_isotope_data(name, symbol):
             pass
     table_proto = dict.fromkeys(col_headers)
     col_headers[0] = "Nuclide"
-    spin_col = [i for i, s in enumerate(
-        col_headers) if 'spin' in str(s).lower()]
+    spin_col = [i for i, s in enumerate(col_headers) if 'spin' in str(s).lower()]
     if len(spin_col) > 0:
         col_headers[spin_col[0]] = 'Spin'
 
@@ -89,8 +86,7 @@ def get_wiki_isotope_data(name, symbol):
     most_freq_num_cols = max(set(cols_count), key=cols_count.count)
 
     # only keep rows with right number of total cols
-    rows_keep = [i for i, e in enumerate(
-        colspans) if sum(e) == most_freq_num_cols]
+    rows_keep = [i for i, e in enumerate(colspans) if sum(e) == most_freq_num_cols]
     data = [data[i] for i in rows_keep]
     colspans = [colspans[i] for i in rows_keep]
 
@@ -123,13 +119,10 @@ def wiki_append_nuc_mag_moments(wiki_nuc_data):
     nuc_table_nuclides = [row['Nucleus'] for row in nuc_table]
 
     for row in range(len(wiki_nuc_data)):
-        indx = [i for i, name in enumerate(
-            nuc_table_nuclides) if name in wiki_nuc_data[row]['Nuclide']]
-        if len(indx) > 0 and 'Spin' in wiki_nuc_data[row].keys() and not (
-                '0' in wiki_nuc_data[row]['Spin']):
+        indx = [i for i, name in enumerate(nuc_table_nuclides) if name in wiki_nuc_data[row]['Nuclide']]
+        if len(indx) > 0 and 'Spin' in wiki_nuc_data[row].keys() and not ('0' in wiki_nuc_data[row]['Spin']):
             # indx = nuc_table_nuclides.index(wiki_nuc_data[row]['Nuclide'])
-            wiki_nuc_data[row].update(
-                {"mag_moment_μN": nuc_table[indx[0]]['μ(nm)']})
+            wiki_nuc_data[row].update({"mag_moment_μN": nuc_table[indx[0]]['μ(nm)']})
         else:
             wiki_nuc_data[row].update({"mag_moment_μN": '0.0'})
 

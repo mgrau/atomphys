@@ -3,6 +3,7 @@ from .transitions import Transition, TransitionRegistry
 from .data import fetch_states, fetch_transitions, nuclear
 from .util import parse_atom_name, parse_nuc_data
 from math import pi as π
+from math import isclose
 import os
 import json
 import math
@@ -22,8 +23,7 @@ with open(periodic_table) as f:
     pt = json.load(f)
     symbols = [element['symbol'] for element in pt['elements']]
 
-nuc_periodic_table = os.path.join(
-    directory, "data", "NuclearPeriodicTableJSON.json")
+nuc_periodic_table = os.path.join(directory, "data", "NuclearPeriodicTableJSON.json")
 with open(nuc_periodic_table) as f:
     nuc_ptable = json.load(f)
 
@@ -60,9 +60,7 @@ class Atom:
                 self.load_nuc(self.isotope + atom_sym)
 
         # reverse sort by Gamma first
-        self._transitions.sort(
-            key=lambda transition: transition.Gamma,
-            reverse=True)
+        self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
         # then sort by upper state energy
         self._transitions.sort(key=lambda transition: transition.Ef)
         # sort then by lower state energy
@@ -73,10 +71,8 @@ class Atom:
         # index the transitions to the states
         for transition in self._transitions:
             transition._atom = self
-            transition._state_i = next(
-                state for state in self._states if state.energy == transition.Ei)
-            transition._state_f = next(
-                state for state in self._states if state.energy == transition.Ef)
+            transition._state_i = next(state for state in self._states if state.energy == transition.Ei)
+            transition._state_f = next(state for state in self._states if state.energy == transition.Ef)
 
         # index the states to the transitions
         for state in self._states:
@@ -184,20 +180,15 @@ class Atom:
             atom = name[:-1] + ' ii'
         else:
             atom = name
-            raise Exception(
-                f'{atom} does not match a known neutral atom or ionic ion name')
+            raise Exception(f'{atom} does not match a known neutral atom or ionic ion name')
 
         self._states = StateRegistry(
-            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, parent=self)
-             for state in fetch_states(atom)),
+            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, parent=self) for state in fetch_states(atom)),
             parent=self,
         )
         self._transitions = TransitionRegistry(
             (
-                Transition(
-                    **transition,
-                    USE_UNITS=self._USE_UNITS,
-                    ureg=self._ureg)
+                Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
                 for transition in fetch_transitions(atom)
             ),
             parent=self,
