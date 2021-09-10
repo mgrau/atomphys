@@ -45,7 +45,7 @@ class StateRegistry(list):
         elif isinstance(key, Iterable):
             return StateRegistry((self.__getitem__(item) for item in key), atom=self._atom)
         elif isinstance(key, float):
-            energy = self._atom._ureg.Quantity(key, 'E_h') if self._atom.USE_UNITS else key
+            energy = self._atom._ureg.Quantity(key, self._atom._energy_unit) if self._atom.USE_UNITS else key
             return min(self, key=lambda state: abs(state.energy - energy))
         elif self._atom.USE_UNITS and isinstance(key, self._atom._ureg.Quantity):
             return min(self, key=lambda state: abs(state.energy - key))
@@ -113,7 +113,12 @@ class State(dict):
                 energy = float(state['energy'])
         elif 'Level (Ry)' in state:
             if self._USE_UNITS:
-                energy = self._ureg.Quantity(float(sanitize_energy(state['Level (Ry)'])), 'Ry').to('Eh')
+                energy = self._ureg.Quantity(float(sanitize_energy(state['Level (Ry)'])), 'Ry').to(self._atom._energy_unit)
+            else:
+                energy = 0.5 * float(sanitize_energy(state['Level (Ry)']))
+        elif 'Level (cm-1)' in state:
+            if self._USE_UNITS:
+                energy = self._ureg.Quantity(float(sanitize_energy(state['Level (cm-1)'])), self._atom._energy_unit)
             else:
                 energy = 0.5 * float(sanitize_energy(state['Level (Ry)']))
         else:
@@ -149,7 +154,7 @@ class State(dict):
         super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, 'gJ': gJ, **term})
 
     def __repr__(self):
-        fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
+        fmt = '0.10g~P' if self._USE_UNITS else '0.10g'
         return f'State({self.name}: {self.energy:{fmt}})'
 
     def to_dict(self):

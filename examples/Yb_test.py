@@ -8,13 +8,12 @@ _ureg.default_format = '~0.3gP'
 c = _ureg.c
 ε_0 = _ureg.ε_0
 
-
 Yb = Atom('171Yb')
 
 Yb.transitions.populate_allowed()
 
-#Yb.save('171Yb.json')
-#Yb.save_csv()
+Yb.save('171Yb.json')
+Yb.save_csv()
 #Yb.load_csv()
 
 

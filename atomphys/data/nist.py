@@ -7,7 +7,7 @@ def fetch_states(atom):
     url = 'https://physics.nist.gov/cgi-bin/ASD/energy1.pl'
     values = {
         'spectrum': atom,
-        'units': 2,  # energy units {0: cm^-1, 1: eV, 2: Ry}
+        'units': 0,  # energy units {0: cm^-1, 1: eV, 2: Ry}
         'format': 3,  # format {0: HTML, 1: ASCII, 2: CSV, 3: TSV}
         'multiplet_ordered': 1,  # energy ordred
         'term_out': 'on',  # output the term symbol string
@@ -34,7 +34,7 @@ def fetch_transitions(atom):
     values = {
         'spectra': atom,
         'format': 3,  # format {0: HTML, 1: ASCII, 2: CSV, 3: TSV}
-        'en_unit': 2,  # energy units {0: cm^-1, 1: eV, 2: Ry}
+        'en_unit': 0,  # energy units {0: cm^-1, 1: eV, 2: Ry}
         'line_out': 1,  # only with transition probabilities
         'show_av': 5,
         'allowed_out': 1,

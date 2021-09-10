@@ -46,7 +46,7 @@ class TransitionRegistry(list):
         elif isinstance(key, Iterable):
             return TransitionRegistry((self.__getitem__(item) for item in key), atom=self._atom)
         elif isinstance(key, float):
-            energy = self._atom._ureg.Quantity(key, 'E_h') if self._atom._USE_UNITS else key
+            energy = self._atom._ureg.Quantity(key, self._atom._energy_unit) if self._atom._USE_UNITS else key
             return min(
                 self, key=lambda transition: min(abs(transition.i.energy - energy), abs(transition.f.energy - energy))
             )
@@ -86,8 +86,8 @@ class TransitionRegistry(list):
         return [transition.to_dict() for transition in self]
 
     def populate_allowed(self, E_lower_max=0.12, wl_min=350, wl_max=2000):
-        energy_max = (_ureg['h'] * _ureg['c'] / _ureg.Quantity(wl_min,'nm')).to('E_h')
-        energy_min = (_ureg['h'] * _ureg['c'] / _ureg.Quantity(wl_max,'nm')).to('E_h')
+        energy_max = (_ureg['h'] * _ureg['c'] / _ureg.Quantity(wl_min,'nm')).to(self._atom._energy_unit)
+        energy_min = (_ureg['h'] * _ureg['c'] / _ureg.Quantity(wl_max,'nm')).to(self._atom._energy_unit)
 
         for pair in combinations(self._atom.states, 2):
             pair = sorted(list(pair),key=lambda state: state.energy)
@@ -98,7 +98,7 @@ class TransitionRegistry(list):
                 and not any([(si, sf) == (t.i, t.f) for t in self])
                 and energy_min < abs(sf.energy - si.energy) < energy_max
             ):
-                self.append(Transition(Ei=si.energy, Ef=sf.energy, USE_UNITS=True, ureg=_ureg))
+                self.append(Transition(Ei=si.energy, Ef=sf.energy, USE_UNITS=True, ureg=_ureg, atom=self._atom))
         self._sort()
         self.index_to_states()
         self._atom._states.index_to_transitions()
@@ -147,50 +147,60 @@ class Transition(dict):
 
         if 'Gamma' in transition:
             if self._USE_UNITS:
-                Gamma = self._ureg.Quantity(transition['Gamma'])
+                Gamma = self._ureg.Quantity(transition['Gamma']).to(self._atom._linewidth_unit)
             else:
                 Gamma = float(transition['Gamma'])
         elif 'Aki(s^-1)' in transition:
             if self._USE_UNITS:
-                Gamma = self._ureg.Quantity(float(transition['Aki(s^-1)']), 's^-1').to('Eh/ħ')
+                Gamma = self._ureg.Quantity(float(transition['Aki(s^-1)']), 's^-1').to(self._atom._linewidth_unit)
             else:
                 Gamma = 2.4188843265856806e-17 * float(transition['Aki(s^-1)'])
         else:
             if self._USE_UNITS:
-                Gamma = self._ureg.Quantity(0.0, 'Eh/ħ')
+                Gamma = self._ureg.Quantity(0.0, self._atom._linewidth_unit)
             else:
                 Gamma = 0.0
 
         if 'Ei' in transition:
             if self._USE_UNITS:
-                Ei = self._ureg.Quantity(transition['Ei'])
+                Ei = self._ureg.Quantity(transition['Ei']).to(self._atom._energy_unit)
             else:
                 Ei = float(transition['Ei'])
         elif 'Ei(Ry)' in transition:
             if self._USE_UNITS:
-                Ei = self._ureg.Quantity(float(sanitize_energy(transition['Ei(Ry)'])), 'Ry').to('Eh')
+                Ei = self._ureg.Quantity(float(sanitize_energy(transition['Ei(Ry)'])), 'Ry').to(self._atom._energy_unit)
             else:
                 Ei = 0.5 * float(sanitize_energy(transition['Ei(Ry)']))
+        elif 'Ei(cm-1)' in transition:
+            if self._USE_UNITS:
+                Ei = self._ureg.Quantity(float(sanitize_energy(transition['Ei(cm-1)'])), 'h*c/cm').to(self._atom._energy_unit)
+            else:
+                Ei = 0.5 * float(sanitize_energy(transition['Ei(cm-1)']))
         else:
             Ei = 0.0
 
         if 'Ef' in transition:
             if self._USE_UNITS:
-                Ef = self._ureg.Quantity(transition['Ef'])
+                Ef = self._ureg.Quantity(transition['Ef']).to(self._atom._energy_unit)
             else:
                 Ef = float(transition['Ef'])
         elif 'Ek(Ry)' in transition:
             if self._USE_UNITS:
-                Ef = self._ureg.Quantity(float(sanitize_energy(transition['Ek(Ry)'])), 'Ry').to('Eh')
+                Ef = self._ureg.Quantity(float(sanitize_energy(transition['Ek(Ry)'])), 'Ry').to(self._atom._energy_unit)
             else:
                 Ef = 0.5 * float(sanitize_energy(transition['Ek(Ry)']))
+        elif 'Ek(cm-1)' in transition:
+            if self._USE_UNITS:
+                Ef = self._ureg.Quantity(float(sanitize_energy(transition['Ek(cm-1)'])), 'h*c/cm').to(self._atom._energy_unit)
+            else:
+                Ef = 0.5 * float(sanitize_energy(transition['Ek(cm-1)']))
         else:
             Ef = 0.0
 
         super(Transition, self).__init__({'Ei': Ei, 'Ef': Ef, 'Gamma': Gamma})
 
     def __repr__(self):
-        fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
+        fmt = '0.10g~P' if self._USE_UNITS else '0.10g'
         if self.i is not None:
             state_i = f'{self.i.valence} {self.i.term}'
         else:
@@ -203,6 +213,7 @@ class Transition(dict):
         return f'Transition({state_i} <---> {state_f}, ' f'λ={self.λ_nm:{fmt}}, ' f'Γ=2π×{self.Γ_MHz/(2*π):{fmt}})'
 
     def to_dict(self):
+        fmt = '0.10g~P' if self._USE_UNITS else '0.10g'
         return {
             'i': self._atom.states.index(self.i),
             'i_config': self.i.configuration,
@@ -210,9 +221,9 @@ class Transition(dict):
             'f': self._atom.states.index(self.f),
             'f_config': self.f.configuration,
             'f_term': self.f.term,
-            'Ei': str(self.Ei),
-            'Ef': str(self.Ef),
-            'Gamma': str(self.Gamma),
+            'Ei': f'{self.Ei.to(self._atom._energy_unit):{fmt}}',
+            'Ef': f'{self.Ef.to(self._atom._energy_unit):{fmt}}',
+            'Gamma': f'{self.Gamma.to(self._atom._linewidth_unit):{fmt}}',
         }
 
     @property
