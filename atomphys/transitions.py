@@ -100,8 +100,8 @@ class TransitionRegistry(list):
             ):
                 self.append(Transition(Ei=si.energy, Ef=sf.energy, USE_UNITS=True, ureg=_ureg, atom=self._atom))
         self._sort()
-        self.index_to_states()
-        self._atom._states.index_to_transitions()
+        [transition.index_to_states() for transition in self]
+        [state.index_to_transitions() for state in self._atom._states]
                 
 
     def _sort(self):
