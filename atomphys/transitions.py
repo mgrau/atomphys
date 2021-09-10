@@ -319,18 +319,23 @@ class Transition(dict):
 
     @property
     def reduced_dipole_matrix_element(self):
+        # < Fp || D || F > = < Fg || D || Fe >
         j_rme = self.j_reduced_dipole_matrix_element
         Fg = self.i.F
         Fe = self.f.F
         Jg = self.i.J
         Je = self.f.J
-        rme = [[(
-            (-1)**(fe + Jg + 1 + self.i.I)
-            * ((2*fe+1)*(2*fg+1))**(1/2)
-            * wigner_6j(Je,fe,self.i.I,fg,Jg,1)
-            * j_rme
-        ) for fe in Fe] for fg in Fg]
-        return rme
+        RMEs = []
+        for fe in Fe:
+            for fg in Fg:
+                rme = (
+                    (-1)**(fe + Jg + 1 + self.i.I)
+                    * ((2*fe+1)*(2*fg+1))**(1/2)
+                    * wigner_6j(Je,fe,self.i.I,fg,Jg,1)
+                    * j_rme
+                )
+                RMEs.append({'Fp':fg, 'F':fe, 'RME':rme})
+        return RMEs
 
     @property
     def reduced_dipole_matrix_element_conjugate(self):
