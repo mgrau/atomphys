@@ -59,9 +59,10 @@ class Atom:
             ) = parse_atom_name(atom)
             self.name = atom_sym + atom_charge
             self.isotope = atom_isotope
-            self.load_nist(self.name)
             if len(atom_isotope) > 0:
                 self.load_nuc(self.isotope + atom_sym)
+            self.load_nist(self.name)
+            
 
         self._transitions._sort()
         self._transitions.index_to_states()

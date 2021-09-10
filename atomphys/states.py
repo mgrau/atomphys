@@ -5,7 +5,7 @@ import enum
 import urllib.request
 from fractions import Fraction
 from collections.abc import Iterable
-from .util import sanitize_energy
+from .util import sanitize_energy,frange
 from .data import nist
 from .calc import polarizability
 from .transitions import TransitionRegistry
@@ -150,8 +150,15 @@ class State(dict):
             gJ = float(state['Lande'])
         else:
             gJ = 0.0
+        
+        if self.I != 0:
+            F = frange(abs(J-self.I),J+self.I+1)
+            mF = [frange(-f,f+1) for f in F]
+        else:
+            F = [0.0]
+            mF = [0.0]
 
-        super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, 'gJ': gJ, **term})
+        super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, 'gJ': gJ, 'F':F, 'mF':mF, **term})
 
     def __repr__(self):
         fmt = '0.10g~P' if self._USE_UNITS else '0.10g'
@@ -205,6 +212,14 @@ class State(dict):
     @property
     def gJ(self):
         return self['gJ']
+
+    @property
+    def F(self):
+        return self['F']
+
+    @property
+    def mF(self):
+        return self['mF']
 
     @property
     def S(self):

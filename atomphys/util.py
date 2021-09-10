@@ -139,3 +139,16 @@ def dipole_allowed(state1,state2):
         L_selection = True
     J_selection = (abs(state1.J - state2.J) <= 1)
     return (same_selection and J_selection and L_selection)
+
+def frange(start, stop=None, step=None):
+    # if set start=0.0 and step = 1.0 if not specified
+    start = float(start)
+    if stop == None:
+        stop = start + 0.0
+        start = 0.0
+    if step == None:
+        step = 1.0
+    
+    num_steps = int((stop-start)/step)
+
+    return [start + step*i for i in range(num_steps)]
