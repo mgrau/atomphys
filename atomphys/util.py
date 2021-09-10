@@ -50,8 +50,7 @@ def fsolve(func, x0, x1=None, tol=1.49012e-08, maxfev=100):
         x1 = x0 * 1.001
     fx0, fx1 = func(x0), func(x1)
     i = 2
-    while (abs(fx0) > 0) and (
-            abs((fx1 - fx0) / fx0) > tol) and (i < maxfev + 1):
+    while (abs(fx0) > 0) and (abs((fx1 - fx0) / fx0) > tol) and (i < maxfev + 1):
         x2 = x1 - fx1 * (x1 - x0) / (fx1 - fx0)
         x0, x1 = x1, x2
         fx0, fx1 = fx1, func(x1)
@@ -71,20 +70,11 @@ def parse_atom_name(atom):
 
 
 def parse_nuc_data(isotope):
-    if 'Atomic mass' in isotope:
-        if isotope['Atomic mass'] is not None:
-            if len(isotope['Atomic mass']) > 0:
-                try:
-                    atomic_mass = float(
-                        re.search(
-                            '\\d+\\.*\\d*',
-                            isotope['Atomic mass']).group())
-                except AttributeError:
-                    atomic_mass = isotope['Atomic mass']
-            else:
-                atomic_mass = 0.0
-        else:
-            atomic_mass = 0.0
+    if 'Atomic mass' in isotope and isotope['Atomic mass'] is not None and len(isotope['Atomic mass']) > 0:
+        try:
+            atomic_mass = float(re.search('\\d+\\.*\\d*', isotope['Atomic mass']).group())
+        except AttributeError:
+            atomic_mass = isotope['Atomic mass']
     else:
         atomic_mass = None
 
@@ -94,8 +84,6 @@ def parse_nuc_data(isotope):
         elif len(isotope['Half-life']) == 0:
             half_life = None
         else:
-            # half_life = isotope['Half-life']
-            # print(isotope['Half-life'])
             s = isotope['Half-life']
             s = re.search('^(\\d+\\.*\\d*).*\\xa0(\\w+)$', s)
             if s is not None:
@@ -116,49 +104,38 @@ def parse_nuc_data(isotope):
     else:
         half_life = None
 
-    if 'Spin' in isotope:
-        if len(isotope['Spin']) > 0:
-            try:
-                spin = float(
-                    Fraction(
-                        re.search(
-                            '\\d+[/]*\\d*',
-                            isotope['Spin']).group()))
-            except AttributeError:
-                spin = isotope['Spin (physics)']
-        else:
-            spin = None
+    if 'Spin' in isotope and len(isotope['Spin']) > 0:
+        try:
+            spin = float(Fraction(re.search('\\d+[/]*\\d*', isotope['Spin']).group()))
+        except AttributeError:
+            spin = isotope['Spin (physics)']
     else:
-        spin = None
+        spin = 0.0
 
-    if 'Natural abundance' in isotope:
-        if len(isotope['Natural abundance']) > 0:
-            try:
-                abundance = float(
-                    re.search(
-                        '^\\d+\\.\\d+',
-                        isotope['Natural abundance']).group())
-            except AttributeError:
-                abundance = isotope['Natural abundance']
-        else:
-            abundance = None
+    if 'Natural abundance' in isotope and len(isotope['Natural abundance']) > 0:
+        try:
+            abundance = float(re.search('^\\d+\\.\\d+', isotope['Natural abundance']).group())
+        except AttributeError:
+            abundance = isotope['Natural abundance']
     else:
-        abundance = None
+        abundance = 1.0
 
-    if 'mag_moment_μN' in isotope:
-        if isotope['mag_moment_μN'] is not None:
-            try:
-                value = float(
-                    re.search(
-                        '\\d+\\.+\\d+',
-                        isotope['mag_moment_μN']).group())
-            except AttributeError:
-                value = isotope['mag_moment_μN']
-            magnetic_moment = value
-        else:
-            magnetic_moment = 0.0
+    if 'mag_moment_μN' in isotope and isotope['mag_moment_μN'] is not None:
+        try:
+            value = float(re.search('\\d+\\.+\\d+', isotope['mag_moment_μN']).group())
+        except AttributeError:
+            value = isotope['mag_moment_μN']
+        magnetic_moment = value
     else:
-        magnetic_moment = None
+        magnetic_moment = 0.0
 
-    return {'spin': spin, 'gI': magnetic_moment, 'abundance': abundance,
-            'half_life': half_life, 'mass': atomic_mass}
+    return {'spin': spin, 'gI': magnetic_moment, 'abundance': abundance, 'half_life': half_life, 'mass': atomic_mass}
+
+def allowed_transition_q(state1,state2):
+    same_selection = state1 != state2
+    if 'L' in state1 and 'L' in state2:
+        L_selection = abs(state1.L - state2.L) <= 1 
+    else:
+        L_selection = True
+    J_selection = (abs(state1.J - state2.J) <= 1) and not (state1.J==0 and state2.J==0)
+    return (same_selection and J_selection and L_selection)
