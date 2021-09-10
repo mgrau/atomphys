@@ -8,9 +8,9 @@ def sanitize_energy(s):
 
 def parse_time(f):
     if 'y' in f or 'year' in f:
-        return 365.0*24.0*3600.0
+        return 365.0 * 24.0 * 3600.0
     elif 'd' in f or 'day' in f:
-        return 24.0*3600.0
+        return 24.0 * 3600.0
     elif 'h' in f or 'hour' in f:
         return 3600.0
     elif 'm' in f or 'minute' in f:
@@ -19,14 +19,15 @@ def parse_time(f):
         return 1.0
     elif 'ms' in f or 'millisecond' in f:
         return 1.0e-3
-    elif f=='us' or f=='μs' or 'microsecond' in f:
+    elif f == 'us' or f == 'μs' or 'microsecond' in f:
         return 1.0e-6
-    elif f=='ns' or 'nanosecond' in f:
+    elif f == 'ns' or 'nanosecond' in f:
         return 1.0e-9
-    elif f=='ps' or 'picosecond' in f:
+    elif f == 'ps' or 'picosecond' in f:
         return 1.0e-12
-    elif f=='fs' or 'femtosecond' in f:
+    elif f == 'fs' or 'femtosecond' in f:
         return 1.0e-15
+
 
 def fsolve(func, x0, x1=None, tol=1.49012e-08, maxfev=100):
     '''
@@ -49,7 +50,8 @@ def fsolve(func, x0, x1=None, tol=1.49012e-08, maxfev=100):
         x1 = x0 * 1.001
     fx0, fx1 = func(x0), func(x1)
     i = 2
-    while (abs(fx0) > 0) and (abs((fx1 - fx0) / fx0) > tol) and (i < maxfev + 1):
+    while (abs(fx0) > 0) and (
+            abs((fx1 - fx0) / fx0) > tol) and (i < maxfev + 1):
         x2 = x1 - fx1 * (x1 - x0) / (fx1 - fx0)
         x0, x1 = x1, x2
         fx0, fx1 = fx1, func(x1)
@@ -73,7 +75,10 @@ def parse_nuc_data(isotope):
         if isotope['Atomic mass'] is not None:
             if len(isotope['Atomic mass']) > 0:
                 try:
-                    atomic_mass = float(re.search('\\d+\\.*\\d*', isotope['Atomic mass']).group())
+                    atomic_mass = float(
+                        re.search(
+                            '\\d+\\.*\\d*',
+                            isotope['Atomic mass']).group())
                 except AttributeError:
                     atomic_mass = isotope['Atomic mass']
             else:
@@ -114,7 +119,11 @@ def parse_nuc_data(isotope):
     if 'Spin' in isotope:
         if len(isotope['Spin']) > 0:
             try:
-                spin = float(Fraction(re.search('\\d+[/]*\\d*', isotope['Spin']).group()))
+                spin = float(
+                    Fraction(
+                        re.search(
+                            '\\d+[/]*\\d*',
+                            isotope['Spin']).group()))
             except AttributeError:
                 spin = isotope['Spin (physics)']
         else:
@@ -125,7 +134,10 @@ def parse_nuc_data(isotope):
     if 'Natural abundance' in isotope:
         if len(isotope['Natural abundance']) > 0:
             try:
-                abundance = float(re.search('^\\d+\\.\\d+', isotope['Natural abundance']).group())
+                abundance = float(
+                    re.search(
+                        '^\\d+\\.\\d+',
+                        isotope['Natural abundance']).group())
             except AttributeError:
                 abundance = isotope['Natural abundance']
         else:
@@ -136,7 +148,10 @@ def parse_nuc_data(isotope):
     if 'mag_moment_μN' in isotope:
         if isotope['mag_moment_μN'] is not None:
             try:
-                value = float(re.search('\\d+\\.+\\d+', isotope['mag_moment_μN']).group())
+                value = float(
+                    re.search(
+                        '\\d+\\.+\\d+',
+                        isotope['mag_moment_μN']).group())
             except AttributeError:
                 value = isotope['mag_moment_μN']
             magnetic_moment = value
@@ -145,4 +160,5 @@ def parse_nuc_data(isotope):
     else:
         magnetic_moment = None
 
-    return {'spin': spin, 'gI': magnetic_moment, 'abundance': abundance, 'half_life': half_life, 'mass': atomic_mass}
+    return {'spin': spin, 'gI': magnetic_moment, 'abundance': abundance,
+            'half_life': half_life, 'mass': atomic_mass}

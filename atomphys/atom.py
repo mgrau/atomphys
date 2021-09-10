@@ -22,7 +22,8 @@ with open(periodic_table) as f:
     pt = json.load(f)
     symbols = [element['symbol'] for element in pt['elements']]
 
-nuc_periodic_table = os.path.join(directory, "data", "NuclearPeriodicTableJSON.json")
+nuc_periodic_table = os.path.join(
+    directory, "data", "NuclearPeriodicTableJSON.json")
 with open(nuc_periodic_table) as f:
     nuc_ptable = json.load(f)
 
@@ -55,11 +56,13 @@ class Atom:
             self.name = atom_sym + atom_charge
             self.isotope = atom_isotope
             self.load_nist(self.name)
-            if len(atom_isotope)>0:
+            if len(atom_isotope) > 0:
                 self.load_nuc(self.isotope + atom_sym)
 
         # reverse sort by Gamma first
-        self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
+        self._transitions.sort(
+            key=lambda transition: transition.Gamma,
+            reverse=True)
         # then sort by upper state energy
         self._transitions.sort(key=lambda transition: transition.Ef)
         # sort then by lower state energy
@@ -70,8 +73,10 @@ class Atom:
         # index the transitions to the states
         for transition in self._transitions:
             transition._atom = self
-            transition._state_i = next(state for state in self._states if state.energy == transition.Ei)
-            transition._state_f = next(state for state in self._states if state.energy == transition.Ef)
+            transition._state_i = next(
+                state for state in self._states if state.energy == transition.Ei)
+            transition._state_f = next(
+                state for state in self._states if state.energy == transition.Ef)
 
         # index the states to the transitions
         for state in self._states:
@@ -126,7 +131,7 @@ class Atom:
         with open(transitions_file, 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=col_headers)
             writer.writeheader()
-            [writer.writerow(data) for data in transitions_data]    
+            [writer.writerow(data) for data in transitions_data]
 
     def load(self, filename):
         with open(filename) as file:
@@ -148,6 +153,30 @@ class Atom:
         )
         print('loaded %s' % filename)
 
+    def load_csv(self):
+        states_file = self.isotope + self.name + '_states.csv'
+        transitions_file = self.isotope + self.name + '_transitions.csv'
+
+        states_data = []
+        with open(states_file, mode='r') as f:
+            dict_reader = csv.DictReader(f)
+            for row in dict_reader:
+                states_data.append(row)
+
+        transitions_data = []
+        with open(transitions_file, mode='r') as f:
+            dict_reader = csv.DictReader(f)
+            for row in dict_reader:
+                transitions_data.append(row)
+
+        self._states = StateRegistry(
+            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for state in states_data), parent=self
+        )
+        self._transitions = TransitionRegistry(
+            Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in transitions_data
+        )
+        print('loaded states and transitions from csv')
+
     def load_nist(self, name):
         if name in symbols:
             atom = name + ' i'
@@ -155,15 +184,23 @@ class Atom:
             atom = name[:-1] + ' ii'
         else:
             atom = name
-            raise Exception(f'{atom} does not match a known neutral atom or ionic ion name')
+            raise Exception(
+                f'{atom} does not match a known neutral atom or ionic ion name')
 
         self._states = StateRegistry(
-            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, parent=self) for state in fetch_states(atom)),
+            (State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg, parent=self)
+             for state in fetch_states(atom)),
             parent=self,
         )
         self._transitions = TransitionRegistry(
-            Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
-            for transition in fetch_transitions(atom)
+            (
+                Transition(
+                    **transition,
+                    USE_UNITS=self._USE_UNITS,
+                    ureg=self._ureg)
+                for transition in fetch_transitions(atom)
+            ),
+            parent=self,
         )
 
     def load_nuc(self, name):

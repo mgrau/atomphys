@@ -23,7 +23,11 @@ def fetch_states(atom):
     with urllib.request.urlopen(url + '?' + get_postfix) as response:
         response = response.read()
 
-    data = csv.DictReader(io.StringIO(response.decode()), dialect='excel-tab', restkey='None')
+    data = csv.DictReader(
+        io.StringIO(
+            response.decode()),
+        dialect='excel-tab',
+        restkey='None')
 
     return data
 

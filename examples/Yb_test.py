@@ -11,8 +11,13 @@ c = _ureg.c
 
 Yb = Atom('171Yb')
 
+Yb.transitions.populate_allowed()
 
-Yb.save('171Yb.json')
+#Yb.save('171Yb.json')
+#Yb.save_csv()
+#Yb.load_csv()
+
+
 #Yb = Atom('Yb')
 
 # import atomphys as at

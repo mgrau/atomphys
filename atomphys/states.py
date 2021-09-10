@@ -43,9 +43,11 @@ class StateRegistry(list):
         elif isinstance(key, str):
             return next(state for state in self if state.match(key))
         elif isinstance(key, Iterable):
-            return StateRegistry((self.__getitem__(item) for item in key), parent=self._parent)
+            return StateRegistry((self.__getitem__(item)
+                                 for item in key), parent=self._parent)
         elif isinstance(key, float):
-            energy = self._parent._ureg.Quantity(key, 'E_h') if self._parent.USE_UNITS else key
+            energy = self._parent._ureg.Quantity(
+                key, 'E_h') if self._parent.USE_UNITS else key
             return min(self, key=lambda state: abs(state.energy - energy))
         elif self._parent.USE_UNITS and isinstance(key, self._parent._ureg.Quantity):
             return min(self, key=lambda state: abs(state.energy - key))
@@ -105,7 +107,11 @@ class State(dict):
                 energy = float(state['energy'])
         elif 'Level (Ry)' in state:
             if self._USE_UNITS:
-                energy = self._ureg.Quantity(float(sanitize_energy(state['Level (Ry)'])), 'Ry').to('Eh')
+                energy = self._ureg.Quantity(
+                    float(
+                        sanitize_energy(
+                            state['Level (Ry)'])),
+                    'Ry').to('Eh')
             else:
                 energy = 0.5 * float(sanitize_energy(state['Level (Ry)']))
         else:
@@ -138,7 +144,8 @@ class State(dict):
         else:
             gJ = 0.0
 
-        super(State, self).__init__({'energy': energy, 'configuration': configuration, 'J': J, 'gJ': gJ, **term})
+        super(State, self).__init__(
+            {'energy': energy, 'configuration': configuration, 'J': J, 'gJ': gJ, **term})
 
     def __repr__(self):
         fmt = '0.4g~P' if self._USE_UNITS else '0.4g'
@@ -231,7 +238,8 @@ class State(dict):
     def g(self):
         if self.coupling == Coupling.LS:
             L, S, J = self.L, self.S, self.J
-            return (gs + 1) / 2 + (gs - 1) / 2 * (S * (S + 1) - L * (L - 1)) / (J * (J + 1))
+            return (gs + 1) / 2 + (gs - 1) / 2 * \
+                (S * (S + 1) - L * (L - 1)) / (J * (J + 1))
         else:
             return None
 
@@ -264,7 +272,8 @@ class State(dict):
 
     @property
     def transitions(self):
-        return TransitionRegistry(self.transitions_down + self.transitions_up, parent=self)
+        return TransitionRegistry(
+            self.transitions_down + self.transitions_up, parent=self)
 
     @property
     def to(self):
@@ -283,13 +292,14 @@ class State(dict):
         if self._linewidth is not None:
             Gamma = self._linewidth
         else:
-            Gamma = sum([transition.Gamma for transition in self.transitions_down])
+            Gamma = sum(
+                [transition.Gamma for transition in self.transitions_down])
         return Gamma
 
     @property
     def lifetime(self):
         if self._linewidth is not None:
-            lifetime = 1/self._linewidth
+            lifetime = 1 / self._linewidth
         else:
             Gamma = [transition.Gamma for transition in self.transitions_down]
             try:
@@ -366,6 +376,7 @@ def parse_term(term):
         if key == 'L':
             return L[value]
 
-    term = {key: convert(key, value) for key, value in match.groupdict().items()}
+    term = {key: convert(key, value)
+            for key, value in match.groupdict().items()}
 
     return {**term, 'parity': parity}
