@@ -62,11 +62,10 @@ class Atom:
             if len(atom_isotope) > 0:
                 self.load_nuc(self.isotope + atom_sym)
             self.load_nist(self.name)
-            
-
+        
         self._transitions._sort()
-        self._transitions.index_to_states()
-        self._states.index_to_transitions()
+        [transition.index_to_states() for transition in self._transitions]
+        [state.index_to_transitions() for state in self._states]
 
     def __getitem__(self, state):
         return self.states[state]

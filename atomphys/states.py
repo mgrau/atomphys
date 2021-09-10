@@ -76,10 +76,6 @@ class StateRegistry(list):
     def to_dict(self):
         return [state.to_dict() for state in self]
     
-    def index_to_transitions(self):
-        for state in self:
-            state._transitions_down = self._atom._transitions.down_from(state)
-            state._transitions_up = self._atom._transitions.up_from(state)
 
 
 class State(dict):
@@ -173,6 +169,10 @@ class State(dict):
             'gJ': self.gJ,
             'linewidth': self._linewidth,
         }
+
+    def index_to_transitions(self):
+        self._transitions_down = self._atom._transitions.down_from(self)
+        self._transitions_up = self._atom._transitions.up_from(self)
 
     def match(self, name):
         return name in self.name

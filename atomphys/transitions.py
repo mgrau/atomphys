@@ -114,12 +114,6 @@ class TransitionRegistry(list):
         # because sort is stable, this produces a list sorted by both upper and
         # lower state energy
 
-    def index_to_states(self):
-        for transition in self:
-            transition._state_i = next(state for state in self._atom._states if state.energy == transition.Ei)
-            transition._state_f = next(state for state in self._atom._states if state.energy == transition.Ef)
-
-
 class Transition(dict):
 
     _USE_UNITS = False
@@ -225,6 +219,10 @@ class Transition(dict):
             'Ef': f'{self.Ef.to(self._atom._energy_unit):{fmt}}',
             'Gamma': f'{self.Gamma.to(self._atom._linewidth_unit):{fmt}}',
         }
+
+    def index_to_states(self):
+        self._state_i = next(state for state in self._atom._states if state.energy == self.Ei)
+        self._state_f = next(state for state in self._atom._states if state.energy == self.Ef)
 
     @property
     def Ei(self):
