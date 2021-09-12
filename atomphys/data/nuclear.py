@@ -4,6 +4,8 @@ import os
 import json
 import re
 
+# used TABULA to extract data
+
 current_file = os.path.realpath(__file__)
 directory = os.path.dirname(current_file)
 nuc_table_filename = os.path.join(directory, "NuclearDataJSON.json")
