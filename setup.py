@@ -7,4 +7,12 @@ setup(name='atomphys',
       author='Matt Grau',
       author_email='graum@phys.ethz.ch',
       package_data={'atomphys': ['data/*.json']},
-      packages=find_packages())
+      packages=find_packages(),
+      requirements=[],
+      extras_require={
+          'dev': [
+                  'pytest',
+                  'pytest-cov',
+                  'autopep8'
+          ]
+      })
