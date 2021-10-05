@@ -45,6 +45,12 @@ def fetch_transitions(atom):
 
     get_postfix = urllib.parse.urlencode(values)
     with urllib.request.urlopen(url + '?' + get_postfix) as response:
+        # when there are no transitions ASD returns a texl/html page with the
+        # error message "No lines are available in ASD with the parameters selected"
+        # rather than the expected text/plain when using format=3         
+        if response.headers.get_content_type != 'text/plain':
+            return []
+            
         response = response.read()
 
     data = csv.DictReader(io.StringIO(response.decode()), dialect='excel-tab')
