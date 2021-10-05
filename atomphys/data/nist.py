@@ -36,7 +36,7 @@ def fetch_transitions(atom):
         'spectra': atom,
         'format': 3,  # format {0: HTML, 1: ASCII, 2: CSV, 3: TSV}
         'en_unit': 2,  # energy units {0: cm^-1, 1: eV, 2: Ry}
-        'line_out': 1,  # only with transition probabilities
+        'line_out': 2,  # only with {1: transition , 2: level classifications}
         'show_av': 5,
         'allowed_out': 1,
         'forbid_out': 1,
@@ -47,12 +47,15 @@ def fetch_transitions(atom):
     with urllib.request.urlopen(url + '?' + get_postfix) as response:
         # when there are no transitions ASD returns a texl/html page with the
         # error message "No lines are available in ASD with the parameters selected"
-        # rather than the expected text/plain when using format=3         
-        if response.headers.get_content_type != 'text/plain':
+        # rather than the expected text/plain when using format=3
+        if response.headers.get_content_type() != 'text/plain':
+            print(response.headers.get_content_type())
             return []
-            
+
         response = response.read()
 
     data = csv.DictReader(io.StringIO(response.decode()), dialect='excel-tab')
+    data_with_transition_probabilities = [
+        transition for transition in data if transition['Aki(s^-1)']]
 
-    return data
+    return data_with_transition_probabilities
