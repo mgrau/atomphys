@@ -1,5 +1,14 @@
+import re
+
+re_energy = re.compile('-?\d+\.\d*|$')
+
+
 def sanitize_energy(s):
-    return s.strip('[]au +?')
+    # return re_energy.findall(s)[0]
+
+    # this is about 3.5× faster than re.findall, but it's less flexible
+    # overall this can make a several hundred ms difference when loading
+    return s.strip('()[]aluxyz +?').replace('&dagger;', '')
 
 
 def fsolve(func, x0, x1=None, tol=1.49012e-08, maxfev=100):
