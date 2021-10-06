@@ -13,6 +13,9 @@ setup(name='atomphys',
           'dev': [
                   'pytest',
                   'pytest-cov',
-                  'autopep8'
+                  'autopep8',
+                  'mkdocs',
+                  'mkdocs-material',
+                  'mkdocstrings'
           ]
       })

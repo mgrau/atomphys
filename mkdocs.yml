@@ -1,0 +1,48 @@
+site_name: atomphys
+site_url: https://mgrau.github.io/atomphys
+repo_url: https://github.com/mgrau/atomphys
+repo_name: atomphys
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - User Guide: user_guide.md
+  - Reference: reference.md
+  - Developers: developers.md
+
+theme:
+  logo: img/atom.svg
+  favicon: img/atom.svg
+  name: material
+  features:
+    - navigation.instant
+    # - navigation.tabs
+    - navigation.top
+    - navigation.expand
+    - navigation.sections
+    - search.suggest
+  palette:
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+
+markdown_extensions:
+  - footnotes
+  - admonition
+  - pymdownx.superfences
+
+extra_css:
+  - css/colors.css
+
+plugins:
+  - search
+  - mkdocstrings:
+      watch:
+        - atomphys

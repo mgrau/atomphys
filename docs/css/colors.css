@@ -1,0 +1,11 @@
+:root {
+    --md-default-fg-color:        rgb(42, 48, 80);
+    --md-default-fg-color--light: rgb(78, 90, 97);
+    --md-default-fg-color--dark:  rgb(53, 69, 82);
+
+    --md-primary-fg-color:        rgb(5, 127, 140);
+    --md-primary-fg-color--light: rgb(5, 192, 212);
+    --md-primary-fg-color--dark:  rgb(5, 79, 87);
+
+    --md-accent-fg-color:         rgb(140, 55, 48);   
+  }
