@@ -50,7 +50,7 @@ $ pip install atomphys
 - Use transition data to calculation state lifetimes, polarizabilities, transition dipole moments, cross sections, and saturation intensities
 ## Requirements
 
-Python 3
+Python 3.6+
 
 atomphys makes extensive use of the excellent package [Pint](https://pint.readthedocs.io/en/stable/) to handle units. It's not strictly required, but it makes 
 
