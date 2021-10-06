@@ -1,6 +1,7 @@
 site_name: atomphys
 site_url: https://mgrau.github.io/atomphys
 repo_url: https://github.com/mgrau/atomphys
+edit_uri: edit/main/docs/
 repo_name: atomphys
 
 nav:
