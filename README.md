@@ -2,6 +2,8 @@
 
 A Python package to help with atomic physics calculations.
 
+![GitHub](https://img.shields.io/github/license/mgrau/atomphys)
+![PyPI](https://img.shields.io/pypi/v/atomphys)
 ---
 
 **Documentation**: [mgrau.github.io/atomphys/](https://mgrau.github.io/atomphys/)
