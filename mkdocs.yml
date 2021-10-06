@@ -25,12 +25,12 @@ theme:
     - scheme: default
       media: "(prefers-color-scheme: light)"
       toggle:
-        icon: material/weather-sunny
+        icon: material/eye
         name: Switch to dark mode
     - scheme: slate
       media: "(prefers-color-scheme: dark)"
       toggle:
-        icon: material/weather-night
+        icon: material/eye-outline
         name: Switch to light mode
 
 markdown_extensions:
