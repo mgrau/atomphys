@@ -13,6 +13,8 @@ jobs:
         with:
           python-version: 3.x
       - name: Install pytest
-        run: pip install pytest
+        run: pip install pytest pytest-cov
       - name: Test
-        run: pytest
+        run: pytest --cov=./ --cov-report=xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
