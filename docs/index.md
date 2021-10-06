@@ -9,6 +9,7 @@
 A Python package to help with atomic physics calculations.
 
 [![Tests](https://github.com/mgrau/atomphys/actions/workflows/tests.yml/badge.svg)](https://github.com/mgrau/atomphys/actions/workflows/tests.yml)
+![Codecov](https://img.shields.io/codecov/c/github/mgrau/atomphys)
 ![GitHub](https://img.shields.io/github/license/mgrau/atomphys)
 ![PyPI](https://img.shields.io/pypi/v/atomphys)
 
