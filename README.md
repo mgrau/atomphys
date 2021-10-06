@@ -1,22 +1,51 @@
-# atom-phys
+# atomphys
+
+A Python package to help with atomic physics calculations.
+
+---
+
+**Documentation**: [mgrau.github.io/atomphys/](https://mgrau.github.io/atomphys/)
+
+**Source Code**: [github.com/mgrau/atomphys](https://github.com/mgrau/atomphys)
+
+---
+
+atomphys is meant to be a good starting off point for your atomic physics calculations. It can automate much of the frustrating process of searching for and compiling physical data and simple pyhsical relations, and help you more quickly get to the good stuff.
+
+It's designed with a natural interface and is easy to use.
+
+## Example
+
+```python
+>>> from atomphys import Atom
+>>> Rb = Atom('Rb')
+
+>>> print(Rb('S1/2').to('P1/2').λ.to('nm'))
+785 nm
+
+>>> print(Rb('P1/2').τ.to('ns'))
+27.7 ns
+```
+
+## Installation
+
+To install atomphys, simply use pip:
+
+```console
+$ pip install atomphys
+```
 
 ## Features
 
-- automatic fetching of energy levels and transitions from NIST
-- optional pint integration for units
-- scalar polarizability
+- Integration with Pint for robust handling of units
+- Automatically fetch energy level and transition data from the [NIST Atomic Spectra Database](https://www.nist.gov/pml/atomic-spectra-database)
+- Use transition data to calculation state lifetimes, polarizabilities, transition dipole moments, cross sections, and saturation intensities
+## Requirements
 
-## TODO
+Python 3
 
-- more unit tests
-  - physics based tests using alkali data
-- cli gotrian diagram
-- svg/matplotlib gotrian diagram
-- more examples and documetnation
-- import / export of custom set of levels and transitions, separate from NIST data. Many atoms and ions have a small set of lower levels and very precisely measured, and this is more relevant.
-- other functions
-  - vector and tensor polarizability
-  - cross section
-  - oscillator strength
-  - matrix elements between sublevels
-  - generate interaction matrix suitable for qutip
+atomphys makes extensive use of the excellent package [Pint](https://pint.readthedocs.io/en/stable/) to handle units. It's not strictly required, but it makes 
+
+
+
+
