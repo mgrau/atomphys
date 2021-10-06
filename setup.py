@@ -1,14 +1,21 @@
 from setuptools import setup, find_packages
 
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
 setup(name='atomphys',
-      version='0.0.1',
+      version='0.0.2',
       license='MIT',
       description='Atomic Physics for Python',
+      long_description=long_description,
+      long_description_content_type="text/markdown",
       keywords=['AMO', 'atomic physics'],
       author='Matt Grau',
       author_email='matt.grau@gmail.com',
       url='https://github.com/mgrau/atomphys',
-      download_url='https://github.com/mgrau/atomphys/archive/refs/tags/v0.0.1-alpha.tar.gz',
+      project_urls={
+          'Bug Tracker': 'https://github.com/mgrau/atomphys/issues'
+      },
       package_data={'atomphys': ['data/*.json']},
       packages=find_packages(),
       requirements=['pint'],
