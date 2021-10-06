@@ -1,5 +1,9 @@
 # atomphys
 
+<p align="left">
+  <a href="https://mgrau.github.io/atomphys/"><img src="docs/img/logo.svg" alt="atomphys logo"></a>
+</p>
+
 A Python package to help with atomic physics calculations.
 
 ![GitHub](https://img.shields.io/github/license/mgrau/atomphys)

@@ -4,9 +4,13 @@
   <a href="https://mgrau.github.io/atomphys/"><img src="img/logo.svg" alt="atomphys logo"></a>
 </p>
 
-# atomphys
+
 
 A Python package to help with atomic physics calculations.
+
+
+![GitHub](https://img.shields.io/github/license/mgrau/atomphys)
+![PyPI](https://img.shields.io/pypi/v/atomphys)
 
 ---
 
