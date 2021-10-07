@@ -1,3 +1,4 @@
+atomphys
+pint
 numpy
 matplotlib
-pint
