@@ -32,7 +32,7 @@ It's designed with a natural interface and is easy to use.
 >>> Rb = Atom('Rb')
 
 >>> print(Rb('S1/2').to('P1/2').λ.to('nm'))
-785 nm
+795 nm
 
 >>> print(Rb('P1/2').τ.to('ns'))
 27.7 ns
@@ -55,7 +55,7 @@ $ pip install atomphys
 
 Python 3.6+
 
-atomphys makes extensive use of the excellent package [Pint](https://pint.readthedocs.io/en/stable/) to handle units. It's not strictly required, but it makes 
+atomphys makes extensive use of the excellent package [Pint](https://pint.readthedocs.io/en/stable/) to handle units. It's not strictly required, but it is strongly recommended. 
 
 
 
