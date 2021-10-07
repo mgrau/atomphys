@@ -1,6 +1,0 @@
-name: python3.9
-dependencies:
-  - python=3.9
-  - numpy
-  - matplotlib
-  - pint
