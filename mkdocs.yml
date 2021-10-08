@@ -46,6 +46,7 @@ plugins:
   - search
   - include-markdown
   - mknotebooks:
+      enable_default_jupyter_cell_styling: false
       binder: true
       binder_service_name: "gh/mgrau"
       binder_branch: "main"
