@@ -10,9 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Install pytest
         run: pip install pytest nbval pint numpy matplotlib
       - name: Test
-        run: pytest --nbval docs/
+        run: pytest --nbval --current-env docs/
