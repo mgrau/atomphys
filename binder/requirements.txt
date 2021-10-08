@@ -1,0 +1,4 @@
+atomphys
+pint
+numpy
+matplotlib
