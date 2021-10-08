@@ -13,6 +13,6 @@ jobs:
       - name: Install pytest
         run: pip install pytest nbval pint numpy matplotlib
       - name: Install atomphys
-        run: pip install -e .
+        run: pip install .
       - name: Test
         run: pytest --nbval docs/
