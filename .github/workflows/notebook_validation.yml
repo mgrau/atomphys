@@ -13,6 +13,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install pytest
-        run: pip install pytest nbval atomphys pint numpy matplotlib
+        run: pip install pytest nbval pint numpy matplotlib
       - name: Test
-        run: pytest --nbval
+        run: pytest --nbval docs/
