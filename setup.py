@@ -27,6 +27,7 @@ setup(name='atomphys',
               'mkdocs',
               'mkdocs-material',
               'mkdocs-include-markdown-plugin',
+              'mknotebooks',
               'mkdocstrings'
           ]
       },

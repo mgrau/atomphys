@@ -7,6 +7,7 @@ repo_name: atomphys
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
+  - Example: example.ipynb
   - User Guide: user_guide.md
   - Reference: reference.md
   - Developers: developers.md
@@ -45,6 +46,9 @@ extra_css:
 plugins:
   - search
   - include-markdown
+  - mknotebooks:
+      binder: true
+      binder_service_name: "gh/mgrau"
   - mkdocstrings:
       watch:
         - atomphys
