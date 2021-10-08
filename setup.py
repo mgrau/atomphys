@@ -26,6 +26,7 @@ setup(name='atomphys',
               'autopep8',
               'mkdocs',
               'mkdocs-material',
+              'mkdocs-include-markdown-plugin',
               'mkdocstrings'
           ]
       },

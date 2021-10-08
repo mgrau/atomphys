@@ -4,6 +4,8 @@
   <a href="https://mgrau.github.io/atomphys/"><img src="docs/img/logo.svg" alt="atomphys logo"></a>
 </p>
 
+<!--intro-start-->
+
 A Python package to help with atomic physics calculations.
 
 [![Tests](https://github.com/mgrau/atomphys/actions/workflows/tests.yml/badge.svg)](https://github.com/mgrau/atomphys/actions/workflows/tests.yml)
@@ -54,6 +56,6 @@ Python 3.6+
 
 atomphys makes extensive use of the excellent package [Pint](https://pint.readthedocs.io/en/stable/) to handle units. It's not strictly required, but it is strongly recommended. 
 
-
+<!--intro-end-->
 
 
