@@ -10,3 +10,6 @@ venv
 
 # pytest coverage
 .coverage
+
+# pipy build
+dist
