@@ -4,7 +4,6 @@ from .data import fetch_states, fetch_transitions
 from math import pi as π
 import os
 import json
-import math
 
 try:
     from . import _ureg, _HAS_PINT

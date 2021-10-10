@@ -1,4 +1,4 @@
-from math import log, factorial, exp
+from math import factorial
 from math import floor, sqrt
 
 

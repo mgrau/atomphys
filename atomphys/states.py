@@ -1,18 +1,13 @@
-import csv
-import io
 import re
 import enum
-import urllib.request
 from fractions import Fraction
 from collections.abc import Iterable
 from .util import sanitize_energy
-from .data import nist
 from .calc import polarizability
 from .transitions import TransitionRegistry
 from .laser import Laser
 from .constants import gs
 from math import pi as π
-from itertools import chain
 
 
 try:
@@ -123,7 +118,7 @@ class State(dict):
         if 'J' in state:
             try:
                 J = float(Fraction(state['J'].strip('?')))
-            except:
+            except ValueError:
                 J = 0
         else:
             J = 0

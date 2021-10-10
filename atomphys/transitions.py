@@ -273,7 +273,6 @@ class Transition(dict):
         ε_0 = self._ureg['ε_0']
         ħ = self._ureg['ħ']
         c = self._ureg['c']
-        Jg = self.i.J
         Je = self.f.J
         Γ = self.Γ
         return ((3*π*ε_0*ħ*c**3)/(ω0**3)*(2*Je+1)*Γ)**(1/2)
@@ -303,7 +302,6 @@ class Transition(dict):
         return self.σ0
 
     def magic_wavelength(self, estimate, mJ_i=None, mJ_f=None, **kwargs):
-        c = self._ureg['c']
         α_i = self._state_i.α
         α_f = self._state_f.α
 
