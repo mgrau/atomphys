@@ -22,8 +22,13 @@ with open(periodic_table) as f:
 
 
 class Atom():
+    '''An atom object, containing states and transitions
 
-    name = ''
+    Attributes:
+        name (str): The name of the atom
+    '''
+
+    name: str = ''
 
     def __init__(self, atom, USE_UNITS=True, ureg=None):
         self._USE_UNITS = USE_UNITS and _HAS_PINT
@@ -107,13 +112,16 @@ class Atom():
             **transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg) for transition in fetch_transitions(atom))
 
     @property
-    def states(self):
+    def states(self) -> StateRegistry:
+        '''StateRegistry: the atomic states.'''
         return self._states
 
     @property
-    def transitions(self):
+    def transitions(self) -> TransitionRegistry:
+        '''TransitionRegistry: the atomic transitions.'''
         return self._transitions
 
     @property
     def units(self):
+        '''pint.UnitRegistry(): readonly access to the pint UnitRegistry used by the atom.'''
         return self._ureg
