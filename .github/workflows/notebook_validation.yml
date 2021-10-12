@@ -11,7 +11,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
       - name: Install pytest
-        run: pip install pytest nbval pint numpy matplotlib
+        run: pip install pytest nbval numpy matplotlib
       - name: Install atomphys
         run: pip install .
       - name: Test
