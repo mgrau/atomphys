@@ -7,7 +7,11 @@ repo_name: atomphys
 nav:
   - Home: index.md
   - Getting Started: getting-started.ipynb
-  - User Guide: user_guide.md
+  - User Guide:
+    - Atom: user_guide/atom.md
+    - State: user_guide/state.md
+    - Transision: user_guide/transition.md
+    - Laser: user_guide/laser.md
   - Reference: reference.md
   - Developers: developers.md
 
