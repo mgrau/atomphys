@@ -1,0 +1,5 @@
+pre-commit
+black
+flake8
+pytest
+pytest-cov
