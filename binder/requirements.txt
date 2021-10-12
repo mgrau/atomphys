@@ -1,4 +1,3 @@
 atomphys
-pint
 numpy
 matplotlib
