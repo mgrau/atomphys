@@ -1,7 +1,7 @@
 # atomphys
 
 <p align="left">
-  <a href="https://mgrau.github.io/atomphys/"><img src="docs/img/logo.svg" alt="atomphys logo"></a>
+  <a href="https://mgrau.github.io/atomphys/"><img src="https://mgrau.github.io/atomphys/img/logo.svg" alt="atomphys logo"></a>
 </p>
 
 <!--intro-start-->
@@ -12,7 +12,7 @@ A Python package to help with atomic physics calculations.
 ![Codecov](https://img.shields.io/codecov/c/github/mgrau/atomphys)
 ![GitHub](https://img.shields.io/github/license/mgrau/atomphys)
 ![PyPI](https://img.shields.io/pypi/v/atomphys)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mgrau/atomphys/main?labpath=nteract%2Fedit%2Fexamples)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mgrau/atomphys/main?urlpath=%2Ftree%2Fexamples)
 ---
 
 **Documentation**: [mgrau.github.io/atomphys/](https://mgrau.github.io/atomphys/)
