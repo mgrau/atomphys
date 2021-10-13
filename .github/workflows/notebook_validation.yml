@@ -10,9 +10,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
-      - name: Install pytest
-        run: pip install pytest nbval numpy matplotlib
       - name: Install atomphys
         run: pip install .
+      - name: Install pytest
+        run: pip install pytest nbval
+      - name: Install testing dependencies
+        run: pip install numpy matplotlib
       - name: Test
         run: pytest --nbval docs/

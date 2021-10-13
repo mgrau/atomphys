@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install atomphys
+        run: pip install .
       - name: Install pytest
         run: pip install pytest pytest-cov
       - name: Test
