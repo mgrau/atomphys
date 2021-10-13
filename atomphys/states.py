@@ -2,19 +2,13 @@ import enum
 import re
 from collections.abc import Iterable
 from fractions import Fraction
-from math import pi as π
 
+from . import _ureg
 from .calc import polarizability
 from .constants import gs
 from .laser import Laser
 from .transitions import TransitionRegistry
 from .util import sanitize_energy
-
-try:
-    from . import _HAS_PINT, _ureg
-except ImportError:
-    _HAS_PINT = False
-    _ureg = None
 
 
 class Coupling(enum.Enum):
@@ -42,13 +36,9 @@ class StateRegistry(list):
                 (self.__getitem__(item) for item in key), parent=self._parent
             )
         elif isinstance(key, float):
-            energy = (
-                self._parent._ureg.Quantity(key, "E_h")
-                if self._parent.USE_UNITS
-                else key
-            )
+            energy = self._parent._ureg.Quantity(key, "E_h")
             return min(self, key=lambda state: abs(state.energy - energy))
-        elif self._parent.USE_UNITS and isinstance(key, self._parent._ureg.Quantity):
+        elif isinstance(key, self._parent._ureg.Quantity):
             return min(self, key=lambda state: abs(state.energy - key))
         else:
             raise TypeError("key must be integer, slice, or term string")
@@ -80,37 +70,19 @@ class StateRegistry(list):
 
 class State(dict):
 
-    _USE_UNITS = False
     _ureg = {}
     _transitions_down = []
     _transitions_up = []
 
-    def __init__(self, USE_UNITS=False, ureg=None, **state):
-        self._USE_UNITS = USE_UNITS and _HAS_PINT
-        if ureg and self._USE_UNITS:
-            self._ureg = ureg
-        elif self._USE_UNITS:
-            self._ureg = _ureg
-        else:
-            self._ureg = {}
-
-        if not self._USE_UNITS:
-            self._ureg["ħ"] = 1
-            self._ureg["ε_0"] = 1 / (4 * π)
-            self._ureg["c"] = 137.03599908356244
+    def __init__(self, ureg=None, **state):
+        self._ureg = ureg if ureg is not None else _ureg
 
         if "energy" in state:
-            if self._USE_UNITS:
-                energy = self._ureg.Quantity(state["energy"])
-            else:
-                energy = float(state["energy"])
+            energy = float(state["energy"])
         elif "Level (Ry)" in state:
-            if self._USE_UNITS:
-                energy = self._ureg.Quantity(
-                    float(sanitize_energy(state["Level (Ry)"])), "Ry"
-                ).to("Eh")
-            else:
-                energy = 0.5 * float(sanitize_energy(state["Level (Ry)"]))
+            energy = self._ureg.Quantity(
+                float(sanitize_energy(state["Level (Ry)"])), "Ry"
+            ).to("Eh")
         else:
             energy = 0.0
 
@@ -141,7 +113,7 @@ class State(dict):
         )
 
     def __repr__(self):
-        fmt = "0.4g~P" if self._USE_UNITS else "0.4g"
+        fmt = "0.4g~P"
         return f"State({self.name}: {self.energy:{fmt}})"
 
     def to_dict(self):

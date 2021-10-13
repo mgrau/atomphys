@@ -1,15 +1,10 @@
 import json
 import os
 
+from . import _ureg
 from .data import fetch_states, fetch_transitions
 from .states import State, StateRegistry
 from .transitions import Transition, TransitionRegistry
-
-try:
-    from . import _HAS_PINT, _ureg
-except ImportError:
-    _HAS_PINT = False
-    _ureg = None
 
 current_file = os.path.realpath(__file__)
 directory = os.path.dirname(current_file)
@@ -28,13 +23,8 @@ class Atom:
 
     name: str = ""
 
-    def __init__(self, atom, USE_UNITS=True, ureg=None):
-        self._USE_UNITS = USE_UNITS and _HAS_PINT
-
-        if ureg:
-            self._ureg = ureg
-        else:
-            self._ureg = _ureg
+    def __init__(self, atom, ureg=None):
+        self._ureg = ureg if ureg is not None else _ureg
 
         try:
             self.load(atom)
@@ -96,14 +86,11 @@ class Atom:
 
         self.name = data["name"]
         self._states = StateRegistry(
-            (
-                State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
-                for state in data["states"]
-            ),
+            (State(**state, ureg=self._ureg) for state in data["states"]),
             parent=self,
         )
         self._transitions = TransitionRegistry(
-            Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
+            Transition(**transition, ureg=self._ureg)
             for transition in data["transitions"]
         )
 
@@ -119,14 +106,11 @@ class Atom:
             )
 
         self._states = StateRegistry(
-            (
-                State(**state, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
-                for state in fetch_states(atom)
-            ),
+            (State(**state, ureg=self._ureg) for state in fetch_states(atom)),
             parent=self,
         )
         self._transitions = TransitionRegistry(
-            Transition(**transition, USE_UNITS=self._USE_UNITS, ureg=self._ureg)
+            Transition(**transition, ureg=self._ureg)
             for transition in fetch_transitions(atom)
         )
 

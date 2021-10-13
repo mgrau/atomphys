@@ -2,13 +2,8 @@ from collections.abc import Iterable
 from math import inf
 from math import pi as π
 
+from . import _ureg
 from .util import fsolve, sanitize_energy
-
-try:
-    from . import _HAS_PINT, _ureg
-except ImportError:
-    _HAS_PINT = False
-    _ureg = None
 
 
 class TransitionRegistry(list):
@@ -44,11 +39,7 @@ class TransitionRegistry(list):
                 (self.__getitem__(item) for item in key), parent=self._parent
             )
         elif isinstance(key, float):
-            energy = (
-                self._parent._ureg.Quantity(key, "E_h")
-                if self._parent._USE_UNITS
-                else key
-            )
+            energy = self._parent._ureg.Quantity(key, "E_h")
             return min(
                 self,
                 key=lambda transition: min(
@@ -106,76 +97,46 @@ class TransitionRegistry(list):
 
 class Transition(dict):
 
-    _USE_UNITS = False
     _ureg = {}
     _atom = None
     _state_i = None
     _state_f = None
 
-    def __init__(self, USE_UNITS=False, ureg=None, **transition):
-        self._USE_UNITS = USE_UNITS and _HAS_PINT
-        if ureg and self._USE_UNITS:
-            self._ureg = ureg
-        elif self._USE_UNITS:
-            self._ureg = _ureg
-        else:
-            self._ureg = {}
-
-        if not self._USE_UNITS:
-            self._ureg["ħ"] = 1
-            self._ureg["h"] = 2 * π
-            self._ureg["ε_0"] = 1 / (4 * π)
-            self._ureg["c"] = 137.03599908356244
+    def __init__(self, ureg=None, **transition):
+        self._ureg = ureg if ureg is not None else _ureg
 
         if "Gamma" in transition:
-            if self._USE_UNITS:
-                Gamma = self._ureg.Quantity(transition["Gamma"])
-            else:
-                Gamma = float(transition["Gamma"])
+            Gamma = self._ureg.Quantity(transition["Gamma"])
         elif "Aki(s^-1)" in transition:
-            if self._USE_UNITS:
-                Gamma = self._ureg.Quantity(float(transition["Aki(s^-1)"]), "s^-1").to(
-                    "Eh/ħ"
-                )
-            else:
-                Gamma = 2.4188843265856806e-17 * float(transition["Aki(s^-1)"])
+            Gamma = self._ureg.Quantity(float(transition["Aki(s^-1)"]), "s^-1").to(
+                "Eh/ħ"
+            )
         else:
             Gamma = 0.0
 
         if "Ei" in transition:
-            if self._USE_UNITS:
-                Ei = self._ureg.Quantity(transition["Ei"])
-            else:
-                Ei = float(transition["Ei"])
+            Ei = self._ureg.Quantity(transition["Ei"])
+
         elif "Ei(Ry)" in transition:
-            if self._USE_UNITS:
-                Ei = self._ureg.Quantity(
-                    float(sanitize_energy(transition["Ei(Ry)"])), "Ry"
-                ).to("Eh")
-            else:
-                Ei = 0.5 * float(sanitize_energy(transition["Ei(Ry)"]))
+            Ei = self._ureg.Quantity(
+                float(sanitize_energy(transition["Ei(Ry)"])), "Ry"
+            ).to("Eh")
         else:
             Ei = 0.0
 
         if "Ef" in transition:
-            if self._USE_UNITS:
-                Ef = self._ureg.Quantity(transition["Ef"])
-            else:
-                Ef = float(transition["Ef"])
+            Ef = self._ureg.Quantity(transition["Ef"])
         elif "Ek(Ry)" in transition:
-            if self._USE_UNITS:
-                Ef = self._ureg.Quantity(
-                    float(sanitize_energy(transition["Ek(Ry)"])), "Ry"
-                ).to("Eh")
-            else:
-                Ef = 0.5 * float(sanitize_energy(transition["Ek(Ry)"]))
+            Ef = self._ureg.Quantity(
+                float(sanitize_energy(transition["Ek(Ry)"])), "Ry"
+            ).to("Eh")
         else:
             Ef = 0.0
 
         super(Transition, self).__init__({"Ei": Ei, "Ef": Ef, "Gamma": Gamma})
 
     def __repr__(self):
-        fmt = "0.4g~P" if self._USE_UNITS else "0.4g"
+        fmt = "0.4g~P"
         if self.i is not None:
             state_i = f"{self.i.valence} {self.i.term}"
         else:
@@ -222,10 +183,7 @@ class Transition(dict):
 
     @property
     def Γ_MHz(self):
-        if self._USE_UNITS:
-            return self.Γ.to("MHz")
-        else:
-            return self.Γ * 41341373335.18245  # E_h / ħ / MHz
+        return self.Γ.to("MHz")
 
     @property
     def i(self):
@@ -266,10 +224,7 @@ class Transition(dict):
 
     @property
     def λ_nm(self):
-        if self._USE_UNITS:
-            return self.λ.to("nm")
-        else:
-            return self.λ * 0.052917721090397746  # nm / a_0
+        return self.λ.to("nm")
 
     @property
     def wavelength_nm(self):
@@ -288,7 +243,7 @@ class Transition(dict):
     @property
     def branching_ratio(self):
         r = self.Γ * self.f.τ
-        if self._USE_UNITS and isinstance(r, self._ureg.Quantity):
+        if isinstance(r, self._ureg.Quantity):
             r = r.m
         return r
 
