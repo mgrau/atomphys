@@ -48,14 +48,14 @@ $ pip install atomphys
 
 ## Features
 
-- Integration with Pint for robust handling of units
+- Integration with [Pint](https://pint.readthedocs.io/en/stable/) for robust handling of units
 - Automatically fetch energy level and transition data from the [NIST Atomic Spectra Database](https://www.nist.gov/pml/atomic-spectra-database)
 - Use transition data to calculation state lifetimes, polarizabilities, transition dipole moments, cross sections, and saturation intensities
 ## Requirements
 
 Python 3.6+
 
-atomphys makes extensive use of the excellent package [Pint](https://pint.readthedocs.io/en/stable/) to handle units. It's not strictly required, but it is strongly recommended. 
+atomphys makes extensive use of the excellent package [Pint](https://pint.readthedocs.io/en/stable/) to handle units.
 
 <!--intro-end-->
 
