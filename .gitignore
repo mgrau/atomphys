@@ -11,5 +11,8 @@ venv
 # pytest coverage
 .coverage
 
-# pipy build
+# PyPI
+.pypirc
 dist
+
+TODO.md
