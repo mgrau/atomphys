@@ -1,0 +1,6 @@
+
+include AUTHORS
+include LICENSE
+recursive-include atomphys *.json
+include pytest.ini
+recursive-include tests *.py
