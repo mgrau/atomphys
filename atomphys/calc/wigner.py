@@ -2,18 +2,58 @@ from math import factorial, floor, sqrt
 
 
 def ishalfint(x: float) -> bool:
+    """check if value is half integer
+
+    Arguments:
+        x: is this a half integer?
+
+    Returns:
+        True if x is a half integer and False if it is not.
+    """
     return 2 * x == floor(2 * x)
 
 
 def isint(x: float) -> bool:
+    """checks if value is an integer
+
+    Arguments:
+        x: is this an integer?
+
+    Returns:
+        True if x is an integer and False if it is not.
+    """
     return x == floor(x)
 
 
 def istriangle(a: float, b: float, c: float) -> bool:
+    """checks if triad (a, b, c) obeys the triangle inequality
+
+    Arguments:
+        a:
+        b:
+        c:
+
+    Returns:
+        True if the triangle inequality is satisfied and False if it is not.
+    """
     return abs(a - b) <= c and c <= a + b
 
 
 def Δ(a: float, b: float, c: float) -> float:
+    """Helper function for wigner symbols
+
+    Calculates the intermediate expression
+
+    $\\Delta = \\frac{(a+b-c)!(a-b+c)!(-a+b+c)!}{(a+b+c+1)!}$
+
+    Arguments:
+        a:
+        b:
+        c:
+
+    Returns:
+        $\\Delta$
+    """
     return (
         factorial(a + b - c)
         * factorial(a - b + c)
@@ -29,6 +69,38 @@ _wigner_6j_cache = {}
 def wigner_3j(
     j1: float, j2: float, j3: float, m1: float, m2: float, m3: float
 ) -> float:
+    """Calculate the Wigner 3-j symbol numerically
+
+    The Wigner 3-j symbol is calculated numerically using a recursion relation.
+    This approximate calculation is often faster than the exact analytic
+    calculation that is done by `sympy.physics.wigner`.
+    Due to the finite precision of floating point numbers, this is only good
+    for $j$ and $m$ up to about 40, after which it becomes too inaccurate.
+
+    The results are cached in the private variable `_wigner_3j_cache` to
+    speed subsequent calculations.
+
+    $\\left(
+    \\begin{matrix}
+    j_1 & j_2 & j_3 \\\\ m_1 & m_2 & m_3
+    \\end{matrix}
+    \\right)$
+
+    Arguments:
+        j1:
+        j2:
+        j3:
+        m1:
+        m2:
+        m3:
+
+    Returns:
+        $\\left(
+        \\begin{matrix}
+        j_1 & j_2 & j_3 \\\\ m_1 & m_2 & m_3
+        \\end{matrix}
+        \\right)$
+    """
     if (j1, j2, j3, m1, m2, m3) in _wigner_3j_cache:
         return _wigner_3j_cache[(j1, j2, j3, m1, m2, m3)]
 
@@ -96,6 +168,36 @@ def wigner_3j(
 def wigner_6j(
     j1: float, j2: float, j3: float, J1: float, J2: float, J3: float
 ) -> float:
+    """Wigner 6-j symbol numerically
+
+    The Wigner 6-j symbol is calculated numerically using a recursion relation.
+    This approximate calculation is often faster than the exact analytic
+    calculation that is done by `sympy.physics.wigner`.
+
+    The results are cached in the private variable `_wigner_6j_cache` to
+    speed subsequent calculations.
+
+    $\\left\\{
+    \\begin{matrix}
+    j_1 & j_2 & j_3 \\\\ J_1 & J_2 & J_3
+    \\end{matrix}
+    \\right\\}$
+
+    Arguments:
+        j1:
+        j2:
+        j3:
+        J1:
+        J2:
+        J3:
+
+    Returns:
+        $\\left\\{
+        \\begin{matrix}
+        j_1 & j_2 & j_3 \\\\ J_1 & J_2 & J_3
+        \\end{matrix}
+        \\right\\}$
+    """
     if (j1, j2, j3, J1, J2, J3) in _wigner_6j_cache:
         return _wigner_6j_cache[(j1, j2, j3, J1, J2, J3)]
 
