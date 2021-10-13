@@ -15,4 +15,7 @@ venv
 .pypirc
 dist
 
+# mkdocs
+site
+
 TODO.md
