@@ -1,19 +1,19 @@
 from math import factorial, floor, sqrt
 
 
-def ishalfint(x):
+def ishalfint(x: float) -> bool:
     return 2 * x == floor(2 * x)
 
 
-def isint(x):
+def isint(x: float) -> bool:
     return x == floor(x)
 
 
-def istriangle(a, b, c):
+def istriangle(a: float, b: float, c: float) -> bool:
     return abs(a - b) <= c and c <= a + b
 
 
-def Δ(a, b, c):
+def Δ(a: float, b: float, c: float) -> float:
     return (
         factorial(a + b - c)
         * factorial(a - b + c)
@@ -22,13 +22,15 @@ def Δ(a, b, c):
     )
 
 
-wigner_3j_cache = {}
-wigner_6j_cache = {}
+_wigner_3j_cache = {}
+_wigner_6j_cache = {}
 
 
-def wigner_3j(j1, j2, j3, m1, m2, m3):
-    if (j1, j2, j3, m1, m2, m3) in wigner_3j_cache:
-        return wigner_3j_cache[(j1, j2, j3, m1, m2, m3)]
+def wigner_3j(
+    j1: float, j2: float, j3: float, m1: float, m2: float, m3: float
+) -> float:
+    if (j1, j2, j3, m1, m2, m3) in _wigner_3j_cache:
+        return _wigner_3j_cache[(j1, j2, j3, m1, m2, m3)]
 
     if (
         not ishalfint(j1)
@@ -86,14 +88,16 @@ def wigner_3j(j1, j2, j3, m1, m2, m3):
         * factorial(j3 - m3)
     )
 
-    wigner_3j_cache[(j1, j2, j3, m1, m2, m3)] = wigner
+    _wigner_3j_cache[(j1, j2, j3, m1, m2, m3)] = wigner
 
     return wigner
 
 
-def wigner_6j(j1, j2, j3, J1, J2, J3):
-    if (j1, j2, j3, J1, J2, J3) in wigner_6j_cache:
-        return wigner_6j_cache[(j1, j2, j3, J1, J2, J3)]
+def wigner_6j(
+    j1: float, j2: float, j3: float, J1: float, J2: float, J3: float
+) -> float:
+    if (j1, j2, j3, J1, J2, J3) in _wigner_6j_cache:
+        return _wigner_6j_cache[(j1, j2, j3, J1, J2, J3)]
 
     if (
         not ishalfint(j1)
@@ -142,6 +146,6 @@ def wigner_6j(j1, j2, j3, J1, J2, J3):
             )
         )
     wigner *= sqrt(Δ(j1, j2, j3) * Δ(j1, J2, J3) * Δ(J1, j2, J3) * Δ(J1, J2, j3))
-    wigner_6j_cache[(j1, j2, j3, J1, J2, J3)] = wigner
+    _wigner_6j_cache[(j1, j2, j3, J1, J2, J3)] = wigner
 
     return wigner

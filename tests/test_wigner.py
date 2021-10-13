@@ -65,13 +65,13 @@ def test_3j():
 
 
 def test_3j_cache():
-    atomphys.calc.wigner.wigner_3j_cache = {}
+    atomphys.calc.wigner._wigner_3j_cache = {}
     assert wigner_3j(0, 0, 0, 0, 0, 0) == 1
-    assert atomphys.calc.wigner.wigner_3j_cache == {(0, 0, 0, 0, 0, 0): 1.0}
+    assert atomphys.calc.wigner._wigner_3j_cache == {(0, 0, 0, 0, 0, 0): 1.0}
     assert wigner_3j(0, 0, 0, 0, 0, 0) == 1
 
     # don't try this!
-    atomphys.calc.wigner.wigner_3j_cache[(0, 0, 0, 0, 0, 0)] = 2
+    atomphys.calc.wigner._wigner_3j_cache[(0, 0, 0, 0, 0, 0)] = 2
     assert wigner_3j(0, 0, 0, 0, 0, 0) == 2
 
 
@@ -123,13 +123,13 @@ def test_6j():
 
 
 def test_6j_cache():
-    atomphys.calc.wigner.wigner_6j_cache = {}
+    atomphys.calc.wigner._wigner_6j_cache = {}
     assert wigner_6j(0, 0, 0, 0, 0, 0) == 1
-    assert atomphys.calc.wigner.wigner_6j_cache == {(0, 0, 0, 0, 0, 0): 1.0}
+    assert atomphys.calc.wigner._wigner_6j_cache == {(0, 0, 0, 0, 0, 0): 1.0}
     assert wigner_6j(0, 0, 0, 0, 0, 0) == 1
 
     # don't try this!
-    atomphys.calc.wigner.wigner_6j_cache[(0, 0, 0, 0, 0, 0)] = 2
+    atomphys.calc.wigner._wigner_6j_cache[(0, 0, 0, 0, 0, 0)] = 2
     assert wigner_6j(0, 0, 0, 0, 0, 0) == 2
 
 
