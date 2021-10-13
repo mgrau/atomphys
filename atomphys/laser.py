@@ -39,14 +39,22 @@ class Laser:
         fmt = "0.4g~P"
         return f"Laser(λ={self.λ:{fmt}})"
 
+    # ---------
+    # Frequency
+    # ---------
+
     @property
     def ω(self):
         return self.__omega
 
     @ω.setter
     def ω(self, ω):
+        if isinstance(ω, str):
+            ω = self.__units(ω)
+        if not isinstance(ω, self.__units.Quantity):
+            ω = ω * self.__units.Hz
         if not ω.check("[frequency]"):
-            raise ValueError("ω must be a frequency")
+            raise ValueError("ω must have units of frequency")
         self.__omega = ω
 
     @property
@@ -55,8 +63,6 @@ class Laser:
 
     @omega.setter
     def omega(self, ω):
-        if not ω.check("[frequency]"):
-            raise ValueError("omega must be a frequency")
         self.ω = ω
 
     @property
@@ -65,8 +71,6 @@ class Laser:
 
     @angular_frequency.setter
     def angular_frequency(self, ω):
-        if not ω.check("[frequency]"):
-            raise ValueError("angular frequency must be a frequency")
         self.ω = ω
 
     @property
@@ -75,8 +79,6 @@ class Laser:
 
     @ν.setter
     def ν(self, ν):
-        if not ν.check("[frequency]"):
-            raise ValueError("ν must be a frequency")
         self.ω = 2 * π * ν
 
     @property
@@ -85,8 +87,6 @@ class Laser:
 
     @nu.setter
     def nu(self, ν):
-        if not ν.check("[frequency]"):
-            raise ValueError("nu must be a frequency")
         self.ν = ν
 
     @property
@@ -95,9 +95,11 @@ class Laser:
 
     @frequency.setter
     def frequency(self, ν):
-        if not ν.check("[frequency]"):
-            raise ValueError("frequency must be a frequency")
         self.ν = ν
+
+    # ----------
+    # Wavelength
+    # ----------
 
     @property
     def λ(self):
@@ -109,8 +111,12 @@ class Laser:
 
     @λ.setter
     def λ(self, λ):
+        if isinstance(λ, str):
+            λ = self.__units(λ)
+        if not isinstance(λ, self.__units.Quantity):
+            λ = λ * self.__units.nm
         if not λ.check("[length]"):
-            raise ValueError("λ must be a length")
+            raise ValueError("wavelength must have units of length")
         c = self.__units["c"]
         self.ν = c / λ
 
@@ -120,9 +126,63 @@ class Laser:
 
     @wavelength.setter
     def wavelength(self, λ):
-        if not λ.check("[length]"):
-            raise ValueError("wavelength must be a length")
         self.λ = λ
+
+    # --------------
+    # Electric Field
+    # --------------
+
+    @property
+    def E(self):
+        return self.__electric_field
+
+    @E.setter
+    def E(self, E):
+        if isinstance(E, str):
+            E = self.__units(E)
+        if not isinstance(E, self.__units.Quantity):
+            E = E * self.__units("V/m")
+        if not E.check("[mass]*[length]/[current]/[time]^3"):
+            raise ValueError("E must have units of electric field")
+        self.__electric_field = E
+
+    @property
+    def electric_field(self):
+        return self.E
+
+    @electric_field.setter
+    def electric_field(self, E):
+        self.E = E
+
+    @property
+    def I(self):
+        c = self.__units["c"]
+        ε_0 = self.__units["ε_0"]
+        return self.E ** 2 * (c * ε_0 / 2)
+
+    @I.setter
+    def I(self, I):
+        if isinstance(I, str):
+            I = self._units(I)
+        if not isinstance(I, self.__units.Quantity):
+            I = I * self.__units("W/m^2")
+        if not I.check("[mass]/[time]^3"):
+            raise ValueError("I must have units of intensity")
+        c = self.__units["c"]
+        ε_0 = self.__units["ε_0"]
+        self.E = (2 * I / (c * ε_0)) ** (1 / 2)
+
+    @property
+    def intensity(self):
+        return self.I
+
+    @intensity.setter
+    def intensity(self, I):
+        self.I = I
+
+    # ------------
+    # Polarization
+    # ------------
 
     @property
     def A(self):
@@ -147,50 +207,6 @@ class Laser:
     @theta_p.setter
     def theta_p(self, theta_p):
         self.__theta_p = theta_p
-
-    @property
-    def E(self):
-        return self.__electric_field
-
-    @E.setter
-    def E(self, E):
-        if not E.check("[mass]*[length]/[current]/[time]^3"):
-            raise ValueError("E must be an electric field")
-        self.__electric_field = E
-
-    @property
-    def electric_field(self):
-        return self.E
-
-    @electric_field.setter
-    def electric_field(self, E):
-        if not E.check("[mass]*[length]/[current]/[time]^3"):
-            raise ValueError("electric_field must be an electric field")
-        self.E = E
-
-    @property
-    def I(self):
-        c = self.__units["c"]
-        ε_0 = self.__units["ε_0"]
-        return self.E ** 2 * (c * ε_0 / 2)
-
-    @I.setter
-    def I(self, I):
-        if not I.check("[mass]/[time]^3"):
-            raise ValueError("I must be an intensity")
-        c = self.__units["c"]
-        ε_0 = self.__units["ε_0"]
-        self.E = (2 * I / (c * ε_0)) ** (1 / 2)
-
-    @property
-    def intensity(self):
-        return self.I
-
-    @intensity.setter
-    def intensity(self, I):
-        if not I.check("[mass]/[time]^3"):
-            raise ValueError("intensity must be an intensity")
-        self.I = I
 
     def Ω(self, transition, Rabi_frequency=None):
         # this is not quite right, as d is reduced dipole matrix element.
