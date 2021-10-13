@@ -142,6 +142,6 @@ def wigner_6j(j1, j2, j3, J1, J2, J3):
             )
         )
     wigner *= sqrt(Δ(j1, j2, j3) * Δ(j1, J2, J3) * Δ(J1, j2, J3) * Δ(J1, J2, j3))
-    wigner_3j_cache[(j1, j2, j3, J1, J2, J3)] = wigner
+    wigner_6j_cache[(j1, j2, j3, J1, J2, J3)] = wigner
 
     return wigner
