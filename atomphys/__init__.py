@@ -8,10 +8,14 @@ except ImportError:
     _HAS_PINT = False
     _ureg = None
 
+import pkg_resources
+
 from .atom import Atom, symbols
 from .laser import Laser
 from .states import State
 from .transitions import Transition
+
+__version__ = pkg_resources.get_distribution("atomphys").version
 
 __all__ = [
     "symbols",
