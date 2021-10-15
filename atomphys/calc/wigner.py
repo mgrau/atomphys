@@ -168,7 +168,7 @@ def wigner_3j(
 def wigner_6j(
     j1: float, j2: float, j3: float, J1: float, J2: float, J3: float
 ) -> float:
-    """Wigner 6-j symbol numerically
+    """Calculate the Wigner 6-j symbol numerically
 
     The Wigner 6-j symbol is calculated numerically using a recursion relation.
     This approximate calculation is often faster than the exact analytic
