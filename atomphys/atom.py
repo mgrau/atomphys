@@ -3,8 +3,8 @@ import os
 
 from . import _ureg
 from .data import fetch_states, fetch_transitions
-from .states import State, StateRegistry
-from .transitions import Transition, TransitionRegistry
+from .state import State, StateRegistry
+from .transition import Transition, TransitionRegistry
 
 current_file = os.path.realpath(__file__)
 directory = os.path.dirname(current_file)

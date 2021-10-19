@@ -7,7 +7,7 @@ from . import _ureg
 from .calc import polarizability
 from .constants import gs
 from .laser import Laser
-from .transitions import TransitionRegistry
+from .transition import TransitionRegistry
 from .util import sanitize_energy
 
 
