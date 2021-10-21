@@ -2,6 +2,18 @@ import csv
 import io
 import urllib
 import urllib.request
+from fractions import Fraction
+from typing import List
+
+
+def remove_annotations(s: str) -> str:
+    """remove annotations from energy strings in NIST ASD"""
+    # re_energy = re.compile("-?\\d+\\.\\d*|$")
+    # return re_energy.findall(s)[0]
+
+    # this is about 3.5× faster than re.findall, but it's less flexible
+    # overall this can make a several hundred ms difference when loading
+    return s.strip("()[]aluxyz +?").replace("&dagger;", "")
 
 
 def fetch_states(atom):
@@ -29,6 +41,19 @@ def fetch_states(atom):
     )
 
     return data
+
+
+def parse_states(data: List[dict]):
+    return [
+        {
+            "energy": remove_annotations(state["Level (Ry)"]) + " Ry",
+            "term": state["Term"] + state["J"],
+            "configuration": state["Configuration"],
+            "J": Fraction(state["J"]),
+            "g": float(state["g"]),
+        }
+        for state in data
+    ]
 
 
 def fetch_transitions(atom):
