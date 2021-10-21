@@ -1,6 +1,9 @@
 name: Check black, flake8, and isort
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
