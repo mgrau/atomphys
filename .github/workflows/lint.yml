@@ -1,4 +1,4 @@
-name: Check black, flake8, and isort
+name: Run Linting
 
 on:
   push:
