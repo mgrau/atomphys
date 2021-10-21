@@ -2,8 +2,11 @@ from collections.abc import Iterable
 from math import inf
 from math import pi as π
 
+import pint
+
 from . import _ureg
-from .util import fsolve, sanitize_energy
+from .data.nist import remove_annotations
+from .util import fsolve
 
 
 class TransitionRegistry(list):
@@ -97,38 +100,44 @@ class TransitionRegistry(list):
 
 class Transition(dict):
 
-    _ureg = {}
-    _atom = None
-    _state_i = None
-    _state_f = None
+    __ureg: pint.UnitRegistry
+    __atom = None
+    __state_i = None
+    __state_f = None
+    __matrix_element: pint.Quantity
 
     def __init__(self, ureg=None, **transition):
-        self._ureg = ureg if ureg is not None else _ureg
+        self.__ureg = ureg if ureg is not None else _ureg
+
+        if "matrix_element" in transition:
+            self._matrix_element = transition["matrix_element"]
+        if "d" in transition:
+            self._matrix_element = transition["d"]
 
         if "Gamma" in transition:
-            Gamma = self._ureg.Quantity(transition["Gamma"])
+            Gamma = self.__ureg.Quantity(transition["Gamma"])
         elif "Aki(s^-1)" in transition:
-            Gamma = self._ureg.Quantity(float(transition["Aki(s^-1)"]), "s^-1").to(
+            Gamma = self.__ureg.Quantity(float(transition["Aki(s^-1)"]), "s^-1").to(
                 "Eh/ħ"
             )
         else:
             Gamma = 0.0
 
         if "Ei" in transition:
-            Ei = self._ureg.Quantity(transition["Ei"])
+            Ei = self.__ureg.Quantity(transition["Ei"])
 
         elif "Ei(Ry)" in transition:
-            Ei = self._ureg.Quantity(
-                float(sanitize_energy(transition["Ei(Ry)"])), "Ry"
+            Ei = self.__ureg.Quantity(
+                float(remove_annotations(transition["Ei(Ry)"])), "Ry"
             ).to("Eh")
         else:
             Ei = 0.0
 
         if "Ef" in transition:
-            Ef = self._ureg.Quantity(transition["Ef"])
+            Ef = self.__ureg.Quantity(transition["Ef"])
         elif "Ek(Ry)" in transition:
-            Ef = self._ureg.Quantity(
-                float(sanitize_energy(transition["Ek(Ry)"])), "Ry"
+            Ef = self.__ureg.Quantity(
+                float(remove_annotations(transition["Ek(Ry)"])), "Ry"
             ).to("Eh")
         else:
             Ef = 0.0
@@ -154,12 +163,49 @@ class Transition(dict):
 
     def to_dict(self):
         return {
-            "i": self._atom.states.index(self.i),
-            "f": self._atom.states.index(self.f),
+            "i": self.__atom.states.index(self.i),
+            "f": self.__atom.states.index(self.f),
             "Ei": str(self.Ei),
             "Ef": str(self.Ef),
             "Gamma": str(self.Gamma),
         }
+
+    @property
+    def _matrix_element(self):
+        return self.__matrix_element
+
+    @_matrix_element.setter
+    def _matrix_element(self, matrix_element):
+        if isinstance(matrix_element, str):
+            matrix_element = self.__ureg(matrix_element)
+        if not isinstance(matrix_element, pint.Quantity):
+            matrix_element = matrix_element * self.__ureg("e a0")
+        if not matrix_element.check("[charge]*[length]"):
+            raise ValueError("matrix element must have units of electric dipole")
+        self.__matrix_element = matrix_element
+
+    @property
+    def _Γ(self):
+        ε_0 = self.__ureg.ε_0
+        ħ = self.__ureg.ħ
+        c = self.__ureg.c
+
+        ω = self.ω
+        J = self.f.J
+        d = self.matrix_element
+        return (ω ** 3) / ((3 * π * ε_0 * ħ * c ** 3) * (2 * J + 1)) * d ** 2
+
+    @_Γ.setter
+    def _Γ(self, Γ):
+        ε_0 = self.__ureg.ε_0
+        ħ = self.__ureg.ħ
+        c = self.__ureg.c
+
+        ω = self.ω
+        J = self.f.J
+        self._matrix_element = (
+            (3 * π * ε_0 * ħ * c ** 3) / (ω ** 3) * (2 * J + 1) * Γ
+        ) ** (1 / 2)
 
     @property
     def Ei(self):
@@ -195,7 +241,7 @@ class Transition(dict):
 
     @property
     def ω(self):
-        ħ = self._ureg["ħ"]
+        ħ = self.__ureg["ħ"]
         return (self.Ef - self.Ei) / ħ
 
     @property
@@ -212,7 +258,7 @@ class Transition(dict):
 
     @property
     def λ(self):
-        c = self._ureg["c"]
+        c = self.__ureg["c"]
         try:
             return c / self.ν
         except ZeroDivisionError:
@@ -232,8 +278,8 @@ class Transition(dict):
 
     @property
     def saturation_intensity(self):
-        h = self._ureg["h"]
-        c = self._ureg["c"]
+        h = self.__ureg["h"]
+        c = self.__ureg["c"]
         return π * h * c * self.Γ / (3 * self.λ ** 3)
 
     @property
@@ -243,16 +289,16 @@ class Transition(dict):
     @property
     def branching_ratio(self):
         r = self.Γ * self.f.τ
-        if isinstance(r, self._ureg.Quantity):
+        if isinstance(r, self.__ureg.Quantity):
             r = r.m
         return r
 
     @property
     def reduced_dipole_matrix_element(self):
         ω0 = self.ω
-        ε_0 = self._ureg["ε_0"]
-        ħ = self._ureg["ħ"]
-        c = self._ureg["c"]
+        ε_0 = self.__ureg["ε_0"]
+        ħ = self.__ureg["ħ"]
+        c = self.__ureg["c"]
         Je = self.f.J
         Γ = self.Γ
         return ((3 * π * ε_0 * ħ * c ** 3) / (ω0 ** 3) * (2 * Je + 1) * Γ) ** (1 / 2)
@@ -274,7 +320,7 @@ class Transition(dict):
 
     @property
     def σ0(self):
-        ħ = self._ureg["ħ"]
+        ħ = self.__ureg["ħ"]
         return ħ * self.ω * self.Γ / (2 * self.Isat)
 
     @property

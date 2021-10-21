@@ -3,12 +3,14 @@ import re
 from collections.abc import Iterable
 from fractions import Fraction
 
+import pint
+
 from . import _ureg
 from .calc import polarizability
 from .constants import gs
 from .laser import Laser
 from .transition import TransitionRegistry
-from .util import sanitize_energy
+from .util import default_units
 
 
 class Coupling(enum.Enum):
@@ -70,21 +72,21 @@ class StateRegistry(list):
 
 class State(dict):
 
-    _ureg = {}
+    _ureg: pint.UnitRegistry
+    __energy: pint.Quantity
+    __atom = None
+    __transitions: TransitionRegistry
     _transitions_down = []
     _transitions_up = []
 
     def __init__(self, ureg=None, **state):
         self._ureg = ureg if ureg is not None else _ureg
 
+        energy = 0.0
         if "energy" in state:
-            energy = float(state["energy"])
-        elif "Level (Ry)" in state:
-            energy = self._ureg.Quantity(
-                float(sanitize_energy(state["Level (Ry)"])), "Ry"
-            ).to("Eh")
-        else:
-            energy = 0.0
+            self._energy = state["energy"]
+        if "En" in state:
+            self._energy = state["En"]
 
         if "configuration" in state:
             configuration = state["configuration"]
@@ -101,12 +103,12 @@ class State(dict):
         else:
             J = 0
 
-        if "term" in state:
-            term = parse_term(state["term"])
-        elif "Term" in state:
-            term = parse_term(state["Term"])
-        else:
-            term = {}
+            # if "term" in state:
+            #     term = parse_term(state["term"])
+            # elif "Term" in state:
+            #     term = parse_term(state["Term"])
+            # else:
+        term = {}
 
         super(State, self).__init__(
             {"energy": energy, "configuration": configuration, "J": J, **term}
@@ -114,7 +116,10 @@ class State(dict):
 
     def __repr__(self):
         fmt = "0.4g~P"
-        return f"State({self.name}: {self.energy:{fmt}})"
+        try:
+            return f"State({self.name}: {self.energy:{fmt}})"
+        except BaseException:
+            return "State"
 
     def to_dict(self):
         return {
@@ -128,8 +133,30 @@ class State(dict):
         return name in self.name
 
     @property
+    def _energy(self):
+        return self.__energy
+
+    @_energy.setter
+    @default_units("Ry")
+    def _energy(self, energy):
+        self.__energy = energy
+
+    @property
     def energy(self):
-        return self["energy"]
+        return self.__energy
+
+    @property
+    def _En(self):
+        return self.__energy
+
+    @_En.setter
+    @default_units("Ry")
+    def _En(self, energy):
+        self.__energy = energy
+
+    @property
+    def En(self):
+        return self.__energy
 
     @property
     def configuration(self):
@@ -246,7 +273,7 @@ class State(dict):
         try:
             lifetime = 1 / sum(Gamma)
         except ZeroDivisionError:
-            lifetime = float("inf")
+            lifetime = float("inf") * self.__units.s
 
         return lifetime
 
@@ -277,34 +304,10 @@ LS_term = re.compile(r"^(?P<S>\d+)(?P<L>[A-Z])\*?")
 JJ_term = re.compile(r"^\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?")
 LK_term = re.compile(r"^(?P<S>\d+)\[(?P<K>\d+/?\d*)\]\*?")
 
-L = {
-    "S": 0,
-    "P": 1,
-    "D": 2,
-    "F": 3,
-    "G": 4,
-    "H": 5,
-    "I": 6,
-    "K": 7,
-    "L": 8,
-    "M": 9,
-    "N": 10,
-    "O": 11,
-    "Q": 12,
-    "R": 13,
-    "T": 14,
-    "U": 15,
-    "V": 16,
-    "W": 17,
-    "X": 18,
-    "Y": 19,
-}
-L_inv = {value: key for key, value in L.items()}
 
-
-def parse_term(term):
+def parse_term(term: str):
     """
-    parse term symbol string
+    parse term symbol string in NIST ASD
     """
     if term == "Limit":
         return {}
@@ -330,3 +333,28 @@ def parse_term(term):
     term = {key: convert(key, value) for key, value in match.groupdict().items()}
 
     return {**term, "parity": parity}
+
+
+L = {
+    "S": 0,
+    "P": 1,
+    "D": 2,
+    "F": 3,
+    "G": 4,
+    "H": 5,
+    "I": 6,
+    "K": 7,
+    "L": 8,
+    "M": 9,
+    "N": 10,
+    "O": 11,
+    "Q": 12,
+    "R": 13,
+    "T": 14,
+    "U": 15,
+    "V": 16,
+    "W": 17,
+    "X": 18,
+    "Y": 19,
+}
+L_inv = {value: key for key, value in L.items()}
