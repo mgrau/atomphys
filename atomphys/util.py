@@ -1,16 +1,27 @@
-import re
+from functools import wraps
 from typing import Callable
 
-re_energy = re.compile("-?\\d+\\.\\d*|$")
+import pint
 
 
-def sanitize_energy(s: str) -> str:
-    """sanitize energy strings from NIST ASD by removing annotations"""
-    # return re_energy.findall(s)[0]
+def default_units(unit: str):
+    def decorator(setter):
+        @wraps(setter)
+        def wrapper(*args, **kwargs):
+            print(args)
+            self = args[0]
+            quantity = args[1]
+            if isinstance(quantity, str):
+                quantity = self._ureg(quantity)
+            if not isinstance(quantity, pint.Quantity):
+                quantity = pint.Quantity(quantity, unit)
+            if not quantity.check(unit):
+                raise ValueError(f"must have units equivalent to {unit}")
+            setter(self, quantity, *args[2:], **kwargs)
 
-    # this is about 3.5× faster than re.findall, but it's less flexible
-    # overall this can make a several hundred ms difference when loading
-    return s.strip("()[]aluxyz +?").replace("&dagger;", "")
+        return wrapper
+
+    return decorator
 
 
 def fsolve(func: Callable, x0, x1=None, tol: float = 1.49012e-08, maxfev: int = 100):
