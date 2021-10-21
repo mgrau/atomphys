@@ -1,8 +1,7 @@
 0.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix bug in wigner_6j cache
 
 0.0.2 (2021-10-13)
 ------------------
