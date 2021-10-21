@@ -1,4 +1,5 @@
 from math import factorial, floor, sqrt
+from functools import lru_cache
 
 
 def ishalfint(x: float) -> bool:
@@ -62,10 +63,8 @@ def Δ(a: float, b: float, c: float) -> float:
     )
 
 
-_wigner_3j_cache = {}
-_wigner_6j_cache = {}
 
-
+@lru_cache(maxsize=None)
 def wigner_3j(
     j1: float, j2: float, j3: float, m1: float, m2: float, m3: float
 ) -> float:
@@ -101,8 +100,6 @@ def wigner_3j(
         \\end{matrix}
         \\right)$
     """
-    if (j1, j2, j3, m1, m2, m3) in _wigner_3j_cache:
-        return _wigner_3j_cache[(j1, j2, j3, m1, m2, m3)]
 
     if (
         not ishalfint(j1)
@@ -160,11 +157,9 @@ def wigner_3j(
         * factorial(j3 - m3)
     )
 
-    _wigner_3j_cache[(j1, j2, j3, m1, m2, m3)] = wigner
-
     return wigner
 
-
+@lru_cache(maxsize=None)
 def wigner_6j(
     j1: float, j2: float, j3: float, J1: float, J2: float, J3: float
 ) -> float:
@@ -198,9 +193,7 @@ def wigner_6j(
         \\end{matrix}
         \\right\\}$
     """
-    if (j1, j2, j3, J1, J2, J3) in _wigner_6j_cache:
-        return _wigner_6j_cache[(j1, j2, j3, J1, J2, J3)]
-
+    
     if (
         not ishalfint(j1)
         or not ishalfint(j2)
@@ -248,6 +241,6 @@ def wigner_6j(
             )
         )
     wigner *= sqrt(Δ(j1, j2, j3) * Δ(j1, J2, J3) * Δ(J1, j2, J3) * Δ(J1, J2, j3))
-    _wigner_6j_cache[(j1, j2, j3, J1, J2, J3)] = wigner
+
 
     return wigner
