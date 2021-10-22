@@ -1,4 +1,4 @@
-name: Check black, flake8, and isort
+name: Run Linting
 
 on:
   pull_request:
@@ -13,9 +13,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - name: Run black
-        uses: piotrpawlaczek/python-blacken@release/stable
+        uses: RojerGS/python-black-check@master
         with:
-          only-check: "yes"
+          line-length: "88"
       - name: Run isort
         uses: jamescurtin/isort-action@master
       - name: Run flake8
