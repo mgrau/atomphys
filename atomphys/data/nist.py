@@ -85,3 +85,15 @@ def fetch_transitions(atom):
     ]
 
     return data_with_transition_probabilities
+
+
+def parse_transitions(data: List[dict]):
+    return [
+        {
+            "state_i": {"energy": transition["Ei(Ry)"] + " Ry"},
+            "state_f": {"energy": transition["Ek(Ry)"] + " Ry"},
+            "A": transition["Aki(s ^ -1)"] + "s^-1",
+            "type": transition["Type"],
+        }
+        for transition in data
+    ]
