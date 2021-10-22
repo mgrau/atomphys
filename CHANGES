@@ -1,6 +1,7 @@
 0.0.4 (unreleased)
 ------------------
 
+- Fix bug preventing .json files from loading correctly
 - Fix bug in wigner_6j cache
 
 0.0.2 (2021-10-13)
