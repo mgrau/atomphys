@@ -78,7 +78,7 @@ class State(dict):
         self._ureg = ureg if ureg is not None else _ureg
 
         if "energy" in state:
-            energy = float(state["energy"])
+            energy = self._ureg.Quantity(state["energy"])
         elif "Level (Ry)" in state:
             energy = self._ureg.Quantity(
                 float(sanitize_energy(state["Level (Ry)"])), "Ry"
