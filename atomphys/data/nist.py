@@ -2,7 +2,6 @@ import csv
 import io
 import urllib
 import urllib.request
-from fractions import Fraction
 from typing import List
 
 
@@ -49,8 +48,7 @@ def parse_states(data: List[dict]):
             "energy": remove_annotations(state["Level (Ry)"]) + " Ry",
             "term": state["Term"] + state["J"],
             "configuration": state["Configuration"],
-            "J": Fraction(state["J"]),
-            "g": float(state["g"]),
+            "g": None if state["g"] == "" else float(state["g"]),
         }
         for state in data
     ]

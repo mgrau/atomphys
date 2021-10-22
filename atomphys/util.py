@@ -8,7 +8,6 @@ def default_units(unit: str):
     def decorator(setter):
         @wraps(setter)
         def wrapper(*args, **kwargs):
-            print(args)
             self = args[0]
             quantity = args[1]
             if isinstance(quantity, str):

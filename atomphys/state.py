@@ -1,7 +1,7 @@
 import enum
-import re
 from collections.abc import Iterable
 from fractions import Fraction
+from typing import Any
 
 import pint
 
@@ -9,6 +9,7 @@ from . import _ureg
 from .calc import polarizability
 from .constants import gs
 from .laser import Laser
+from .term import parse_term, print_term
 from .transition import TransitionRegistry
 from .util import default_units
 
@@ -70,10 +71,12 @@ class StateRegistry(list):
         return [state.to_dict() for state in self]
 
 
-class State(dict):
+class State:
 
     _ureg: pint.UnitRegistry
     __energy: pint.Quantity
+    __parity: int = None
+    __quantum_numbers: dict = {}
     __atom = None
     __transitions: TransitionRegistry
     _transitions_down = []
@@ -82,44 +85,35 @@ class State(dict):
     def __init__(self, ureg=None, **state):
         self._ureg = ureg if ureg is not None else _ureg
 
-        energy = 0.0
+        self._energy = 0
         if "energy" in state:
             self._energy = state["energy"]
         if "En" in state:
             self._energy = state["En"]
 
-        if "configuration" in state:
-            configuration = state["configuration"]
-        elif "Configuration" in state:
-            configuration = state["Configuration"]
-        else:
-            configuration = ""
+        for qN in ["S", "L", "J", "J1", "J2", "K", "parity"]:
+            if qN in state:
+                self.__quantum_numbers[qN] = state["qN"]
 
-        if "J" in state:
-            try:
-                J = float(Fraction(state["J"].strip("?")))
-            except (ValueError, ZeroDivisionError):
-                J = 0
-        else:
-            J = 0
-
-            # if "term" in state:
-            #     term = parse_term(state["term"])
-            # elif "Term" in state:
-            #     term = parse_term(state["Term"])
-            # else:
-        term = {}
-
-        super(State, self).__init__(
-            {"energy": energy, "configuration": configuration, "J": J, **term}
-        )
+        if "term" in state:
+            self.__quantum_numbers = {
+                **self.__quantum_numbers,
+                **parse_term(state["term"]),
+            }
 
     def __repr__(self):
-        fmt = "0.4g~P"
         try:
-            return f"State({self.name}: {self.energy:{fmt}})"
-        except BaseException:
-            return "State"
+            name = f"{self.name}: "
+        except RuntimeError:
+            name = ""
+
+        energy = f"{self.energy:0.4g~P}"
+        return f"State({name}{energy})"
+
+    def __getattr__(self, name: str) -> Any:
+        if name in self.__quantum_numbers:
+            return self.__quantum_numbers[name]
+        raise AttributeError(f"{self.__class__.__name__} has not attribute {name}")
 
     def to_dict(self):
         return {
@@ -131,6 +125,10 @@ class State(dict):
 
     def match(self, name):
         return name in self.name
+
+    # ------
+    # Energy
+    # ------
 
     @property
     def _energy(self):
@@ -159,56 +157,28 @@ class State(dict):
         return self.__energy
 
     @property
-    def configuration(self):
-        return self["configuration"]
+    def quantum_numbers(self):
+        return self.__quantum_numbers
 
-    @property
-    def valence(self):
-        match = re.match(r"^(\S*\.)?(?P<valence>\S+)", self.configuration)
-        if match is None:
-            return ""
-        else:
-            return match["valence"]
+    # @property
+    # def valence(self):
+    #     match = re.match(r"^(\S*\.)?(?P<valence>\S+)", self.configuration)
+    #     if match is None:
+    #         return ""
+    #     else:
+    #         return match["valence"]
 
     @property
     def name(self):
-        return f"{self.valence} {self.term}"
-
-    @property
-    def J(self):
-        return self["J"]
-
-    @property
-    def S(self):
-        return self["S"]
-
-    @property
-    def L(self):
-        return self["L"]
-
-    @property
-    def J1(self):
-        return self["J1"]
-
-    @property
-    def J2(self):
-        return self["J2"]
-
-    @property
-    def K(self):
-        return self["K"]
-
-    @property
-    def parity(self):
-        return self["parity"]
+        return f"{self.term}"
 
     @property
     def coupling(self):
-        if "L" in self:
+        if all(key in self.__quantum_numbers.keys() for key in ["S", "L"]):
             return Coupling.LS
-        if "J1" in self:
+        if all(key in self.__quantum_numbers.keys() for key in ["J1", "J2"]):
             return Coupling.jj
-        if "K" in self:
+        if all(key in self.__quantum_numbers.keys() for key in ["S2", "K"]):
             return Coupling.LK
         return None
 
@@ -224,16 +194,7 @@ class State(dict):
 
     @property
     def term(self):
-        if self.coupling is None:
-            return "Ionization Limit"
-
-        P = "*" if self.parity == -1 else ""
-        if self.coupling == Coupling.LS:
-            return f"{2*self.S + 1:g}{L_inv[self.L]}{Fraction(self.J)}{P}"
-        if self.coupling == Coupling.jj:
-            return f"({Fraction(self.J1)},{Fraction(self.J2)}){Fraction(self.J)}{P}"
-        if self.coupling == Coupling.LK:
-            return f"{2*self.S + 1:g}[{Fraction(self.K)}]{Fraction(self.J)}{P}"
+        return print_term(**self.__quantum_numbers)
 
     @property
     def transitions_down(self):
@@ -298,63 +259,3 @@ class State(dict):
     @property
     def α(self):
         return self.polarizability
-
-
-LS_term = re.compile(r"^(?P<S>\d+)(?P<L>[A-Z])\*?")
-JJ_term = re.compile(r"^\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?")
-LK_term = re.compile(r"^(?P<S>\d+)\[(?P<K>\d+/?\d*)\]\*?")
-
-
-def parse_term(term: str):
-    """
-    parse term symbol string in NIST ASD
-    """
-    if term == "Limit":
-        return {}
-
-    parity = -1 if "*" in term else 1
-
-    match = LS_term.match(term)
-    if match is None:
-        match = JJ_term.match(term)
-    if match is None:
-        match = LK_term.match(term)
-    if match is None:
-        return {"partiy": parity}
-
-    def convert(key, value):
-        if key == "S":
-            return float(Fraction((int(value) - 1) / 2))
-        if key == "J1" or key == "J2" or key == "K":
-            return float(Fraction(value))
-        if key == "L":
-            return L[value]
-
-    term = {key: convert(key, value) for key, value in match.groupdict().items()}
-
-    return {**term, "parity": parity}
-
-
-L = {
-    "S": 0,
-    "P": 1,
-    "D": 2,
-    "F": 3,
-    "G": 4,
-    "H": 5,
-    "I": 6,
-    "K": 7,
-    "L": 8,
-    "M": 9,
-    "N": 10,
-    "O": 11,
-    "Q": 12,
-    "R": 13,
-    "T": 14,
-    "U": 15,
-    "V": 16,
-    "W": 17,
-    "X": 18,
-    "Y": 19,
-}
-L_inv = {value: key for key, value in L.items()}
