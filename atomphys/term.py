@@ -42,8 +42,8 @@ def parse_term(term: str) -> dict:
     """
     parse term symbol string in NIST ASD
     """
-    if term == "Limit":
-        return {}
+    if "Limit" in term:
+        return {"ionization_limit": True}
 
     parity = -1 if "*" in term else 1
 
@@ -71,6 +71,9 @@ def parse_term(term: str) -> dict:
 
 
 def print_term(include_parity=False, **quantum_numbers) -> str:
+    if "ionization_limit" in quantum_numbers:
+        return "Ionization Limit"
+
     P = ""
     if include_parity:
         if "parity" in quantum_numbers and quantum_numbers["parity"] == -1:
