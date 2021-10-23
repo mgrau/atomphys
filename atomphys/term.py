@@ -53,7 +53,7 @@ def parse_term(term: str) -> dict:
     if match is None:
         match = LK_term.match(term)
     if match is None:
-        return {"partiy": parity}
+        return {"parity": parity}
 
     def convert(key, value):
         if key in ["S", "S2"]:
