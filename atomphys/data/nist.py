@@ -1,8 +1,11 @@
 import csv
 import io
+import re
 import urllib
 import urllib.request
 from typing import List
+
+monovalent = re.compile(r"^[a-z0-9]*\.(?P<n>\d+)[a-z]$")
 
 
 def remove_annotations(s: str) -> str:
@@ -45,10 +48,17 @@ def fetch_states(atom):
 def parse_states(data: List[dict]):
     return [
         {
-            "energy": remove_annotations(state["Level (Ry)"]) + " Ry",
-            "term": state["Term"] + state["J"],
-            "configuration": state["Configuration"],
-            "g": None if state["g"] == "" else float(state["g"]),
+            **{
+                "energy": remove_annotations(state["Level (Ry)"]) + " Ry",
+                "term": state["Term"] + state["J"],
+                "configuration": state["Configuration"],
+                "g": None if state["g"] == "" else float(state["g"]),
+            },
+            **(
+                {"n": int(monovalent.match(state["Configuration"])["n"])}
+                if monovalent.match(state["Configuration"])
+                else {}
+            ),
         }
         for state in data
     ]
