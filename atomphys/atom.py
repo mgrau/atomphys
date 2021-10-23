@@ -1,8 +1,10 @@
 import json
 import os
 
+import pint
+
 from . import _ureg
-from .data import fetch_states, fetch_transitions
+from .data import nist
 from .state import State, StateRegistry
 from .transition import Transition, TransitionRegistry
 
@@ -21,6 +23,7 @@ class Atom:
         name (str): The name of the atom
     """
 
+    _ureg: pint.UnitRegistry
     name: str = ""
 
     def __init__(self, atom, ureg=None):
@@ -33,28 +36,28 @@ class Atom:
             self.load_nist(self.name)
 
         # reverse sort by Gamma first
-        self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
+        # self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
         # then sort by upper state energy
-        self._transitions.sort(key=lambda transition: transition.Ef)
+        # self._transitions.sort(key=lambda transition: transition.Ef)
         # sort then by lower state energy
-        self._transitions.sort(key=lambda transition: transition.Ei)
+        # self._transitions.sort(key=lambda transition: transition.Ei)
         # because sort is stable, this produces a list sorted by both upper
         # and lower state energy
 
         # index the transitions to the states
-        for transition in self._transitions:
-            transition._atom = self
-            transition._state_i = next(
-                state for state in self._states if state.energy == transition.Ei
-            )
-            transition._state_f = next(
-                state for state in self._states if state.energy == transition.Ef
-            )
+        # for transition in self._transitions:
+        #     transition._atom = self
+        #     transition._state_i = next(
+        #         state for state in self._states if state.energy == transition.Ei
+        #     )
+        #     transition._state_f = next(
+        #         state for state in self._states if state.energy == transition.Ef
+        #     )
 
         # index the states to the transitions
-        for state in self._states:
-            state._transitions_down = self._transitions.down_from(state)
-            state._transitions_up = self._transitions.up_from(state)
+        # for state in self._states:
+        #     state._transitions_down = self._transitions.down_from(state)
+        #     state._transitions_up = self._transitions.up_from(state)
 
     def __getitem__(self, state):
         return self.states[state]
@@ -106,13 +109,16 @@ class Atom:
             )
 
         self._states = StateRegistry(
-            (State(**state, ureg=self._ureg) for state in fetch_states(atom)),
+            (
+                State(**state, atom=self)
+                for state in nist.parse_states(nist.fetch_states(atom))
+            ),
             parent=self,
         )
-        self._transitions = TransitionRegistry(
-            Transition(**transition, ureg=self._ureg)
-            for transition in fetch_transitions(atom)
-        )
+        # self._transitions = TransitionRegistry(
+        #     Transition(**transition, ureg=self._ureg)
+        #     for transition in fetch_transitions(atom)
+        # )
 
     @property
     def states(self) -> StateRegistry:
