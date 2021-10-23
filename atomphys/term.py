@@ -70,10 +70,11 @@ def parse_term(term: str) -> dict:
     return {**term, "parity": parity}
 
 
-def print_term(**quantum_numbers) -> str:
+def print_term(include_parity=False, **quantum_numbers) -> str:
     P = ""
-    if "parity" in quantum_numbers and quantum_numbers["parity"] == -1:
-        P = "*"
+    if include_parity:
+        if "parity" in quantum_numbers and quantum_numbers["parity"] == -1:
+            P = "*"
 
     J = ""
     if "J" in quantum_numbers:
@@ -93,7 +94,4 @@ def print_term(**quantum_numbers) -> str:
             f"{2*quantum_numbers['S2'] + 1:g}[{Fraction(quantum_numbers['K'])}]{P}{J}"
         )
 
-    # quantum numbers don't match any known coupling, raise an error
-    raise RuntimeError(
-        f"can't construct a term symbol out of the quantum numbers {quantum_numbers}"
-    )
+    return ""
