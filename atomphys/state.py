@@ -35,7 +35,14 @@ class StateRegistry(UserList):
             try:
                 return next(state for state in self if state.match(key))
             except StopIteration:
+                pass
+
+            try:
                 return self(self.__atom._ureg.Quantity(key))
+            except pint.errors.UndefinedUnitError:
+                pass
+
+            return None
         elif isinstance(key, float):
             energy = self.__atom._ureg.Quantity(key, "Ry")
             return min(self.data, key=lambda state: abs(state.energy - energy))
