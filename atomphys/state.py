@@ -10,7 +10,7 @@ from . import _ureg
 from .calc import polarizability
 from .constants import gs
 from .laser import Laser
-from .term import parse_term, print_term
+from .term import L_inv, parse_term, print_term
 from .transition import TransitionRegistry
 from .util import default_units
 
@@ -32,14 +32,17 @@ class StateRegistry(UserList):
         if isinstance(key, int):
             return self.data[key]
         elif isinstance(key, str):
-            return next(state for state in self if state.match(key))
-        elif isinstance(key, Iterable):
-            return StateRegistry([self(item) for item in key], atom=self.__atom)
+            try:
+                return next(state for state in self if state.match(key))
+            except StopIteration:
+                return self(self.__atom._ureg.Quantity(key))
         elif isinstance(key, float):
             energy = self.__atom._ureg.Quantity(key, "Ry")
             return min(self.data, key=lambda state: abs(state.energy - energy))
         elif isinstance(key, self.__atom._ureg.Quantity):
             return min(self.data, key=lambda state: abs(state.energy - key))
+        elif isinstance(key, Iterable):
+            return StateRegistry([self(item) for item in key], atom=self.__atom)
         else:
             raise TypeError("key must be integer, slice, or term string")
 
@@ -75,6 +78,7 @@ class State:
     _ureg: pint.UnitRegistry
     __energy: pint.Quantity
     __quantum_numbers: dict = {}
+    __configuration: str
     __atom = None
     __transitions: TransitionRegistry
     _transitions_down = []
@@ -93,15 +97,15 @@ class State:
         if "En" in state:
             self._energy = state["En"]
 
-        for qN in ["S", "L", "J", "J1", "J2", "K", "parity"]:
-            if qN in state:
-                self.__quantum_numbers[qN] = state["qN"]
-
         if "term" in state:
-            self.__quantum_numbers = {
-                **self.__quantum_numbers,
-                **parse_term(state["term"]),
-            }
+            self.__quantum_numbers = parse_term(state["term"])
+
+        for qN in ["S", "L", "J", "J1", "J2", "K", "n", "parity"]:
+            if qN in state:
+                self.__quantum_numbers[qN] = state[qN]
+
+        if "configuration" in state:
+            self.__configuration = state["configuration"]
 
     def __repr__(self):
         try:
@@ -122,21 +126,21 @@ class State:
 
     def to_dict(self):
         return {
+            "name": self.name,
             "energy": str(self.energy),
-            "configuration": self.configuration,
             "term": self.term,
-            "J": str(Fraction(self.J)),
+            "quantum numbers": self.quantum_numbers,
         }
 
     def match(self, name):
-        return name in self.name
+        return name.lower() in self.name.lower()
 
     # ------
     # Energy
     # ------
 
     @property
-    def _energy(self):
+    def _energy(self) -> pint.Quantity:
         return self.__energy
 
     @_energy.setter
@@ -145,11 +149,11 @@ class State:
         self.__energy = energy
 
     @property
-    def energy(self):
+    def energy(self) -> pint.Quantity:
         return self.__energy
 
     @property
-    def _En(self):
+    def _En(self) -> pint.Quantity:
         return self.__energy
 
     @_En.setter
@@ -158,48 +162,30 @@ class State:
         self.__energy = energy
 
     @property
-    def En(self):
+    def En(self) -> pint.Quantity:
         return self.__energy
 
     @property
-    def quantum_numbers(self):
+    def quantum_numbers(self) -> dict:
         return self.__quantum_numbers
 
-    # @property
-    # def valence(self):
-    #     match = re.match(r"^(\S*\.)?(?P<valence>\S+)", self.configuration)
-    #     if match is None:
-    #         return ""
-    #     else:
-    #         return match["valence"]
-
     @property
-    def name(self):
-        return f"{self.term}"
+    def configuration(self) -> str:
+        return self.__configuration
 
     @property
     def term(self):
         return print_term(**self.__quantum_numbers)
 
     @property
-    def coupling(self):
-        if all(key in self.__quantum_numbers.keys() for key in ["S", "L"]):
-            return Coupling.LS
-        if all(key in self.__quantum_numbers.keys() for key in ["J1", "J2"]):
-            return Coupling.jj
-        if all(key in self.__quantum_numbers.keys() for key in ["S2", "K"]):
-            return Coupling.LK
-        return None
+    def name(self):
+        if "n" in self.__quantum_numbers:
+            return f"{self.n}{L_inv[self.L]}{Fraction(self.J)}, {self.term}"
+        return f"{self.term}"
 
-    @property
-    def g(self):
-        if self.coupling == Coupling.LS:
-            L, S, J = self.L, self.S, self.J
-            return (gs + 1) / 2 + (gs - 1) / 2 * (S * (S + 1) - L * (L - 1)) / (
-                J * (J + 1)
-            )
-        else:
-            return None
+    # -----------
+    # Transitions
+    # -----------
 
     @property
     def transitions_down(self):
@@ -232,6 +218,30 @@ class State:
     @property
     def up(self):
         return TransitionRegistry(self.transitions_up, parent=self)
+
+    # ---------------------
+    # high level properties
+    # ---------------------
+
+    @property
+    def coupling(self):
+        if all(key in self.__quantum_numbers.keys() for key in ["S", "L"]):
+            return Coupling.LS
+        if all(key in self.__quantum_numbers.keys() for key in ["J1", "J2"]):
+            return Coupling.jj
+        if all(key in self.__quantum_numbers.keys() for key in ["S2", "K"]):
+            return Coupling.LK
+        return None
+
+    @property
+    def g(self):
+        if self.coupling == Coupling.LS:
+            L, S, J = self.L, self.S, self.J
+            return (gs + 1) / 2 + (gs - 1) / 2 * (S * (S + 1) - L * (L - 1)) / (
+                J * (J + 1)
+            )
+        else:
+            return None
 
     @property
     def lifetime(self):
