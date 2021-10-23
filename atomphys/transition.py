@@ -100,14 +100,19 @@ class TransitionRegistry(list):
 
 class Transition(dict):
 
-    __ureg: pint.UnitRegistry
+    _ureg: pint.UnitRegistry
+    __matrix_element: pint.Quantity
+    __type: None
     __atom = None
     __state_i = None
     __state_f = None
-    __matrix_element: pint.Quantity
 
-    def __init__(self, ureg=None, **transition):
-        self.__ureg = ureg if ureg is not None else _ureg
+    def __init__(self, ureg=None, atom=None, **transition):
+        self._ureg = _ureg
+        if ureg is not None:
+            self._ureg = ureg
+        if atom is not None:
+            self._ureg = atom._ureg
 
         if "matrix_element" in transition:
             self._matrix_element = transition["matrix_element"]

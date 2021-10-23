@@ -75,15 +75,18 @@ class State:
 
     _ureg: pint.UnitRegistry
     __energy: pint.Quantity
-    __parity: int = None
     __quantum_numbers: dict = {}
     __atom = None
     __transitions: TransitionRegistry
     _transitions_down = []
     _transitions_up = []
 
-    def __init__(self, ureg=None, **state):
-        self._ureg = ureg if ureg is not None else _ureg
+    def __init__(self, ureg=None, atom=None, **state):
+        self._ureg = _ureg
+        if ureg is not None:
+            self._ureg = ureg
+        if atom is not None:
+            self._ureg = atom._ureg
 
         self._energy = 0
         if "energy" in state:
@@ -173,6 +176,10 @@ class State:
         return f"{self.term}"
 
     @property
+    def term(self):
+        return print_term(**self.__quantum_numbers)
+
+    @property
     def coupling(self):
         if all(key in self.__quantum_numbers.keys() for key in ["S", "L"]):
             return Coupling.LS
@@ -191,10 +198,6 @@ class State:
             )
         else:
             return None
-
-    @property
-    def term(self):
-        return print_term(**self.__quantum_numbers)
 
     @property
     def transitions_down(self):
