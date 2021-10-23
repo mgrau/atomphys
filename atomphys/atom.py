@@ -109,11 +109,13 @@ class Atom:
             )
 
         self._states = StateRegistry(
-            (
-                State(**state, atom=self)
-                for state in nist.parse_states(nist.fetch_states(atom))
+            sorted(
+                [
+                    State(**state, atom=self)
+                    for state in nist.parse_states(nist.fetch_states(atom))
+                ]
             ),
-            parent=self,
+            atom=self,
         )
         # self._transitions = TransitionRegistry(
         #     Transition(**transition, ureg=self._ureg)

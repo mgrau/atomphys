@@ -1,4 +1,5 @@
 import enum
+from collections import UserList
 from collections.abc import Iterable
 from fractions import Fraction
 from typing import Any
@@ -20,34 +21,27 @@ class Coupling(enum.Enum):
     LK = "LK"  # pair coupling
 
 
-class StateRegistry(list):
-    _parent = None
+class StateRegistry(UserList):
+    __atom = None
 
-    def __init__(self, *args, parent=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._parent = parent
+    def __init__(self, data=[], atom=None):
+        self.data = data
+        self.__atom = atom
 
-    def __getitem__(self, key):
+    def __call__(self, key):
         if isinstance(key, int):
-            return super().__getitem__(key)
-        elif isinstance(key, slice):
-            return StateRegistry(super().__getitem__(key), parent=self._parent)
+            return self.data[key]
         elif isinstance(key, str):
             return next(state for state in self if state.match(key))
         elif isinstance(key, Iterable):
-            return StateRegistry(
-                (self.__getitem__(item) for item in key), parent=self._parent
-            )
+            return StateRegistry([self(item) for item in key], atom=self.__atom)
         elif isinstance(key, float):
-            energy = self._parent._ureg.Quantity(key, "E_h")
-            return min(self, key=lambda state: abs(state.energy - energy))
-        elif isinstance(key, self._parent._ureg.Quantity):
-            return min(self, key=lambda state: abs(state.energy - key))
+            energy = self.__atom._ureg.Quantity(key, "Ry")
+            return min(self.data, key=lambda state: abs(state.energy - energy))
+        elif isinstance(key, self.__atom._ureg.Quantity):
+            return min(self.data, key=lambda state: abs(state.energy - key))
         else:
             raise TypeError("key must be integer, slice, or term string")
-
-    def __call__(self, key):
-        return self.__getitem__(key)
 
     def __repr__(self):
         repr = f"{len(self)} States (\n"
@@ -63,9 +57,14 @@ class StateRegistry(list):
         repr = repr[:-1] + ")"
         return repr
 
-    def __add__(self, other):
-        assert isinstance(other, StateRegistry)
-        return StateRegistry(list(self) + list(other), parent=self._parent)
+    def search(self, func):
+        def search_func(state):
+            try:
+                return func(state)
+            except BaseException:
+                return False
+
+        return StateRegistry(list(filter(search_func, self.data)), atom=self.__atom)
 
     def to_dict(self):
         return [state.to_dict() for state in self]
@@ -117,6 +116,9 @@ class State:
         if name in self.__quantum_numbers:
             return self.__quantum_numbers[name]
         raise AttributeError(f"{self.__class__.__name__} has not attribute {name}")
+
+    def __lt__(self, other):
+        return self.energy < other.energy
 
     def to_dict(self):
         return {
