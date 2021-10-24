@@ -97,6 +97,9 @@ def fetch_transitions(atom, refresh_cache=False):
         "allowed_out": 1,
         "forbid_out": 1,
         "enrg_out": "on",
+        "term_out": "on",
+        "J_out": "on",
+        "no_spaces": "on",
     }
 
     get_postfix = urllib.parse.urlencode(values)
@@ -121,8 +124,14 @@ def fetch_transitions(atom, refresh_cache=False):
 def parse_transitions(data: List[dict]):
     return [
         {
-            "state_i": {"energy": transition["Ei(Ry)"] + " Ry"},
-            "state_f": {"energy": transition["Ek(Ry)"] + " Ry"},
+            "state_i": {
+                "energy": transition["Ei(Ry)"] + " Ry",
+                "term": transition["term_i"].replace("*", "") + transition["J_i"],
+            },
+            "state_f": {
+                "energy": transition["Ek(Ry)"] + " Ry",
+                "term": transition["term_k"].replace("*", "") + transition["J_k"],
+            },
             "A": transition["Aki(s^-1)"] + "s^-1",
             "type": transition["Type"],
         }

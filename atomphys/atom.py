@@ -26,50 +26,46 @@ class Atom:
     _ureg: pint.UnitRegistry
     name: str = ""
 
-    def __init__(self, atom, ureg=None):
+    def __init__(self, atom, ureg=None, refresh_cache=False):
         self._ureg = ureg if ureg is not None else _ureg
 
         try:
             self.load(atom)
         except FileNotFoundError:
-            self.name = atom
-            self.load_nist(self.name)
+            self.load_nist(atom, refresh_cache)
 
-        # reverse sort by Gamma first
-        # self._transitions.sort(key=lambda transition: transition.Gamma, reverse=True)
-        # then sort by upper state energy
-        # self._transitions.sort(key=lambda transition: transition.Ef)
-        # sort then by lower state energy
-        # self._transitions.sort(key=lambda transition: transition.Ei)
-        # because sort is stable, this produces a list sorted by both upper
-        # and lower state energy
+        self._transitions.sort()
+        for state in self._states:
+            state.transitions.sort()
 
-        # index the transitions to the states
-        # for transition in self._transitions:
-        #     transition._atom = self
-        #     transition._state_i = next(
-        #         state for state in self._states if state.energy == transition.Ei
-        #     )
-        #     transition._state_f = next(
-        #         state for state in self._states if state.energy == transition.Ef
-        #     )
-
-        # index the states to the transitions
-        # for state in self._states:
-        #     state._transitions_down = self._transitions.down_from(state)
-        #     state._transitions_up = self._transitions.up_from(state)
-
-    def __getitem__(self, state):
-        return self.states[state]
-
-    def __call__(self, state):
-        return self.states[state]
+    def __call__(self, key):
+        try:
+            return self.states(key)
+        except KeyError:
+            pass
+        try:
+            return self.transitions(key)
+        except KeyError:
+            pass
+        raise KeyError(f"no property of atom {self.name} {key}")
 
     def __repr__(self):
         return (
             f"Ground State: {self.states[0]}\n"
             f"{len(self.states)} States\n"
             f"{len(self.transitions)} Transitions"
+        )
+
+    def _load_states(self, states):
+        self._states = StateRegistry(
+            sorted([State(**state, atom=self) for state in states]),
+            atom=self,
+        )
+
+    def _load_transitions(self, transitions):
+        self._transitions = TransitionRegistry(
+            [Transition(**transition, atom=self) for transition in transitions],
+            atom=self,
         )
 
     def to_dict(self):
@@ -88,16 +84,10 @@ class Atom:
             data = json.load(file)
 
         self.name = data["name"]
-        self._states = StateRegistry(
-            (State(**state, ureg=self._ureg) for state in data["states"]),
-            parent=self,
-        )
-        self._transitions = TransitionRegistry(
-            Transition(**transition, ureg=self._ureg)
-            for transition in data["transitions"]
-        )
+        self._load_states(data["states"])
+        self._load_transitions(data["transitions"])
 
-    def load_nist(self, name):
+    def load_nist(self, name, refresh_cache=False):
         if name in symbols:
             atom = name + " i"
         elif name[-1] == "+" and name[:-1] in symbols:
@@ -107,20 +97,13 @@ class Atom:
             raise Exception(
                 f"{atom} does not match a known neutral atom or ionic ion name"
             )
+        atom = atom.lower()
 
-        self._states = StateRegistry(
-            sorted(
-                [
-                    State(**state, atom=self)
-                    for state in nist.parse_states(nist.fetch_states(atom))
-                ]
-            ),
-            atom=self,
+        self.name = name
+        self._load_states(nist.parse_states(nist.fetch_states(atom, refresh_cache)))
+        self._load_transitions(
+            nist.parse_transitions(nist.fetch_transitions(atom, refresh_cache))
         )
-        # self._transitions = TransitionRegistry(
-        #     Transition(**transition, ureg=self._ureg)
-        #     for transition in fetch_transitions(atom)
-        # )
 
     @property
     def states(self) -> StateRegistry:

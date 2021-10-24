@@ -33,25 +33,27 @@ class StateRegistry(UserList):
             return self.data[key]
         elif isinstance(key, str):
             try:
-                return next(state for state in self if state.match(key))
-            except StopIteration:
+                return self(self.__atom._ureg.Quantity(key))
+            except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
                 pass
 
             try:
-                return self(self.__atom._ureg.Quantity(key))
-            except pint.errors.UndefinedUnitError:
+                return next(state for state in self.data if state.match(key))
+            except StopIteration:
                 pass
 
-            return None
+            raise KeyError(f"no state {key} found")
         elif isinstance(key, float):
-            energy = self.__atom._ureg.Quantity(key, "Ry")
+            energy = self.__atom._ureg.Quantity(key, "E_h")
             return min(self.data, key=lambda state: abs(state.energy - energy))
         elif isinstance(key, self.__atom._ureg.Quantity):
             return min(self.data, key=lambda state: abs(state.energy - key))
         elif isinstance(key, Iterable):
             return StateRegistry([self(item) for item in key], atom=self.__atom)
         else:
-            raise TypeError("key must be integer, slice, or term string")
+            raise TypeError(
+                "key must be integer index, term string, energy, or iterable"
+            )
 
     def __repr__(self):
         repr = f"{len(self)} States (\n"
@@ -76,6 +78,13 @@ class StateRegistry(UserList):
 
         return StateRegistry(list(filter(search_func, self.data)), atom=self.__atom)
 
+    def match(self, **kwargs):
+        kwargs.pop("energy", None)
+        kwargs.pop("En", None)
+        return self.search(
+            lambda state: all(getattr(state, key) == val for key, val in kwargs.items())
+        )
+
     def to_dict(self):
         return [state.to_dict() for state in self]
 
@@ -92,6 +101,8 @@ class State:
     _transitions_up = []
 
     def __init__(self, ureg=None, atom=None, **state):
+        self.__atom = atom
+
         self._ureg = _ureg
         if ureg is not None:
             self._ureg = ureg
@@ -114,6 +125,8 @@ class State:
         if "configuration" in state:
             self.__configuration = state["configuration"]
 
+        self.__transitions = TransitionRegistry([], atom=self.__atom)
+
     def __repr__(self):
         try:
             name = f"{self.name}: "
@@ -134,7 +147,7 @@ class State:
     def to_dict(self):
         return {
             "name": self.name,
-            "energy": str(self.energy),
+            "energy": f"{self.energy:~P}",
             "term": self.term,
             "quantum numbers": self.quantum_numbers,
         }
@@ -151,7 +164,7 @@ class State:
         return self.__energy
 
     @_energy.setter
-    @default_units("Ry")
+    @default_units("E_h")
     def _energy(self, energy):
         self.__energy = energy
 
@@ -164,7 +177,7 @@ class State:
         return self.__energy
 
     @_En.setter
-    @default_units("Ry")
+    @default_units("E_h")
     def _En(self, energy):
         self.__energy = energy
 
@@ -195,36 +208,28 @@ class State:
     # -----------
 
     @property
-    def transitions_down(self):
-        try:
-            return self._transitions_down
-        except KeyError:
-            return []
-
-    @property
-    def transitions_up(self):
-        try:
-            return self._transitions_up
-        except KeyError:
-            return []
-
-    @property
     def transitions(self):
-        return TransitionRegistry(
-            self.transitions_down + self.transitions_up, parent=self
-        )
+        return self.__transitions
 
     @property
     def to(self):
-        return self.transitions
+        return self.__transitions
+
+    @property
+    def transitions_down(self):
+        return self.__transitions.down_from(self)
+
+    @property
+    def transitions_up(self):
+        return self.__transitions.up_from(self)
 
     @property
     def down(self):
-        return TransitionRegistry(self.transitions_down, parent=self)
+        return self.transitions_down
 
     @property
     def up(self):
-        return TransitionRegistry(self.transitions_up, parent=self)
+        return self.transitions_up
 
     # ---------------------
     # high level properties
@@ -252,13 +257,11 @@ class State:
 
     @property
     def lifetime(self):
-        Gamma = [transition.Gamma for transition in self.transitions_down]
-        try:
-            lifetime = 1 / sum(Gamma)
-        except ZeroDivisionError:
-            lifetime = float("inf") * self.__units.s
-
-        return lifetime
+        Gamma = sum([transition.Gamma for transition in self.transitions_down])
+        if Gamma == 0:
+            return self._ureg.Quantity(float("inf"), "s")
+        else:
+            return 1 / Gamma
 
     @property
     def τ(self):
