@@ -1,9 +1,14 @@
 import csv
 import io
+import json
+import os
 import re
 import urllib
 import urllib.request
 from typing import List
+
+current_file = os.path.realpath(__file__)
+directory = os.path.dirname(current_file)
 
 monovalent = re.compile(r"^[a-z0-9]*\.(?P<n>\d+)[a-z]$")
 
@@ -18,7 +23,13 @@ def remove_annotations(s: str) -> str:
     return s.strip("()[]aluxyz +?").replace("&dagger;", "")
 
 
-def fetch_states(atom):
+def fetch_states(atom, refresh_cache=False):
+    if not refresh_cache:
+        try:
+            return json.load(open(os.path.join(directory, atom + " states.cache")))
+        except FileNotFoundError:
+            pass
+
     url = "https://physics.nist.gov/cgi-bin/ASD/energy1.pl"
     values = {
         "spectrum": atom,
@@ -38,9 +49,13 @@ def fetch_states(atom):
     with urllib.request.urlopen(url + "?" + get_postfix) as response:
         response = response.read()
 
-    data = csv.DictReader(
-        io.StringIO(response.decode()), dialect="excel-tab", restkey="None"
+    data = list(
+        csv.DictReader(
+            io.StringIO(response.decode()), dialect="excel-tab", restkey="None"
+        )
     )
+
+    json.dump(data, open(os.path.join(directory, atom + " states.cache"), "w+"))
 
     return data
 
@@ -64,7 +79,13 @@ def parse_states(data: List[dict]):
     ]
 
 
-def fetch_transitions(atom):
+def fetch_transitions(atom, refresh_cache=False):
+    if not refresh_cache:
+        try:
+            return json.load(open(os.path.join(directory, atom + " transitions.cache")))
+        except FileNotFoundError:
+            pass
+
     # the NIST url and GET options.
     url = "http://physics.nist.gov/cgi-bin/ASD/lines1.pl"
     values = {
@@ -90,11 +111,11 @@ def fetch_transitions(atom):
         response = response.read()
 
     data = csv.DictReader(io.StringIO(response.decode()), dialect="excel-tab")
-    data_with_transition_probabilities = [
-        transition for transition in data if transition["Aki(s^-1)"]
-    ]
+    data = [transition for transition in data if transition["Aki(s^-1)"]]
 
-    return data_with_transition_probabilities
+    json.dump(data, open(os.path.join(directory, atom + " transitions.cache"), "w+"))
+
+    return data
 
 
 def parse_transitions(data: List[dict]):
@@ -102,7 +123,7 @@ def parse_transitions(data: List[dict]):
         {
             "state_i": {"energy": transition["Ei(Ry)"] + " Ry"},
             "state_f": {"energy": transition["Ek(Ry)"] + " Ry"},
-            "A": transition["Aki(s ^ -1)"] + "s^-1",
+            "A": transition["Aki(s^-1)"] + "s^-1",
             "type": transition["Type"],
         }
         for transition in data
