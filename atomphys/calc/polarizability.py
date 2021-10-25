@@ -116,11 +116,11 @@ def tensor(state, omega: pint.Quantity = 0):
     of the state |Ψ⟩ by summing over matrix elements
 
     \\[
-        \\alpha^1(\\omega) = -\\sqrt{\\frac{20J(2J-1)}{6(J+1)(2J+1)(2J+3)}}
+        \\alpha^2(\\omega) = -\\sqrt{\\frac{20J(2J-1)}{6(J+1)(2J+1)(2J+3)}}
             \\sum_i
                 \\left\\{
                 \\begin{matrix}
-                1 & 1 & 1 \\\\ J & J & J_i
+                1 & 1 & 2 \\\\ J & J & J_i
                 \\end{matrix}
                 \\right\\}
                 (-1)^{1+J+J_i}
@@ -185,7 +185,7 @@ def total(
 
     \\[
         \\alpha(\\omega) = \\alpha^0(\\omega) +
-        A \\cos(\\theta_k) \\frac{m_J}{2J} \\alpha^1(\\omega) +
+        A \\cos(\\theta_k) \\frac{m_J}{J} \\alpha^1(\\omega) +
         \\frac{1}{2}\\left(3 \\cos^2(\\theta_p) - 1\\right)\\frac{3m_J^2 - J(J+1)}{J(2J-1)}\\alpha^2(\\omega)
     \\]
 
