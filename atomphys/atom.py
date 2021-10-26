@@ -25,45 +25,52 @@ class Atom:
 
     _ureg: pint.UnitRegistry
     name: str = ""
+    __states: StateRegistry = []
+    __transitions: TransitionRegistry = []
 
-    def __init__(self, atom, ureg=None, refresh_cache=False):
+    def __init__(self, atom=None, ureg=None, refresh_cache=False):
         self._ureg = ureg if ureg is not None else _ureg
+
+        if atom is None:
+            return
 
         try:
             self.load(atom)
         except FileNotFoundError:
             self.load_nist(atom, refresh_cache)
 
-        self._transitions.sort()
-        for state in self._states:
+        self.__transitions.sort()
+        for state in self.__states:
             state.transitions.sort()
 
     def __call__(self, key):
         try:
-            return self.states(key)
+            return self.__states(key)
         except KeyError:
             pass
         try:
-            return self.transitions(key)
+            return self.__transitions(key)
         except KeyError:
             pass
         raise KeyError(f"no property of atom {self.name} {key}")
 
     def __repr__(self):
+        ground_state = (
+            f"Ground State: {self.__states[0].term}\n" if self.__states else ""
+        )
         return (
-            f"Ground State: {self.states[0]}\n"
-            f"{len(self.states)} States\n"
-            f"{len(self.transitions)} Transitions"
+            f"{ground_state}{len(self.__states)} States\n"
+            f"{len(self.__transitions)} Transitions"
         )
 
     def _load_states(self, states):
-        self._states = StateRegistry(
+        self.__states = StateRegistry(
             sorted([State(**state, atom=self) for state in states]),
             atom=self,
         )
 
     def _load_transitions(self, transitions):
-        self._transitions = TransitionRegistry(
+        self.__transitions = TransitionRegistry(
             [Transition(**transition, atom=self) for transition in transitions],
             atom=self,
         )
@@ -71,8 +78,8 @@ class Atom:
     def to_dict(self):
         return {
             "name": self.name,
-            "states": self.states.to_dict(),
-            "transitions": self.transitions.to_dict(),
+            "states": self.__states.to_dict(),
+            "transitions": self.__transitions.to_dict(),
         }
 
     def save(self, filename):
@@ -108,12 +115,12 @@ class Atom:
     @property
     def states(self) -> StateRegistry:
         """StateRegistry: the atomic states."""
-        return self._states
+        return self.__states
 
     @property
     def transitions(self) -> TransitionRegistry:
         """TransitionRegistry: the atomic transitions."""
-        return self._transitions
+        return self.__transitions
 
     @property
     def units(self):
