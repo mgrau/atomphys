@@ -1,4 +1,9 @@
-from math import factorial, floor, sqrt
+from math import factorial as factorial_int
+from math import floor, sqrt
+
+
+def factorial(x: float) -> int:
+    return factorial_int(int(x))
 
 
 def ishalfint(x: float) -> bool:

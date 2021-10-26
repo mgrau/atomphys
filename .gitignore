@@ -6,7 +6,7 @@ __pycache__/
 *.ipynb_checkpoints/
 
 # don't version the virtual environment for testing
-venv
+venv*
 
 .vscode
 
