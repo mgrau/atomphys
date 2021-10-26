@@ -13,6 +13,7 @@ A Python package to help with atomic physics calculations.
 [![GitHub](https://img.shields.io/github/license/mgrau/atomphys)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/atomphys)](https://pypi.org/project/atomphys/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mgrau/atomphys/main?urlpath=%2Ftree%2Fexamples)
+
 ---
 
 **Documentation**: [mgrau.github.io/atomphys/](https://mgrau.github.io/atomphys/)
@@ -21,7 +22,7 @@ A Python package to help with atomic physics calculations.
 
 ---
 
-atomphys is meant to be a good starting off point for your atomic physics calculations. It can automate much of the frustrating process of searching for and compiling physical data and simple pyhsical relations, and help you more quickly get to the good stuff.
+atomphys is meant to be a good starting off point for your atomic physics calculations. It can automate much of the frustrating process of searching for and compiling physical data and simple physical relations, and help you more quickly get to the good stuff.
 
 It's designed with a natural interface and is easy to use.
 
@@ -50,7 +51,7 @@ $ pip install atomphys
 
 - Integration with [Pint](https://pint.readthedocs.io/en/stable/) for robust handling of units
 - Automatically fetch energy level and transition data from the [NIST Atomic Spectra Database](https://www.nist.gov/pml/atomic-spectra-database)
-- Use transition data to calculation state lifetimes, polarizabilities, transition dipole moments, cross sections, and saturation intensities
+- Use transition data to calculate state lifetimes, polarizabilities, transition dipole moments, cross sections, and saturation intensities
 
 ## Requirements
 
