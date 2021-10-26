@@ -1,3 +1,5 @@
+*.cache
+
 parsed_data/
 __pycache__/
 *.egg-info
@@ -10,6 +12,10 @@ venv
 
 # pytest coverage
 .coverage
+coverage.xml
+
+# profiling
+.prof
 
 # PyPI
 .pypirc

@@ -2,13 +2,6 @@ from math import pi as π
 
 import pytest
 
-from atomphys import Atom
-
-
-@pytest.fixture(scope="module")
-def rubidium():
-    return Atom("Rb")
-
 
 def test_rubidium(rubidium):
     Rb = rubidium
