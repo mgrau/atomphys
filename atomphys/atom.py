@@ -25,11 +25,13 @@ class Atom:
 
     _ureg: pint.UnitRegistry
     name: str = ""
-    __states: StateRegistry = []
-    __transitions: TransitionRegistry = []
+    __states: StateRegistry
+    __transitions: TransitionRegistry
 
     def __init__(self, atom=None, ureg=None, refresh_cache=False):
         self._ureg = ureg if ureg is not None else _ureg
+        self.__states = StateRegistry(atom=self)
+        self.__transitions = TransitionRegistry(atom=self)
 
         if atom is None:
             return
