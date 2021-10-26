@@ -1,8 +1,6 @@
 from functools import wraps
 from typing import Callable
 
-import pint
-
 
 def default_units(unit: str):
     def decorator(setter):
@@ -10,8 +8,8 @@ def default_units(unit: str):
         def wrapper(self, quantity, *args, **kwargs):
             if isinstance(quantity, str):
                 quantity = self._ureg(quantity)
-            if not isinstance(quantity, pint.Quantity):
-                quantity = pint.Quantity(quantity, unit)
+            if not isinstance(quantity, self._ureg.Quantity):
+                quantity = self._ureg.Quantity(quantity, unit)
             if not quantity.check(unit):
                 raise ValueError(f"must have units equivalent to {unit}")
             setter(self, quantity, *args, **kwargs)
