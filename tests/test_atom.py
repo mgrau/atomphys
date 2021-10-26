@@ -47,5 +47,8 @@ def test_nist():
     atom = Atom("Ca+")
     assert atom.name == "Ca+"
 
+    atom = Atom("Al2+")
+    assert atom.name == "Al2+"
+
     with pytest.raises(ValueError):
         atom = Atom("X")

@@ -99,6 +99,8 @@ class Atom:
             atom = name + " i"
         elif name[-1] == "+" and name[:-1] in symbols:
             atom = name[:-1] + " ii"
+        elif name[-1] == "+" and name[-2].isdigit() and name[:-2] in symbols:
+            atom = name[:-2] + " " + "i" * (1 + int(name[-2]))
         else:
             atom = name
             raise ValueError(
