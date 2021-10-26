@@ -7,6 +7,8 @@ import urllib
 import urllib.request
 from typing import List
 
+from atomphys.term import print_term
+
 current_file = os.path.realpath(__file__)
 cache = os.path.join(os.path.dirname(current_file), ".cache")
 try:
@@ -69,7 +71,7 @@ def parse_states(data: List[dict]):
         {
             **{
                 "energy": remove_annotations(state["Level (Ry)"]) + " Ry",
-                "term": state["Term"] + state["J"],
+                "term": print_term(state["Term"], J=state["J"]),
                 "configuration": state["Configuration"],
                 "g": None if state["g"] == "" else float(state["g"]),
             },
@@ -80,6 +82,7 @@ def parse_states(data: List[dict]):
             ),
         }
         for state in data
+        if print_term(state["Term"], J=state["J"])
     ]
 
 
@@ -117,8 +120,7 @@ def fetch_transitions(atom, refresh_cache=False):
 
         response = response.read()
 
-    data = csv.DictReader(io.StringIO(response.decode()), dialect="excel-tab")
-    data = [transition for transition in data if transition["Aki(s^-1)"]]
+    data = list(csv.DictReader(io.StringIO(response.decode()), dialect="excel-tab"))
 
     json.dump(data, open(os.path.join(cache, atom + " transitions.cache"), "w+"))
 
@@ -129,15 +131,20 @@ def parse_transitions(data: List[dict]):
     return [
         {
             "state_i": {
-                "energy": transition["Ei(Ry)"] + " Ry",
-                "term": transition["term_i"].replace("*", "") + transition["J_i"],
+                "energy": remove_annotations(transition["Ei(Ry)"]) + " Ry",
+                "term": print_term(term=transition["term_i"], J=transition["J_i"]),
             },
             "state_f": {
-                "energy": transition["Ek(Ry)"] + " Ry",
-                "term": transition["term_k"].replace("*", "") + transition["J_k"],
+                "energy": remove_annotations(transition["Ek(Ry)"]) + " Ry",
+                "term": print_term(term=transition["term_k"], J=transition["J_k"]),
             },
             "A": transition["Aki(s^-1)"] + "s^-1",
             "type": transition["Type"],
         }
         for transition in data
+        if (
+            transition["Aki(s^-1)"]
+            and print_term(term=transition["term_i"], J=transition["J_i"])
+            and print_term(term=transition["term_k"], J=transition["J_k"])
+        )
     ]

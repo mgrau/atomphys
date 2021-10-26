@@ -9,9 +9,9 @@ class Coupling(enum.Enum):
     LK = "LK"  # pair coupling
 
 
-LS_term = re.compile(r"^(?P<S>\d+)(?P<L>[A-Z])\*?(?P<J>\d+(/\d)?\d*)?")
-J1J2_term = re.compile(r"^\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?(?P<J>\d+(/\d)?\d*)?")
-LK_term = re.compile(r"^(?P<S2>\d+)\[(?P<K>\d+/?\d*)\]\*?(?P<J>\d+(/\d)?\d*)?")
+LS_term = re.compile(r"(?P<S>\d+)(?P<L>[A-Z])\*?(?P<J>\d+(/\d)?\d*)?")
+J1J2_term = re.compile(r"\((?P<J1>\d+/?\d*),(?P<J2>\d+/?\d*)\)\*?(?P<J>\d+(/\d)?\d*)?")
+LK_term = re.compile(r"(?P<S2>\d+)\[(?P<K>\d+/?\d*)\]\*?(?P<J>\d+(/\d)?\d*)?")
 
 L = {
     "S": 0,
@@ -47,11 +47,11 @@ def parse_term(term: str) -> dict:
 
     parity = -1 if "*" in term else 1
 
-    match = LS_term.match(term)
+    match = LS_term.search(term)
     if match is None:
-        match = J1J2_term.match(term)
+        match = J1J2_term.search(term)
     if match is None:
-        match = LK_term.match(term)
+        match = LK_term.search(term)
     if match is None:
         return {"parity": parity}
 
@@ -70,7 +70,12 @@ def parse_term(term: str) -> dict:
     return {**term, "parity": parity}
 
 
-def print_term(include_parity=False, **quantum_numbers) -> str:
+def print_term(
+    term: str = None, include_parity: bool = False, **quantum_numbers
+) -> str:
+    if term:
+        quantum_numbers = {**parse_term(term), **quantum_numbers}
+
     if "ionization_limit" in quantum_numbers:
         return "Ionization Limit"
 
@@ -81,7 +86,10 @@ def print_term(include_parity=False, **quantum_numbers) -> str:
 
     J = ""
     if "J" in quantum_numbers:
-        J = f"{Fraction(quantum_numbers['J'])}"
+        try:
+            J = f"{Fraction(quantum_numbers['J'])}"
+        except ValueError:
+            return None
 
     # Russell-Saunders coupling
     if all(key in quantum_numbers.keys() for key in ["S", "L"]):
@@ -97,4 +105,4 @@ def print_term(include_parity=False, **quantum_numbers) -> str:
             f"{2*quantum_numbers['S2'] + 1:g}[{Fraction(quantum_numbers['K'])}]{P}{J}"
         )
 
-    return ""
+    return None
