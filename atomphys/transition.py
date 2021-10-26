@@ -279,8 +279,8 @@ class Transition:
         ω = self.ω
         J = self.f.J
         self._matrix_element = (
-            ((3 * π * ε_0 * ħ * c ** 3) / (ω ** 3) * (2 * J + 1) * Γ) ** (1 / 2)
-        ).to("e a0")
+            (3 * π * ε_0 * ħ * c ** 3) / (ω ** 3) * (2 * J + 1) * Γ
+        ) ** (1 / 2)
 
     @property
     def _A(self):
