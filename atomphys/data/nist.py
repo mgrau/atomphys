@@ -8,7 +8,11 @@ import urllib.request
 from typing import List
 
 current_file = os.path.realpath(__file__)
-directory = os.path.dirname(current_file)
+cache = os.path.join(os.path.dirname(current_file), ".cache")
+try:
+    os.stat(cache)
+except FileNotFoundError:
+    os.mkdir(cache)
 
 monovalent = re.compile(r"^[a-z0-9]*\.(?P<n>\d+)[a-z]$")
 
@@ -26,7 +30,7 @@ def remove_annotations(s: str) -> str:
 def fetch_states(atom, refresh_cache=False):
     if not refresh_cache:
         try:
-            return json.load(open(os.path.join(directory, atom + " states.cache")))
+            return json.load(open(os.path.join(cache, atom + " states.cache")))
         except FileNotFoundError:
             pass
 
@@ -55,7 +59,7 @@ def fetch_states(atom, refresh_cache=False):
         )
     )
 
-    json.dump(data, open(os.path.join(directory, atom + " states.cache"), "w+"))
+    json.dump(data, open(os.path.join(cache, atom + " states.cache"), "w+"))
 
     return data
 
@@ -82,7 +86,7 @@ def parse_states(data: List[dict]):
 def fetch_transitions(atom, refresh_cache=False):
     if not refresh_cache:
         try:
-            return json.load(open(os.path.join(directory, atom + " transitions.cache")))
+            return json.load(open(os.path.join(cache, atom + " transitions.cache")))
         except FileNotFoundError:
             pass
 
@@ -116,7 +120,7 @@ def fetch_transitions(atom, refresh_cache=False):
     data = csv.DictReader(io.StringIO(response.decode()), dialect="excel-tab")
     data = [transition for transition in data if transition["Aki(s^-1)"]]
 
-    json.dump(data, open(os.path.join(directory, atom + " transitions.cache"), "w+"))
+    json.dump(data, open(os.path.join(cache, atom + " transitions.cache"), "w+"))
 
     return data
 
