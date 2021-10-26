@@ -7,16 +7,14 @@ import pint
 def default_units(unit: str):
     def decorator(setter):
         @wraps(setter)
-        def wrapper(*args, **kwargs):
-            self = args[0]
-            quantity = args[1]
+        def wrapper(self, quantity, *args, **kwargs):
             if isinstance(quantity, str):
                 quantity = self._ureg(quantity)
             if not isinstance(quantity, pint.Quantity):
                 quantity = pint.Quantity(quantity, unit)
             if not quantity.check(unit):
                 raise ValueError(f"must have units equivalent to {unit}")
-            setter(self, quantity, *args[2:], **kwargs)
+            setter(self, quantity, *args, **kwargs)
 
         return wrapper
 
