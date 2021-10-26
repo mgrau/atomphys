@@ -101,7 +101,7 @@ class Atom:
             atom = name[:-1] + " ii"
         else:
             atom = name
-            raise Exception(
+            raise ValueError(
                 f"{atom} does not match a known neutral atom or ionic ion name"
             )
         atom = atom.lower()
