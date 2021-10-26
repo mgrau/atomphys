@@ -115,7 +115,6 @@ def fetch_transitions(atom, refresh_cache=False):
         # error message "No lines are available in ASD with the parameters selected"
         # rather than the expected text/plain when using format=3
         if response.headers.get_content_type() != "text/plain":
-            print(response.headers.get_content_type())
             return []
 
         response = response.read()
