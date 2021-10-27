@@ -4,10 +4,10 @@
 
 import pytest
 
-from atomphys import Atom, symbols
+from atomphys import Atom, elements
 
 up_to_element = "U"
-partial_periodic_table = symbols[: symbols.index(up_to_element) + 1]
+partial_periodic_table = elements[: elements.index(up_to_element) + 1]
 atoms_ions = partial_periodic_table + [
     name + "+" for name in partial_periodic_table[1:]
 ]

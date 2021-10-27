@@ -8,12 +8,11 @@ from .data import nist
 from .state import State, StateRegistry
 from .transition import Transition, TransitionRegistry
 
-current_file = os.path.realpath(__file__)
-directory = os.path.dirname(current_file)
-periodic_table = os.path.join(directory, "data", "PeriodicTableJSON.json")
-with open(periodic_table) as f:
-    pt = json.load(f)
-    symbols = [element["symbol"] for element in pt["elements"]]
+_directory = os.path.dirname(os.path.realpath(__file__))
+_periodic_table = os.path.join(_directory, "data", "PeriodicTableJSON.json")
+with open(_periodic_table) as f:
+    periodic_table = json.load(f)
+    elements = [element["symbol"] for element in periodic_table["elements"]]
 
 
 class Atom:
@@ -24,12 +23,13 @@ class Atom:
     """
 
     _ureg: pint.UnitRegistry
-    name: str = ""
+    name: str
     __states: StateRegistry
     __transitions: TransitionRegistry
 
     def __init__(self, atom=None, ureg=None, refresh_cache=False):
         self._ureg = ureg if ureg is not None else _ureg
+        self.name = ""
         self.__states = StateRegistry(atom=self)
         self.__transitions = TransitionRegistry(atom=self)
 
@@ -97,11 +97,11 @@ class Atom:
         self._load_transitions(data["transitions"])
 
     def load_nist(self, name, refresh_cache=False):
-        if name in symbols:
+        if name in elements:
             atom = name + " i"
-        elif name[-1] == "+" and name[:-1] in symbols:
+        elif name[-1] == "+" and name[:-1] in elements:
             atom = name[:-1] + " ii"
-        elif name[-1] == "+" and name[-2].isdigit() and name[:-2] in symbols:
+        elif name[-1] == "+" and name[-2].isdigit() and name[:-2] in elements:
             atom = name[:-2] + " " + "i" * (1 + int(name[-2]))
         else:
             atom = name
