@@ -1,3 +1,6 @@
+import json
+import os
+import pathlib
 from functools import wraps
 from typing import Callable
 
@@ -17,6 +20,24 @@ def default_units(unit: str):
         return wrapper
 
     return decorator
+
+
+def disk_cache(func):
+    cache_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), ".cache")
+
+    @wraps(func)
+    def wrapper(arg, refresh_cache=False):
+        pathlib.Path(cache_dir).mkdir(parents=True, exist_ok=True)
+        filename = os.path.join(cache_dir, f"{func.__name__}({arg}).cache")
+        if not refresh_cache and os.path.exists(filename):
+            with open(filename) as fp:
+                return json.load(fp)
+        data = func(arg, refresh_cache)
+        with open(filename, "w+") as fp:
+            json.dump(data, fp)
+        return data
+
+    return wrapper
 
 
 def fsolve(func: Callable, x0, x1=None, tol: float = 1.49012e-08, maxfev: int = 100):

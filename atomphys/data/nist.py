@@ -1,20 +1,12 @@
 import csv
 import io
-import json
-import os
 import re
 import urllib
 import urllib.request
 from typing import List
 
 from atomphys.term import print_term
-
-current_file = os.path.realpath(__file__)
-cache = os.path.join(os.path.dirname(current_file), ".cache")
-try:
-    os.stat(cache)
-except FileNotFoundError:
-    os.mkdir(cache)
+from atomphys.util import disk_cache
 
 monovalent = re.compile(r"^[a-z0-9]*\.(?P<n>\d+)[a-z]$")
 
@@ -29,13 +21,8 @@ def remove_annotations(s: str) -> str:
     return s.strip("()[]aluxyz +?").replace("&dagger;", "")
 
 
+@disk_cache
 def fetch_states(atom, refresh_cache=False):
-    if not refresh_cache:
-        try:
-            return json.load(open(os.path.join(cache, atom + " states.cache")))
-        except FileNotFoundError:
-            pass
-
     url = "https://physics.nist.gov/cgi-bin/ASD/energy1.pl"
     values = {
         "spectrum": atom,
@@ -61,8 +48,6 @@ def fetch_states(atom, refresh_cache=False):
         )
     )
 
-    json.dump(data, open(os.path.join(cache, atom + " states.cache"), "w+"))
-
     return data
 
 
@@ -86,13 +71,8 @@ def parse_states(data: List[dict]):
     ]
 
 
+@disk_cache
 def fetch_transitions(atom, refresh_cache=False):
-    if not refresh_cache:
-        try:
-            return json.load(open(os.path.join(cache, atom + " transitions.cache")))
-        except FileNotFoundError:
-            pass
-
     # the NIST url and GET options.
     url = "http://physics.nist.gov/cgi-bin/ASD/lines1.pl"
     values = {
@@ -120,8 +100,6 @@ def fetch_transitions(atom, refresh_cache=False):
         response = response.read()
 
     data = list(csv.DictReader(io.StringIO(response.decode()), dialect="excel-tab"))
-
-    json.dump(data, open(os.path.join(cache, atom + " transitions.cache"), "w+"))
 
     return data
 
