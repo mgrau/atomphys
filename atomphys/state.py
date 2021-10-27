@@ -97,8 +97,6 @@ class State:
     __configuration: str
     __atom = None
     __transitions: TransitionRegistry
-    _transitions_down = []
-    _transitions_up = []
 
     def __init__(self, ureg=None, atom=None, **state):
         self.__atom = atom
