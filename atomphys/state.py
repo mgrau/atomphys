@@ -25,12 +25,12 @@ class StateRegistry(UserList):
     __atom = None
 
     def __init__(self, data=[], atom=None):
-        self.data = data
+        super().__init__(data)
         self.__atom = atom
 
     def __call__(self, key):
         if isinstance(key, int):
-            return self.data[key]
+            return self[key]
         elif isinstance(key, str):
             try:
                 return self(self.__atom._ureg.Quantity(key))
@@ -38,16 +38,16 @@ class StateRegistry(UserList):
                 pass
 
             try:
-                return next(state for state in self.data if state.match(key))
+                return next(state for state in self if state.match(key))
             except StopIteration:
                 pass
 
             raise KeyError(f"no state {key} found")
         elif isinstance(key, float):
             energy = self.__atom._ureg.Quantity(key, "E_h")
-            return min(self.data, key=lambda state: abs(state.energy - energy))
+            return min(self, key=lambda state: abs(state.energy - energy))
         elif isinstance(key, self.__atom._ureg.Quantity):
-            return min(self.data, key=lambda state: abs(state.energy - key))
+            return min(self, key=lambda state: abs(state.energy - key))
         elif isinstance(key, Iterable):
             return StateRegistry([self(item) for item in key], atom=self.__atom)
         else:
@@ -76,7 +76,7 @@ class StateRegistry(UserList):
             except BaseException:
                 return False
 
-        return StateRegistry(list(filter(search_func, self.data)), atom=self.__atom)
+        return StateRegistry(list(filter(search_func, self)), atom=self.__atom)
 
     def match(self, **kwargs):
         kwargs.pop("energy", None)

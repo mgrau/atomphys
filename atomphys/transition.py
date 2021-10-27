@@ -13,12 +13,12 @@ class TransitionRegistry(UserList):
     __atom = None
 
     def __init__(self, data=[], atom=None):
-        self.data = data
+        super().__init__(data)
         self.__atom = atom
 
     def __call__(self, key):
         if isinstance(key, int):
-            return self.data[key]
+            return self[key]
         elif isinstance(key, str):
             try:
                 quantity = self.__atom._ureg.Quantity(key)
@@ -29,7 +29,7 @@ class TransitionRegistry(UserList):
             try:
                 return next(
                     transition
-                    for transition in self.data
+                    for transition in self
                     if (transition.i.match(key) or transition.f.match(key))
                 )
             except StopIteration:
@@ -51,7 +51,7 @@ class TransitionRegistry(UserList):
                         state_i, state_f = key.split(splitter)
                         return next(
                             transition
-                            for transition in self.data
+                            for transition in self
                             if (
                                 (
                                     transition.i.match(state_i.strip())
@@ -69,14 +69,14 @@ class TransitionRegistry(UserList):
             raise KeyError(f"no transition {key} found")
         elif isinstance(key, float):
             wavelength = self.__atom._ureg.Quantity(key, "nm")
-            return min(self.data, key=lambda t: abs(t.wavelength - wavelength))
+            return min(self, key=lambda t: abs(t.wavelength - wavelength))
         elif isinstance(key, self.__atom._ureg.Quantity):
             if key.check("[length]"):
-                return min(self.data, key=lambda t: abs(t.wavelength - key))
+                return min(self, key=lambda t: abs(t.wavelength - key))
             elif key.check("1/[time]"):
-                return min(self.data, key=lambda t: abs(t.frequency - key))
+                return min(self, key=lambda t: abs(t.frequency - key))
             elif key.check("[energy]"):
-                return min(self.data, key=lambda t: abs(t.energy - key))
+                return min(self, key=lambda t: abs(t.energy - key))
         elif isinstance(key, Iterable):
             return TransitionRegistry((self(item) for item in key), atom=self.__atom)
         else:
@@ -98,13 +98,13 @@ class TransitionRegistry(UserList):
 
     def up_from(self, state):
         return TransitionRegistry(
-            [transition for transition in self.data if transition.i == state],
+            [transition for transition in self if transition.i == state],
             atom=self.__atom,
         )
 
     def down_from(self, state):
         return TransitionRegistry(
-            [transition for transition in self.data if transition.f == state],
+            [transition for transition in self if transition.f == state],
             atom=self.__atom,
         )
 
