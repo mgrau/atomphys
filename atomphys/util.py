@@ -22,9 +22,10 @@ def default_units(unit: str):
     return decorator
 
 
-def disk_cache(func):
-    cache_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), ".cache")
+cache_dir = os.path.join(os.getcwd(), ".atomphys")
 
+
+def disk_cache(func):
     @wraps(func)
     def wrapper(arg, refresh_cache=False):
         pathlib.Path(cache_dir).mkdir(parents=True, exist_ok=True)
