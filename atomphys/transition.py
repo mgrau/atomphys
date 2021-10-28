@@ -9,109 +9,6 @@ from . import _ureg
 from .util import default_units, fsolve
 
 
-class TransitionRegistry(UserList):
-    __atom = None
-
-    def __init__(self, data=[], atom=None):
-        super().__init__(data)
-        self.__atom = atom
-
-    def __call__(self, key):
-        if isinstance(key, int):
-            return self[key]
-        elif isinstance(key, str):
-            try:
-                quantity = self.__atom._ureg.Quantity(key)
-                return self(quantity)
-            except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
-                pass
-
-            try:
-                return next(
-                    transition
-                    for transition in self
-                    if (transition.i.match(key) or transition.f.match(key))
-                )
-            except StopIteration:
-                pass
-
-            try:
-                for splitter in [
-                    ":",
-                    "to",
-                    ",",
-                    "<--->",
-                    "<-->",
-                    "<->",
-                    "--->",
-                    "-->",
-                    "->",
-                ]:
-                    if splitter in key:
-                        state_i, state_f = key.split(splitter)
-                        return next(
-                            transition
-                            for transition in self
-                            if (
-                                (
-                                    transition.i.match(state_i.strip())
-                                    and transition.f.match(state_f.strip())
-                                )
-                                or (
-                                    transition.i.match(state_f.strip())
-                                    and transition.f.match(state_i.strip())
-                                )
-                            )
-                        )
-            except StopIteration:
-                pass
-
-            raise KeyError(f"no transition {key} found")
-        elif isinstance(key, float):
-            wavelength = self.__atom._ureg.Quantity(key, "nm")
-            return min(self, key=lambda t: abs(t.wavelength - wavelength))
-        elif isinstance(key, self.__atom._ureg.Quantity):
-            if key.check("[length]"):
-                return min(self, key=lambda t: abs(t.wavelength - key))
-            elif key.check("1/[time]"):
-                return min(self, key=lambda t: abs(t.frequency - key))
-            elif key.check("[energy]"):
-                return min(self, key=lambda t: abs(t.energy - key))
-        elif isinstance(key, Iterable):
-            return TransitionRegistry((self(item) for item in key), atom=self.__atom)
-        else:
-            raise TypeError("key must be integer index, term string")
-
-    def __repr__(self):
-        repr = f"{len(self)} Transitions (\n"
-        if self.__len__() <= 6:
-            for transition in self:
-                repr += str(transition) + "\n"
-        else:
-            for transition in self[:3]:
-                repr += str(transition) + "\n"
-            repr += "...\n"
-            for transition in self[-3:]:
-                repr += str(transition) + "\n"
-        repr = repr[:-1] + ")"
-        return repr
-
-    def up_from(self, state):
-        return TransitionRegistry(
-            [transition for transition in self if transition.i == state],
-            atom=self.__atom,
-        )
-
-    def down_from(self, state):
-        return TransitionRegistry(
-            [transition for transition in self if transition.f == state],
-            atom=self.__atom,
-        )
-
-    def to_dict(self):
-        return [transition.to_dict() for transition in self]
-
-
 class Transition:
 
     _ureg: pint.UnitRegistry
@@ -353,3 +250,114 @@ class Transition:
     @property
     def λ_magic(self):
         return self.magic_wavelength
+
+
+class TransitionRegistry(UserList):
+    _ureg: pint.UnitRegistry = None
+
+    def __init__(self, data=[], ureg=None, atom=None):
+        if not all(isinstance(transition, Transition) for transition in data):
+            raise TypeError("TransitionRegistry can only contain transitions")
+        super().__init__(data)
+
+        if atom:
+            self._ureg = atom._ureg
+        elif ureg:
+            self._ureg = ureg
+        else:
+            self._ureg = _ureg
+
+    def __call__(self, key):
+        if isinstance(key, int):
+            return self[key]
+        elif isinstance(key, str):
+            try:
+                quantity = self._ureg.Quantity(key)
+                return self(quantity)
+            except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
+                pass
+
+            try:
+                return next(
+                    transition
+                    for transition in self
+                    if (transition.i.match(key) or transition.f.match(key))
+                )
+            except StopIteration:
+                pass
+
+            try:
+                for splitter in [
+                    ":",
+                    "to",
+                    ",",
+                    "<--->",
+                    "<-->",
+                    "<->",
+                    "--->",
+                    "-->",
+                    "->",
+                ]:
+                    if splitter in key:
+                        state_i, state_f = key.split(splitter)
+                        return next(
+                            transition
+                            for transition in self
+                            if (
+                                (
+                                    transition.i.match(state_i.strip())
+                                    and transition.f.match(state_f.strip())
+                                )
+                                or (
+                                    transition.i.match(state_f.strip())
+                                    and transition.f.match(state_i.strip())
+                                )
+                            )
+                        )
+            except StopIteration:
+                pass
+
+            raise KeyError(f"no transition {key} found")
+        elif isinstance(key, float):
+            wavelength = self._ureg.Quantity(key, "nm")
+            return min(self, key=lambda t: abs(t.wavelength - wavelength))
+        elif isinstance(key, self._ureg.Quantity):
+            if key.check("[length]"):
+                return min(self, key=lambda t: abs(t.wavelength - key))
+            elif key.check("1/[time]"):
+                return min(self, key=lambda t: abs(t.frequency - key))
+            elif key.check("[energy]"):
+                return min(self, key=lambda t: abs(t.energy - key))
+        elif isinstance(key, Iterable):
+            return TransitionRegistry((self(item) for item in key), ureg=self._ureg)
+        else:
+            raise TypeError("key must be integer index, term string")
+
+    def __repr__(self):
+        repr = f"{len(self)} Transitions (\n"
+        if self.__len__() <= 6:
+            for transition in self:
+                repr += str(transition) + "\n"
+        else:
+            for transition in self[:3]:
+                repr += str(transition) + "\n"
+            repr += "...\n"
+            for transition in self[-3:]:
+                repr += str(transition) + "\n"
+        repr = repr[:-1] + ")"
+        return repr
+
+    def up_from(self, state):
+        return TransitionRegistry(
+            [transition for transition in self if transition.i == state],
+            ureg=self._ureg,
+        )
+
+    def down_from(self, state):
+        return TransitionRegistry(
+            [transition for transition in self if transition.f == state],
+            ureg=self._ureg,
+        )
+
+    def to_dict(self):
+        return [transition.to_dict() for transition in self]
