@@ -1,6 +1,7 @@
 import pint
 import pytest
 
+from atomphys.atom import Atom
 from atomphys.constants import gs
 from atomphys.laser import Laser
 from atomphys.state import Coupling, State, StateRegistry
@@ -48,6 +49,49 @@ def test_repr():
     assert str(State(energy="13.6 eV")) == "State(13.6 eV)"
     assert str(State(S=1, L=2, J=0)) == "State(3D0: 0 E_h)"
     assert str(State(S=1, L=2, J=0, n=6)) == "State(6D0, 3D0: 0 E_h)"
+
+
+def test_ops():
+    assert State("2S1/2") == State(S=1 / 2, L=0, J=1 / 2, parity=1)
+    assert State(energy="1 Ry") == State(energy="1/2 E_h")
+
+    assert State(energy="1eV") < State(energy="2eV")
+    assert not (State(energy="1 eV") < State(energy="1 eV"))
+
+
+def test_json():
+    assert State().to_dict() == {
+        "name": None,
+        "energy": "0 E_h",
+        "term": None,
+        "quantum numbers": {},
+    }
+
+    assert State("2S1/2").to_dict() == {
+        "name": "2S1/2",
+        "energy": "0 E_h",
+        "term": "2S1/2",
+        "quantum numbers": {"S": 0.5, "L": 0, "J": 0.5, "parity": 1},
+    }
+
+    assert StateRegistry([State()]).to_dict() == [
+        {
+            "name": None,
+            "energy": "0 E_h",
+            "term": None,
+            "quantum numbers": {},
+        }
+    ]
+
+    assert StateRegistry([State(energy="1 eV"), State("2S1/2")]).to_dict() == [
+        {"name": None, "energy": "1 eV", "term": None, "quantum numbers": {}},
+        {
+            "name": "2S1/2",
+            "energy": "0 E_h",
+            "term": "2S1/2",
+            "quantum numbers": {"S": 0.5, "L": 0, "J": 0.5, "parity": 1},
+        },
+    ]
 
 
 def test_quantum_numbers():
@@ -126,6 +170,8 @@ def test_units():
     with pytest.raises(ValueError):
         State(energy="13.6 eV").energy - State(ureg=ureg, energy="13.6 eV").energy
 
+    assert State(atom=Atom(ureg=ureg))._ureg is ureg
+
 
 def test_registry_type():
     with pytest.raises(TypeError):
@@ -187,6 +233,11 @@ def test_registry_search():
 
     with pytest.raises(TypeError):
         states(State())
+
+    state_i = State("2S1/2")
+    state_f = State("2P1/2", energy="h*c/(532 nm)")
+    transition = Transition(state_i=state_i, state_f=state_f, Gamma="1 MHz")
+    assert state_i.to("P1/2") is transition
 
 
 def test_registry_repr():
