@@ -68,9 +68,6 @@ def Δ(a: float, b: float, c: float) -> float:
     )
 
 
-_wigner_3j_cache = {}
-_wigner_6j_cache = {}
-
 
 @lru_cache(maxsize=None)
 def wigner_3j(
@@ -165,7 +162,6 @@ def wigner_3j(
     )
 
     return wigner
-
 
 @lru_cache(maxsize=None)
 def wigner_6j(
