@@ -143,20 +143,15 @@ def test_polarizability():
     state_i = State("2S1/2")
     state_f = State("2P1/2", energy="h*c/(532 nm)")
     Transition(state_i=state_i, state_f=state_f, Gamma="1 MHz")
-    ureg = state_i._ureg
 
-    state_i.α() == pytest.approx(ureg.Quantity(7.26913647, "ε_0 a0^3"))
-    state_i.α() == pytest.approx(ureg.Quantity(-7.26913647, "ε_0 a0^3"))
+    state_i.α().m_as("ε_0 a0^3") == pytest.approx(7.26913647)
+    state_i.α().m_as("ε_0 a0^3") == pytest.approx(-7.26913647)
 
-    state_i.α(λ="533 nm") == pytest.approx(ureg.Quantity(154.304208, "ε_0 a0^3"))
-    state_i.α(λ="533 nm") == pytest.approx(ureg.Quantity(-154.304208, "ε_0 a0^3"))
+    state_i.α(λ="533 nm").m_as("ε_0 a0^3") == pytest.approx(154.304208)
+    state_i.α(λ="533 nm").m_as("ε_0 a0^3") == pytest.approx(-154.304208)
 
-    state_i.α(laser=Laser(λ="531 nm")) == pytest.approx(
-        ureg.Quantity(-153.436519, "ε_0 a0^3")
-    )
-    state_i.α(laser=Laser(λ="531 nm")) == pytest.approx(
-        ureg.Quantity(-153.436519, "ε_0 a0^3")
-    )
+    state_i.α(laser=Laser(λ="531 nm")).m_as("ε_0 a0^3") == pytest.approx(-153.436519)
+    state_i.α(laser=Laser(λ="531 nm")).m_as("ε_0 a0^3") == pytest.approx(-153.436519)
 
 
 def test_units():
