@@ -2,7 +2,6 @@ from math import sqrt
 
 import pytest
 
-import atomphys
 from atomphys.calc.wigner import (
     ishalfint,
     isint,
@@ -64,17 +63,6 @@ def test_3j():
     assert wigner_3j(4, 4, 4, 5, -2, -3) == 0
 
 
-def test_3j_cache():
-    atomphys.calc.wigner._wigner_3j_cache = {}
-    assert wigner_3j(0, 0, 0, 0, 0, 0) == 1
-    assert atomphys.calc.wigner._wigner_3j_cache == {(0, 0, 0, 0, 0, 0): 1.0}
-    assert wigner_3j(0, 0, 0, 0, 0, 0) == 1
-
-    # don't try this!
-    atomphys.calc.wigner._wigner_3j_cache[(0, 0, 0, 0, 0, 0)] = 2
-    assert wigner_3j(0, 0, 0, 0, 0, 0) == 2
-
-
 def test_3j_error():
     wigner_3j(0.5, 1, 1.5, 2, 2.5, 3) == 0
     with pytest.raises(ValueError):
@@ -120,17 +108,6 @@ def test_6j():
     assert wigner_6j(3, 5 / 2, 1 / 2, 3 / 2, 2, 1) == pytest.approx(sqrt(30) / 30)
     assert wigner_6j(7 / 2, 3, 3 / 2, 7 / 2, 2, 3 / 2) == pytest.approx(1 / 56)
     assert wigner_6j(4, 7 / 2, 3 / 2, 7 / 2, 2, 2) == pytest.approx(-sqrt(3) / 84)
-
-
-def test_6j_cache():
-    atomphys.calc.wigner._wigner_6j_cache = {}
-    assert wigner_6j(0, 0, 0, 0, 0, 0) == 1
-    assert atomphys.calc.wigner._wigner_6j_cache == {(0, 0, 0, 0, 0, 0): 1.0}
-    assert wigner_6j(0, 0, 0, 0, 0, 0) == 1
-
-    # don't try this!
-    atomphys.calc.wigner._wigner_6j_cache[(0, 0, 0, 0, 0, 0)] = 2
-    assert wigner_6j(0, 0, 0, 0, 0, 0) == 2
 
 
 def test_6j_error():
