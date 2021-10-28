@@ -1,7 +1,11 @@
+import json
+import os.path
+
 import pint
 import pytest
 
-from atomphys.util import default_units, fsolve
+from atomphys import util
+from atomphys.util import default_units, disk_cache, fsolve
 
 
 def test_default_units():
@@ -59,6 +63,22 @@ def test_default_units():
 
     with pytest.raises(ValueError):
         test_object.test_quantity = ureg.Quantity(1, "liter")
+
+
+def test_disk_cache(monkeypatch, tmp_path):
+    monkeypatch.setattr(util, "cache_dir", tmp_path)
+
+    @disk_cache
+    def func(x, refresh_cache=False):
+        return x + 1
+
+    assert not os.path.isfile(os.path.join(tmp_path, "func(1).cache"))
+    assert func(1) == 2
+    assert os.path.isfile(os.path.join(tmp_path, "func(1).cache"))
+    assert func(1) == 2
+    with open(os.path.join(tmp_path, "func(1).cache"), "w+") as fp:
+        json.dump(100, fp)
+    assert func(1) == 100
 
 
 def test_fsolve():
