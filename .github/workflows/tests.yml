@@ -3,12 +3,15 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +24,6 @@ jobs:
       - name: Install pytest
         run: pip install pytest pytest-cov
       - name: Test
-        run: pytest --cov=./ --cov-report=xml
+        run: pytest
       - name: Upload coverage
         uses: codecov/codecov-action@v1

@@ -1,8 +1,17 @@
-0.0.4 (unreleased)
+0.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Compatible with Python 3.10
 
+0.0.4 (2021-10-26)
+------------------
+
+- Rewrite State and Transition to more flexibly load data
+- Remove all logic for parsing NIST ASD data from State and Transition
+- Fix bug when multiple states have same energy. Transition now finds states by energy and term symbol
+- Add caching of NIST ASD data (Closes #4)
+- Fix bug preventing .json files from loading correctly
+- Fix bug in wigner_6j cache
 
 0.0.2 (2021-10-13)
 ------------------

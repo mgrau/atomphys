@@ -1,5 +1,10 @@
-from math import factorial, floor, sqrt
 from functools import lru_cache
+from math import factorial as factorial_int
+from math import floor, sqrt
+
+
+def factorial(x: float) -> int:
+    return factorial_int(int(x))
 
 
 def ishalfint(x: float) -> bool:
@@ -100,7 +105,6 @@ def wigner_3j(
         \\end{matrix}
         \\right)$
     """
-
     if (
         not ishalfint(j1)
         or not ishalfint(j2)
@@ -193,7 +197,6 @@ def wigner_6j(
         \\end{matrix}
         \\right\\}$
     """
-    
     if (
         not ishalfint(j1)
         or not ishalfint(j2)
@@ -241,6 +244,5 @@ def wigner_6j(
             )
         )
     wigner *= sqrt(Δ(j1, j2, j3) * Δ(j1, J2, J3) * Δ(J1, j2, J3) * Δ(J1, J2, j3))
-
 
     return wigner

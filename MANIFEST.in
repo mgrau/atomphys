@@ -2,6 +2,8 @@
 include AUTHORS
 include LICENSE
 include CHANGES
+include CONTRIBUTING.md
 recursive-include atomphys *.json
 include pytest.ini
+include .coveragerc
 recursive-include tests *.py

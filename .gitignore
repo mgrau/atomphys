@@ -1,15 +1,21 @@
+*.cache
+
 parsed_data/
 __pycache__/
 *.egg-info
 *.ipynb_checkpoints/
 
 # don't version the virtual environment for testing
-venv
+venv*
 
 .vscode
 
 # pytest coverage
 .coverage
+coverage.xml
+
+# profiling
+.prof
 
 # PyPI
 .pypirc

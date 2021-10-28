@@ -34,19 +34,19 @@ def scalar(state, omega: pint.Quantity = 0) -> pint.Quantity:
         Scalar polarizability. Has units of `C m / (V/m)`, or dipole moment / electric field.
     """
     ω = omega
-    ħ = state._ureg["ħ"]
+    ħ = state._ureg.ħ
     J = state.J
     X = 1 / (3 * (2 * J + 1)) / ħ
     α = 0
 
     for transition in state.up:
         ω0 = transition.ω
-        d = transition.reduced_dipole_matrix_element
+        d = transition.d
         α += (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
 
     for transition in state.down:
         ω0 = -transition.ω
-        d = transition.reduced_dipole_matrix_element_conjugate
+        d = transition.d
         α += (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
 
     return (α * X).to_base_units()
@@ -87,21 +87,21 @@ def vector(state, omega: pint.Quantity = 0):
         Vector polarizability. Has units of `C m / (V/m)`, or dipole moment / electric field.
     """
     ω = omega
-    ħ = state._ureg["ħ"]
+    ħ = state._ureg.ħ
     J = state.J
     X = ((6 * J) / (4 * (2 * J + 1) * (J + 1))) ** (1 / 2) / ħ
     α = 0
 
     for transition in state.up:
         ω0 = transition.ω
-        d = transition.reduced_dipole_matrix_element
+        d = transition.d
         Jp = transition.f.J
         sixJ = wigner_6j(1, 1, 1, J, J, Jp)
         α += (-1) ** (J + Jp + 1) * sixJ * (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
 
     for transition in state.down:
         ω0 = -transition.ω
-        d = transition.reduced_dipole_matrix_element_conjugate
+        d = transition.d
         Jp = transition.i.J
         sixJ = wigner_6j(1, 1, 1, J, J, Jp)
         α += -((-1) ** (J + Jp + 1)) * sixJ * (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
@@ -116,11 +116,11 @@ def tensor(state, omega: pint.Quantity = 0):
     of the state |Ψ⟩ by summing over matrix elements
 
     \\[
-        \\alpha^1(\\omega) = -\\sqrt{\\frac{20J(2J-1)}{6(J+1)(2J+1)(2J+3)}}
+        \\alpha^2(\\omega) = -\\sqrt{\\frac{20J(2J-1)}{6(J+1)(2J+1)(2J+3)}}
             \\sum_i
                 \\left\\{
                 \\begin{matrix}
-                1 & 1 & 1 \\\\ J & J & J_i
+                1 & 1 & 2 \\\\ J & J & J_i
                 \\end{matrix}
                 \\right\\}
                 (-1)^{1+J+J_i}
@@ -142,7 +142,7 @@ def tensor(state, omega: pint.Quantity = 0):
         Tensor polarizability. Has units of `C m / (V/m)`, or dipole moment / electric field.
     """
     ω = omega
-    ħ = state._ureg["ħ"]
+    ħ = state._ureg.ħ
     J = state.J
     X = (
         -(
@@ -155,14 +155,14 @@ def tensor(state, omega: pint.Quantity = 0):
 
     for transition in state.up:
         ω0 = transition.ω
-        d = transition.reduced_dipole_matrix_element
+        d = transition.d
         Jp = transition.f.J
         sixJ = wigner_6j(1, 1, 2, J, J, Jp)
         α += (-1) ** (J + Jp + 1) * sixJ * (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
 
     for transition in state.down:
         ω0 = -transition.ω
-        d = transition.reduced_dipole_matrix_element_conjugate
+        d = transition.d
         Jp = transition.i.J
         sixJ = wigner_6j(1, 1, 2, J, J, Jp)
         α += (-1) ** (J + Jp + 1) * sixJ * (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
@@ -185,7 +185,7 @@ def total(
 
     \\[
         \\alpha(\\omega) = \\alpha^0(\\omega) +
-        A \\cos(\\theta_k) \\frac{m_J}{2J} \\alpha^1(\\omega) +
+        A \\cos(\\theta_k) \\frac{m_J}{J} \\alpha^1(\\omega) +
         \\frac{1}{2}\\left(3 \\cos^2(\\theta_p) - 1\\right)\\frac{3m_J^2 - J(J+1)}{J(2J-1)}\\alpha^2(\\omega)
     \\]
 

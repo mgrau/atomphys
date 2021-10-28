@@ -1,0 +1,26 @@
+name: Run Linting
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Python Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Run black
+        uses: RojerGS/python-black-check@master
+        with:
+          line-length: "88"
+      - name: Run isort
+        uses: jamescurtin/isort-action@master
+      - name: Run flake8
+        uses: julianwachholz/flake8-action@v2
+        with:
+          checkName: "Python Lint"
+          path: atomphys/
+          config: setup.cfg

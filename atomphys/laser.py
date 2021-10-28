@@ -1,32 +1,38 @@
 from math import inf
 from math import pi as π
 
-from . import _ureg as _units
+import pint
+
+from . import _ureg
+from .util import default_units
 
 
 class Laser:
-    __units = {}
-    __omega = None
-    __linewidth = None
+    _ureg: pint.UnitRegistry
+    __omega = pint.Quantity
+    __linewidth = pint.Quantity
+    __electric_field = pint.Quantity
 
     __A = 0
     __theta_k = 0
     __theta_p = π / 2
-    __electric_field = None
 
-    def __init__(self, units=None, laser=None, **new_laser):
-        if units:
-            self.__units = units
+    def __init__(self, ureg=None, laser=None, **new_laser):
+        if ureg is not None:
+            self._ureg = ureg
         else:
-            self.__units = _units
+            self._ureg = _ureg
 
-        self.__omega = self.__units("0 Hz")
-        self.__linewidth = self.__units("0 Hz")
-        self.__intensity = self.__units("0 V/m")
+        self.omega = 0
+        self.__linewidth = 0
+        self.__electric_field = 0
 
         if laser is not None:
-            self.__units = laser.__units
+            self._ureg = laser._ureg
             self.__omega = laser.__omega
+            self.__linewidth = laser.__linewidth
+            self.__electric_field = laser.__electric_field
+
             self.__A = laser.__A
             self.__theta_k = laser.__theta_k
             self.__theta_p = laser.__theta_p
@@ -44,42 +50,37 @@ class Laser:
     # ---------
 
     @property
-    def ω(self):
+    def omega(self):
         return self.__omega
 
-    @ω.setter
-    def ω(self, ω):
-        if isinstance(ω, str):
-            ω = self.__units(ω)
-        if not isinstance(ω, self.__units.Quantity):
-            ω = ω * self.__units.Hz
-        if not ω.check("[frequency]"):
-            raise ValueError("ω must have units of frequency")
+    @omega.setter
+    @default_units("THz")
+    def omega(self, ω):
         self.__omega = ω
 
     @property
-    def omega(self):
-        return self.ω
-
-    @omega.setter
-    def omega(self, ω):
-        self.ω = ω
-
-    @property
     def angular_frequency(self):
-        return self.ω
+        return self.omega
 
     @angular_frequency.setter
     def angular_frequency(self, ω):
-        self.ω = ω
+        self.omega = ω
+
+    @property
+    def ω(self):
+        return self.omega
+
+    @ω.setter
+    def ω(self, ω):
+        self.omega = ω
 
     @property
     def ν(self):
-        return self.ω / (2 * π)
+        return self.omega / (2 * π)
 
     @ν.setter
     def ν(self, ν):
-        self.ω = 2 * π * ν
+        self.omega = 2 * π * ν
 
     @property
     def nu(self):
@@ -102,83 +103,81 @@ class Laser:
     # ----------
 
     @property
-    def λ(self):
-        c = self.__units["c"]
+    def wavelength(self):
+        c = self._ureg.c
         try:
-            return c / self.ν
+            return (2 * π * c / self.omega).to("nm")
         except ZeroDivisionError:
-            return inf * self.ν
+            return inf * self._ureg("nm")
+
+    @wavelength.setter
+    @default_units("nm")
+    def wavelength(self, λ):
+        c = self._ureg.c
+        self.omega = 2 * π * c / λ
+
+    @property
+    def λ(self):
+        return self.wavelength
 
     @λ.setter
     def λ(self, λ):
-        if isinstance(λ, str):
-            λ = self.__units(λ)
-        if not isinstance(λ, self.__units.Quantity):
-            λ = λ * self.__units.nm
-        if not λ.check("[length]"):
-            raise ValueError("wavelength must have units of length")
-        c = self.__units["c"]
-        self.ν = c / λ
+        self.wavelength = λ
+
+    # ---------
+    # Linewidth
+    # ---------
 
     @property
-    def wavelength(self):
-        return self.λ
+    def linewidth(self):
+        return self.__linewidth
 
-    @wavelength.setter
-    def wavelength(self, λ):
-        self.λ = λ
+    @linewidth.setter
+    @default_units("Hz")
+    def linewidth(self, linewidth):
+        self.__linewidth = linewidth
 
     # --------------
     # Electric Field
     # --------------
 
     @property
-    def E(self):
+    def electric_field(self):
         return self.__electric_field
 
-    @E.setter
-    def E(self, E):
-        if isinstance(E, str):
-            E = self.__units(E)
-        if not isinstance(E, self.__units.Quantity):
-            E = E * self.__units("V/m")
-        if not E.check("[mass]*[length]/[current]/[time]^3"):
-            raise ValueError("E must have units of electric field")
+    @electric_field.setter
+    @default_units("V/m")
+    def electric_field(self, E):
         self.__electric_field = E
 
     @property
-    def electric_field(self):
-        return self.E
+    def E(self):
+        return self.electric_field
 
-    @electric_field.setter
-    def electric_field(self, E):
-        self.E = E
-
-    @property
-    def I(self):
-        c = self.__units["c"]
-        ε_0 = self.__units["ε_0"]
-        return self.E ** 2 * (c * ε_0 / 2)
-
-    @I.setter
-    def I(self, I):
-        if isinstance(I, str):
-            I = self._units(I)
-        if not isinstance(I, self.__units.Quantity):
-            I = I * self.__units("W/m^2")
-        if not I.check("[mass]/[time]^3"):
-            raise ValueError("I must have units of intensity")
-        c = self.__units["c"]
-        ε_0 = self.__units["ε_0"]
-        self.E = (2 * I / (c * ε_0)) ** (1 / 2)
+    @E.setter
+    def E(self, E):
+        self.electric_field = E
 
     @property
     def intensity(self):
-        return self.I
+        c = self._ureg.c
+        ε_0 = self._ureg.ε_0
+        return self.electric_field ** 2 * (c * ε_0 / 2)
 
     @intensity.setter
+    @default_units("W/m^2")
     def intensity(self, I):
-        self.I = I
+        c = self._ureg.c
+        ε_0 = self._ureg.ε_0
+        self.electric_field = (2 * I / (c * ε_0)) ** (1 / 2)
+
+    @property
+    def I(self):
+        return self.intensity
+
+    @I.setter
+    def I(self, I):
+        self.intensity = I
 
     # ------------
     # Polarization
@@ -208,10 +207,14 @@ class Laser:
     def theta_p(self, theta_p):
         self.__theta_p = theta_p
 
-    def Ω(self, transition, Rabi_frequency=None):
+    # ---------------------
+    # high level properties
+    # ---------------------
+
+    def Rabi_frequency(self, transition, Rabi_frequency=None):
         # this is not quite right, as d is reduced dipole matrix element.
         # also transition is not necessarily dipole
-        ħ = self.__units["ħ"]
+        ħ = self._ureg.ħ
         if Rabi_frequency is None:
             return (transition.d * self.E / ħ).to_base_units()
         else:
@@ -220,5 +223,5 @@ class Laser:
             self.E = ħ * Rabi_frequency / transition.d
 
     @property
-    def Rabi_frequency(self):
-        return self.Ω
+    def Ω(self):
+        return self.Rabi_frequency

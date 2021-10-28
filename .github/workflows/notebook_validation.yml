@@ -17,4 +17,4 @@ jobs:
       - name: Install testing dependencies
         run: pip install numpy matplotlib
       - name: Test
-        run: pytest --nbval docs/
+        run: pytest -c /dev/null --nbval docs/
