@@ -21,6 +21,8 @@ def test_parse_term():
     assert parse_term("  ") == {"parity": 1}
     assert parse_term("*") == {"parity": -1}
     assert parse_term("  * ") == {"parity": -1}
+    assert parse_term("Limit") == {"ionization_limit": True}
+    assert parse_term("Ionization Limit") == {"ionization_limit": True}
 
 
 def test_print_term():
