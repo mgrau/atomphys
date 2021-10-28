@@ -171,7 +171,7 @@ class Transition:
 
     def __repr__(self):
         return (
-            f"Transition({self.i.name} <---> {self.f.name} : "
+            f"Transition({self.i.name} <--> {self.f.name} : "
             f"λ={self.λ.to('nm'):0.5g~P}, "
             f"Γ=2π×{(self.Γ/(2*π)).to('Hz').to_compact():0.3g~P})"
         )
