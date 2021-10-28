@@ -5,6 +5,7 @@ from fractions import Fraction
 from typing import Any
 
 import pint
+from pint.registry import UnitRegistry
 
 from . import _ureg
 from .calc import polarizability
@@ -21,84 +22,15 @@ class Coupling(enum.Enum):
     LK = "LK"  # pair coupling
 
 
-class StateRegistry(UserList):
-    __atom = None
-
-    def __init__(self, data=[], atom=None):
-        super().__init__(data)
-        self.__atom = atom
-
-    def __call__(self, key):
-        if isinstance(key, int):
-            return self[key]
-        elif isinstance(key, str):
-            try:
-                return self(self.__atom._ureg.Quantity(key))
-            except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
-                pass
-
-            try:
-                return next(state for state in self if state.match(key))
-            except StopIteration:
-                pass
-
-            raise KeyError(f"no state {key} found")
-        elif isinstance(key, float):
-            energy = self.__atom._ureg.Quantity(key, "E_h")
-            return min(self, key=lambda state: abs(state.energy - energy))
-        elif isinstance(key, self.__atom._ureg.Quantity):
-            return min(self, key=lambda state: abs(state.energy - key))
-        elif isinstance(key, Iterable):
-            return StateRegistry([self(item) for item in key], atom=self.__atom)
-        else:
-            raise TypeError(
-                "key must be integer index, term string, energy, or iterable"
-            )
-
-    def __repr__(self):
-        repr = f"{len(self)} States (\n"
-        if self.__len__() <= 6:
-            for state in self:
-                repr += f"{state}\n"
-        else:
-            for state in self[:3]:
-                repr += f"{state}\n"
-            repr += "...\n"
-            for state in self[-3:]:
-                repr += f"{state}\n"
-        repr = repr[:-1] + ")"
-        return repr
-
-    def search(self, func):
-        def search_func(state):
-            try:
-                return func(state)
-            except BaseException:
-                return False
-
-        return StateRegistry(list(filter(search_func, self)), atom=self.__atom)
-
-    def match(self, **kwargs):
-        kwargs.pop("energy", None)
-        kwargs.pop("En", None)
-        return self.search(
-            lambda state: all(getattr(state, key) == val for key, val in kwargs.items())
-        )
-
-    def to_dict(self):
-        return [state.to_dict() for state in self]
-
-
 class State:
 
     _ureg: pint.UnitRegistry
     __energy: pint.Quantity
-    __quantum_numbers: dict = {}
-    __configuration: str
+    __quantum_numbers: dict
     __atom = None
     __transitions: TransitionRegistry
 
-    def __init__(self, ureg=None, atom=None, **state):
+    def __init__(self, term=None, energy=None, ureg=None, atom=None, **state):
         self.__atom = atom
 
         self._ureg = _ureg
@@ -107,37 +39,37 @@ class State:
         if atom is not None:
             self._ureg = atom._ureg
 
-        self._energy = 0
-        if "energy" in state:
-            self._energy = state["energy"]
-        if "En" in state:
-            self._energy = state["En"]
+        if energy:
+            self._energy = energy
+        elif "En" in state:
+            self._En = state["En"]
+        else:
+            self._energy = 0
 
-        if "term" in state:
-            self.__quantum_numbers = parse_term(state["term"])
+        self.__quantum_numbers = {}
+        if term:
+            self.__quantum_numbers = parse_term(term)
 
-        for qN in ["S", "L", "J", "J1", "J2", "K", "n", "parity"]:
+        for qN in ["S", "L", "J1", "J2", "S2", "K", "J", "n", "parity"]:
             if qN in state:
                 self.__quantum_numbers[qN] = state[qN]
 
-        if "configuration" in state:
-            self.__configuration = state["configuration"]
-
-        self.__transitions = TransitionRegistry([], atom=self.__atom)
+        self.__transitions = TransitionRegistry(atom=self.__atom)
 
     def __repr__(self):
-        try:
-            name = f"{self.name}: "
-        except RuntimeError:
-            name = ""
-
-        energy = f"{self.energy:0.4g~P}"
-        return f"State({name}{energy})"
+        name = f"{self.name}: " if self.name else ""
+        return f"State({name}{self.energy:0.4g~P})"
 
     def __getattr__(self, name: str) -> Any:
         if name in self.__quantum_numbers:
             return self.__quantum_numbers[name]
-        raise AttributeError(f"{self.__class__.__name__} has not attribute {name}")
+        raise AttributeError(f"{self.__class__.__name__} has no attribute {name}")
+
+    def __eq__(self, other):
+        return (
+            self.energy == other.energy
+            and self.quantum_numbers == other.quantum_numbers
+        )
 
     def __lt__(self, other):
         return self.energy < other.energy
@@ -188,15 +120,13 @@ class State:
         return self.__quantum_numbers
 
     @property
-    def configuration(self) -> str:
-        return self.__configuration
-
-    @property
     def term(self):
         return print_term(**self.__quantum_numbers)
 
     @property
     def name(self):
+        if self.term is None:
+            return None
         if "n" in self.__quantum_numbers:
             return f"{self.n}{L_inv[self.L]}{Fraction(self.J)}, {self.term}"
         return f"{self.term}"
@@ -245,13 +175,15 @@ class State:
 
     @property
     def g(self):
-        if self.coupling == Coupling.LS:
+        try:
             L, S, J = self.L, self.S, self.J
-            return (gs + 1) / 2 + (gs - 1) / 2 * (S * (S + 1) - L * (L - 1)) / (
-                J * (J + 1)
-            )
-        else:
+        except AttributeError:
             return None
+        if J == 0:
+            return 0
+        return (J * (J + 1) - S * (S + 1) + L * (L + 1)) / (2 * J * (J + 1)) + gs * (
+            J * (J + 1) + S * (S + 1) - L * (L + 1)
+        ) / (2 * J * (J + 1))
 
     @property
     def lifetime(self):
@@ -265,7 +197,7 @@ class State:
     def τ(self):
         return self.lifetime
 
-    def polarizability(self, mJ=None, laser=None, **kwargs):
+    def polarizability(self, laser=None, mJ=None, **kwargs):
         if laser is None:
             laser = Laser(**kwargs)
         else:
@@ -282,3 +214,99 @@ class State:
     @property
     def α(self):
         return self.polarizability
+
+
+class StateRegistry(UserList):
+    _ureg: UnitRegistry = None
+
+    def __init__(self, data=[], ureg=None, atom=None):
+        if not all(isinstance(state, State) for state in data):
+            raise TypeError("StateRegistry can only contain states")
+        super().__init__(data)
+
+        if atom:
+            self._ureg = atom._ureg
+        elif ureg:
+            self._ureg = ureg
+        else:
+            self._ureg = _ureg
+
+    def __call__(self, key):
+        if isinstance(key, int):
+            return self[key]
+        elif isinstance(key, str):
+            try:
+                return self(self._ureg.Quantity(key))
+            except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
+                pass
+
+            try:
+                return next(state for state in self if state.match(key))
+            except StopIteration:
+                pass
+
+            raise KeyError(f"no state {key} found")
+        elif isinstance(key, float):
+            energy = self._ureg.Quantity(key, "E_h")
+            return min(self, key=lambda state: abs(state.energy - energy))
+        elif isinstance(key, self._ureg.Quantity):
+            return min(self, key=lambda state: abs(state.energy - key))
+        elif isinstance(key, Iterable):
+            return StateRegistry([self(item) for item in key], ureg=self._ureg)
+        else:
+            raise TypeError(
+                "key must be integer index, term string, energy, or iterable"
+            )
+
+    def __repr__(self):
+        repr = f"{len(self)} States (\n"
+        if self.__len__() <= 6:
+            for state in self:
+                repr += f"{state}\n"
+        else:
+            for state in self[:3]:
+                repr += f"{state}\n"
+            repr += "...\n"
+            for state in self[-3:]:
+                repr += f"{state}\n"
+        repr = repr[:-1] + ")"
+        return repr
+
+    def __setitem__(self, index: int, state: State):
+        if not isinstance(state, State):
+            raise TypeError("StateRegistry can only contain states")
+        super().__setitem__(index, state)
+
+    def insert(self, index: int, state: State):
+        if not isinstance(state, State):
+            raise TypeError("StateRegistry can only contain states")
+        super().insert(index, state)
+
+    def append(self, state):
+        if not isinstance(state, State):
+            raise TypeError("StateRegistry can only contain states")
+        super().append(state)
+
+    def extend(self, states):
+        if not all(isinstance(state, State) for state in states):
+            raise TypeError("StateRegistry can only contain states")
+        super().extend(states)
+
+    def search(self, func):
+        def search_func(state):
+            try:
+                return func(state)
+            except BaseException:
+                return False
+
+        return StateRegistry(list(filter(search_func, self)), ureg=self._ureg)
+
+    def match(self, **kwargs):
+        kwargs.pop("energy", None)
+        kwargs.pop("En", None)
+        return self.search(
+            lambda state: all(getattr(state, key) == val for key, val in kwargs.items())
+        )
+
+    def to_dict(self):
+        return [state.to_dict() for state in self]
