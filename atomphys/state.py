@@ -5,7 +5,6 @@ from fractions import Fraction
 from typing import Any
 
 import pint
-from pint.registry import UnitRegistry
 
 from . import _ureg
 from .calc import polarizability
@@ -217,7 +216,7 @@ class State:
 
 
 class StateRegistry(UserList):
-    _ureg: UnitRegistry = None
+    _ureg: pint.UnitRegistry = None
 
     def __init__(self, data=[], ureg=None, atom=None):
         if not all(isinstance(state, State) for state in data):
