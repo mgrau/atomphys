@@ -26,6 +26,12 @@ def test_initialization():
 
     assert Laser(linewidth=1000).linewidth == _ureg.Quantity(1, "kHz")
 
+    assert Laser(electric_field=1).electric_field == _ureg.Quantity(1, "V/m")
+    assert Laser(electric_field="2 V/cm").E == _ureg.Quantity(2, "V/cm")
+    assert Laser(E="3 V/m").electric_field == _ureg.Quantity(3, "V/m")
+    assert Laser(E=1).intensity == _ureg.Quantity(0.5, "c*ε_0*(V/m)^2")
+    assert Laser(electric_field="2 V/m").I == _ureg.Quantity(2, "c*ε_0*(V/m)^2")
+
     assert Laser(A=1).A == 1
     assert Laser(theta_k=2).theta_k == 2
     assert Laser(theta_p=3).theta_p == 3
@@ -59,3 +65,9 @@ def test_Rabi_frequency():
     )
     laser = Laser(I="1 mW/cm^2")
     laser.Rabi_frequency(transition).m_as("MHz") == pytest.approx(6.978557)
+    laser.Ω(transition).m_as("MHz") == pytest.approx(6.978557)
+
+    laser.set_Rabi_frequency("100 MHz", transition)
+    assert laser.I.m_as("mW/cm^2") == pytest.approx(205.337706)
+    laser.set_Ω("10 MHz", transition)
+    assert laser.intensity.m_as("mW/cm^2") == pytest.approx(2.05337706)
