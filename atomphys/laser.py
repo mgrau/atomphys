@@ -211,17 +211,21 @@ class Laser:
     # high level properties
     # ---------------------
 
-    def Rabi_frequency(self, transition, Rabi_frequency=None):
+    def Rabi_frequency(self, transition):
         # this is not quite right, as d is reduced dipole matrix element.
         # also transition is not necessarily dipole
         ħ = self._ureg.ħ
-        if Rabi_frequency is None:
-            return (transition.d * self.E / ħ).to_base_units()
-        else:
-            if not Rabi_frequency.check("1/[time]"):
-                raise ValueError("Rabi_frequency must be a frequency")
-            self.E = ħ * Rabi_frequency / transition.d
+        return (transition.d * self.E / ħ).to("MHz")
 
     @property
     def Ω(self):
         return self.Rabi_frequency
+
+    @default_units("MHz")
+    def set_Rabi_frequency(self, Rabi_frequency, transition):
+        ħ = self._ureg.ħ
+        self.E = ħ * Rabi_frequency / transition.d
+
+    @property
+    def set_Ω(self):
+        return self.set_Rabi_frequency
