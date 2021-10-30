@@ -11,11 +11,11 @@ def default_units(unit: str):
         def wrapper(self, quantity, *args, **kwargs):
             if isinstance(quantity, str):
                 quantity = self._ureg(quantity)
-            if not isinstance(quantity, self._ureg.Quantity):
+            if not isinstance(quantity, self._ureg.Quantity) or quantity.dimensionless:
                 quantity = self._ureg.Quantity(quantity, unit)
             if not quantity.check(unit):
                 raise ValueError(f"must have units equivalent to {unit}")
-            setter(self, quantity, *args, **kwargs)
+            return setter(self, quantity, *args, **kwargs)
 
         return wrapper
 
