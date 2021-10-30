@@ -1,6 +1,9 @@
 0.0.5 (unreleased)
 ------------------
 
+- added convienence features to State and Transition objects
+- fix bug in magic_wavelength
+- 100% testing coverage
 - Compatible with Python 3.10
 
 0.0.4 (2021-10-26)
