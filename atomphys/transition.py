@@ -2,10 +2,11 @@ from collections import UserList
 from collections.abc import Iterable
 from math import inf
 from math import pi as π
+from typing import Any
 
 import pint
 
-from . import _ureg
+from . import _ureg, state
 from .util import default_units, fsolve
 
 
@@ -13,12 +14,12 @@ class Transition:
 
     _ureg: pint.UnitRegistry
     __matrix_element: pint.Quantity
-    __type: None
+    __type: str
     __atom = None
     __state_i = None
     __state_f = None
 
-    def __init__(self, state_i, state_f, ureg=None, atom=None, **transition):
+    def __init__(self, state_i=None, state_f=None, ureg=None, atom=None, **transition):
         self.__atom = atom
 
         self._ureg = _ureg
@@ -27,6 +28,8 @@ class Transition:
         if atom is not None:
             self._ureg = atom._ureg
 
+        if not state_i:
+            state_i = state.State()
         if isinstance(state_i, dict):
             states = self.__atom.states.match(**state_i)
             if "energy" in state_i:
@@ -34,11 +37,13 @@ class Transition:
             elif "En" in state_i:
                 self.__state_i = states(state_i["En"])
             else:
-                self.__state_i = next(states)
+                self.__state_i = states[0]
         else:
             self.__state_i = state_i
         self.__state_i.transitions.append(self)
 
+        if not state_f:
+            state_f = state.State()
         if isinstance(state_f, dict):
             states = self.__atom.states.match(**state_f)
             if "energy" in state_f:
@@ -46,25 +51,36 @@ class Transition:
             elif "En" in state_f:
                 self.__state_f = states(state_f["En"])
             else:
-                self.__state_f = next(states)
+                self.__state_f = states[0]
         else:
             self.__state_f = state_f
         self.__state_f.transitions.append(self)
 
-        if "matrix_element" in transition:
-            self._matrix_element = transition["matrix_element"]
-        if "d" in transition:
-            self._matrix_element = transition["d"]
-
-        if "Gamma" in transition:
-            self._Gamma = transition["Gamma"]
-        if "Γ" in transition:
-            self._Gamma = transition["Γ"]
-        if "A" in transition:
-            self._A = transition["A"]
+        self._matrix_element = 0
+        for attr in [
+            "energy",
+            "En",
+            "angular_frequency",
+            "omega",
+            "ω",
+            "frequency",
+            "nu",
+            "ν",
+            "wavelength",
+            "λ",
+            "matrix_element",
+            "d",
+            "Gamma",
+            "Γ",
+            "A",
+        ]:
+            if attr in transition:
+                setattr(self, "_" + attr, transition[attr])
 
         if "type" in transition:
             self.__type = transition["type"]
+        else:
+            self.__type = ""
 
     def __repr__(self):
         return (
@@ -110,37 +126,131 @@ class Transition:
     # ------
 
     @property
-    def energy(self):
+    def _energy(self):
         return self.f.energy - self.i.energy
+
+    @_energy.setter
+    @default_units("E_h")
+    def _energy(self, energy):
+        self.f._energy = self.i.energy + energy
+
+    @property
+    def energy(self):
+        return self._energy
+
+    @property
+    def _En(self):
+        return self._energy
+
+    @_En.setter
+    def _En(self, energy):
+        self._energy = energy
+
+    @property
+    def En(self):
+        return self._En
+
+    @property
+    def _angular_frequency(self):
+        return (self._energy) / self._ureg.ħ
+
+    @_angular_frequency.setter
+    @default_units("THz")
+    def _angular_frequency(self, omega):
+        self._energy = omega * self._ureg.ħ
 
     @property
     def angular_frequency(self):
-        ħ = self._ureg.ħ
-        return (self.energy) / ħ
+        return self._angular_frequency
+
+    @property
+    def _omega(self):
+        return self._angular_frequency
+
+    @_omega.setter
+    def _omega(self, omega):
+        self._angular_frequency = omega
+
+    @property
+    def omega(self):
+        return self._omega
+
+    @property
+    def _ω(self):
+        return self._angular_frequency
+
+    @_ω.setter
+    def _ω(self, omega):
+        self._angular_frequency = omega
 
     @property
     def ω(self):
-        return self.angular_frequency
+        return self._ω
+
+    @property
+    def _frequency(self):
+        return (self._energy) / self._ureg.h
+
+    @_frequency.setter
+    @default_units("THz")
+    def _frequency(self, frequency):
+        self._energy = frequency * self._ureg.h
 
     @property
     def frequency(self):
-        return self.ω / (2 * π)
+        return self._frequency
+
+    @property
+    def _nu(self):
+        return self._frequency
+
+    @_nu.setter
+    def _nu(self, frequency):
+        self._frequency = frequency
+
+    @property
+    def nu(self):
+        return self._nu
+
+    @property
+    def _ν(self):
+        return self._frequency
+
+    @_ν.setter
+    def _ν(self, frequency):
+        self._frequency = frequency
 
     @property
     def ν(self):
-        return self.frequency
+        return self._ν
+
+    @property
+    def _wavelength(self):
+        try:
+            return (self._ureg.h * self._ureg.c) / self._energy
+        except ZeroDivisionError:
+            return self._ureg.Quantity(inf, "nm")
+
+    @_wavelength.setter
+    @default_units("nm")
+    def _wavelength(self, wavelength):
+        self._energy = (self._ureg.h * self._ureg.c) / wavelength
 
     @property
     def wavelength(self):
-        c = self._ureg.c
-        try:
-            return c / self.ν
-        except ZeroDivisionError:
-            return inf
+        return self._wavelength
+
+    @property
+    def _λ(self):
+        return self._wavelength
+
+    @_λ.setter
+    def _λ(self, wavelength):
+        self._wavelength = wavelength
 
     @property
     def λ(self):
-        return self.wavelength
+        return self._λ
 
     # --------------
     # matrix element
@@ -154,6 +264,14 @@ class Transition:
     @default_units("e a0")
     def _matrix_element(self, matrix_element):
         self.__matrix_element = matrix_element
+
+    @property
+    def _d(self):
+        return self.__matrix_element
+
+    @_d.setter
+    def _d(self, matrix_element):
+        self._matrix_element = matrix_element
 
     @property
     def _Gamma(self):
@@ -178,6 +296,14 @@ class Transition:
         self._matrix_element = (
             (3 * π * ε_0 * ħ * c ** 3) / (ω ** 3) * (2 * J + 1) * Γ
         ) ** (1 / 2)
+
+    @property
+    def _Γ(self):
+        return self._Gamma
+
+    @_Γ.setter
+    def _Γ(self, Gamma):
+        self._Gamma = Gamma
 
     @property
     def _A(self):
@@ -216,6 +342,10 @@ class Transition:
     # ---------------------
 
     @property
+    def branching_ratio(self):
+        return (self.Γ * self.f.τ).m_as("dimensionless")
+
+    @property
     def saturation_intensity(self):
         h = self._ureg.h
         c = self._ureg.c
@@ -226,10 +356,6 @@ class Transition:
         return self.saturation_intensity
 
     @property
-    def branching_ratio(self):
-        return (self.Γ * self.f.τ).m_as("dimensionless")
-
-    @property
     def σ0(self):
         ħ = self._ureg.ħ
         return ħ * self.ω * self.Γ / (2 * self.Isat)
@@ -238,14 +364,20 @@ class Transition:
     def cross_section(self):
         return self.σ0
 
+    def polarizability(self, mJ_i=None, mJ_f=None, **kwargs):
+        return self.__state_f.polarizability(
+            mJ=mJ_f, **kwargs
+        ) - self.__state_i.polarizability(mJ=mJ_i, **kwargs)
+
+    @property
+    def α(self):
+        return self.polarizability
+
+    @default_units("nm")
     def magic_wavelength(self, estimate, mJ_i=None, mJ_f=None, **kwargs):
-        α_i = self._state_i.α
-        α_f = self._state_f.α
-
-        def f(λ):
-            return α_i(mJ=mJ_i, λ=λ, **kwargs) - α_f(mJ=mJ_f, λ=λ, **kwargs)
-
-        return fsolve(f, estimate)
+        return fsolve(
+            lambda λ: self.polarizability(λ=λ, mJ_i=None, mJ_f=None, **kwargs), estimate
+        )
 
     @property
     def λ_magic(self):
@@ -271,12 +403,6 @@ class TransitionRegistry(UserList):
         if isinstance(key, int):
             return self[key]
         elif isinstance(key, str):
-            try:
-                quantity = self._ureg.Quantity(key)
-                return self(quantity)
-            except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
-                pass
-
             try:
                 return next(
                     transition
@@ -317,6 +443,12 @@ class TransitionRegistry(UserList):
             except StopIteration:
                 pass
 
+            try:
+                quantity = self._ureg.Quantity(key)
+                return self(quantity)
+            except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
+                pass
+
             raise KeyError(f"no transition {key} found")
         elif isinstance(key, float):
             wavelength = self._ureg.Quantity(key, "nm")
@@ -329,7 +461,7 @@ class TransitionRegistry(UserList):
             elif key.check("[energy]"):
                 return min(self, key=lambda t: abs(t.energy - key))
         elif isinstance(key, Iterable):
-            return TransitionRegistry((self(item) for item in key), ureg=self._ureg)
+            return TransitionRegistry([self(item) for item in key], ureg=self._ureg)
         else:
             raise TypeError("key must be integer index, term string")
 
@@ -346,6 +478,26 @@ class TransitionRegistry(UserList):
                 repr += str(transition) + "\n"
         repr = repr[:-1] + ")"
         return repr
+
+    def _assert_Transition(self, transition: Any):
+        if not isinstance(transition, Transition):
+            raise TypeError("TransitionRegistry can only contain transitions")
+
+    def __setitem__(self, index: int, transition: Transition):
+        self._assert_Transition(transition)
+        super().__setitem__(index, transition)
+
+    def insert(self, index: int, transition: Transition):
+        self._assert_Transition(transition)
+        super().insert(index, transition)
+
+    def append(self, transition: Transition):
+        self._assert_Transition(transition)
+        super().append(transition)
+
+    def extend(self, transitions):
+        [self._assert_Transition(transition) for transition in transitions]
+        super().extend(transitions)
 
     def up_from(self, state):
         return TransitionRegistry(
