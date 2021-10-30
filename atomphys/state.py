@@ -52,6 +52,8 @@ class State:
         for qN in ["S", "L", "J1", "J2", "S2", "K", "J", "n", "parity"]:
             if qN in state:
                 self.__quantum_numbers[qN] = state[qN]
+        if "J" not in self.__quantum_numbers:
+            self.J = 0
 
         self.__transitions = TransitionRegistry(atom=self.__atom)
 
@@ -271,24 +273,24 @@ class StateRegistry(UserList):
         repr = repr[:-1] + ")"
         return repr
 
-    def __setitem__(self, index: int, state: State):
+    def _assert_State(self, state: Any):
         if not isinstance(state, State):
             raise TypeError("StateRegistry can only contain states")
+
+    def __setitem__(self, index: int, state: State):
+        self._assert_State(state)
         super().__setitem__(index, state)
 
     def insert(self, index: int, state: State):
-        if not isinstance(state, State):
-            raise TypeError("StateRegistry can only contain states")
+        self._assert_State(state)
         super().insert(index, state)
 
-    def append(self, state):
-        if not isinstance(state, State):
-            raise TypeError("StateRegistry can only contain states")
+    def append(self, state: State):
+        self._assert_State(state)
         super().append(state)
 
     def extend(self, states):
-        if not all(isinstance(state, State) for state in states):
-            raise TypeError("StateRegistry can only contain states")
+        [self._assert_State(state) for state in states]
         super().extend(states)
 
     def search(self, func):
