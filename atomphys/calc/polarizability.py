@@ -219,7 +219,7 @@ def total(
     α2 = tensor(state, omega)
     if mJ is None:
         return α0
-    if not (isint(mJ) or (ishalfint(mJ) and ishalfint(J))):
+    if not (isint(mJ) or (ishalfint(mJ) and ishalfint(J) and not isint(J))):
         raise ValueError(
             "mJ must be an integer, or a half-integer if J is a half-integer"
         )
