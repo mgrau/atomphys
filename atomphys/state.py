@@ -297,7 +297,7 @@ class StateRegistry(UserList):
         def search_func(state):
             try:
                 return func(state)
-            except BaseException:
+            except Exception:
                 return False
 
         return StateRegistry(list(filter(search_func, self)), ureg=self._ureg)
