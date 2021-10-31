@@ -8,10 +8,10 @@ nav:
   - Home: index.md
   - Getting Started: getting-started.ipynb
   - User Guide:
-    - Atom: user_guide/atom.md
-    - State: user_guide/state.md
-    - Transision: user_guide/transition.md
-    - Laser: user_guide/laser.md
+      - Atom: user_guide/atom.md
+      - State: user_guide/state.md
+      - Transision: user_guide/transition.md
+      - Laser: user_guide/laser.md
   - Reference: reference.md
   - Developers: developers.md
 
@@ -57,6 +57,7 @@ plugins:
   - search
   - include-markdown
   - mknotebooks:
+      execute: true
       enable_default_jupyter_cell_styling: false
       binder: true
       binder_service_name: "gh/mgrau"
