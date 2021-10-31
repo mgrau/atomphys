@@ -1,0 +1,3601 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://mgrau.github.io/atomphys/reference/">
+      
+      <link rel="icon" href="../img/atom.svg">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
+    
+    
+      
+        <title>Reference - atomphys</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../css/colors.css">
+    
+      <link rel="stylesheet" href="../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../css/pandas-dataframe.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="atomphys" class="md-header__button md-logo" aria-label="atomphys" data-md-component="logo">
+      
+  <img src="../img/atom.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            atomphys
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0 9.821 9.821 0 0 0-17.64 0z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/mgrau/atomphys/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    atomphys
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="atomphys" class="md-nav__button md-logo" aria-label="atomphys" data-md-component="logo">
+      
+  <img src="../img/atom.svg" alt="logo">
+
+    </a>
+    atomphys
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/mgrau/atomphys/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    atomphys
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_guide/atom/" class="md-nav__link">
+        Atom
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_guide/state/" class="md-nav__link">
+        State
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_guide/transition/" class="md-nav__link">
+        Transision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_guide/laser/" class="md-nav__link">
+        Laser
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Reference
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys" class="md-nav__link">
+    atomphys
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.atom" class="md-nav__link">
+    atom
+  </a>
+  
+    <nav class="md-nav" aria-label="atom">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.atom.Atom" class="md-nav__link">
+    Atom
+  </a>
+  
+    <nav class="md-nav" aria-label="Atom">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.atom.Atom.states" class="md-nav__link">
+    states
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.atom.Atom.transitions" class="md-nav__link">
+    transitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.atom.Atom.units" class="md-nav__link">
+    units
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.calc" class="md-nav__link">
+    calc
+  </a>
+  
+    <nav class="md-nav" aria-label="calc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability" class="md-nav__link">
+    polarizability
+  </a>
+  
+    <nav class="md-nav" aria-label="polarizability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability.scalar" class="md-nav__link">
+    scalar()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability.tensor" class="md-nav__link">
+    tensor()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability.total" class="md-nav__link">
+    total()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability.vector" class="md-nav__link">
+    vector()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner" class="md-nav__link">
+    wigner
+  </a>
+  
+    <nav class="md-nav" aria-label="wigner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.ishalfint" class="md-nav__link">
+    ishalfint()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.isint" class="md-nav__link">
+    isint()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.istriangle" class="md-nav__link">
+    istriangle()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.wigner_3j" class="md-nav__link">
+    wigner_3j()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.wigner_6j" class="md-nav__link">
+    wigner_6j()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.Δ" class="md-nav__link">
+    Δ()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.data" class="md-nav__link">
+    data
+  </a>
+  
+    <nav class="md-nav" aria-label="data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.data.nist" class="md-nav__link">
+    nist
+  </a>
+  
+    <nav class="md-nav" aria-label="nist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.data.nist.remove_annotations" class="md-nav__link">
+    remove_annotations()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.state" class="md-nav__link">
+    state
+  </a>
+  
+    <nav class="md-nav" aria-label="state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.Coupling" class="md-nav__link">
+    Coupling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.StateRegistry" class="md-nav__link">
+    StateRegistry
+  </a>
+  
+    <nav class="md-nav" aria-label="StateRegistry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.StateRegistry.append" class="md-nav__link">
+    append()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.StateRegistry.extend" class="md-nav__link">
+    extend()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.StateRegistry.insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.term" class="md-nav__link">
+    term
+  </a>
+  
+    <nav class="md-nav" aria-label="term">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.term.Coupling" class="md-nav__link">
+    Coupling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.term.parse_term" class="md-nav__link">
+    parse_term()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.transition" class="md-nav__link">
+    transition
+  </a>
+  
+    <nav class="md-nav" aria-label="transition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.transition.TransitionRegistry" class="md-nav__link">
+    TransitionRegistry
+  </a>
+  
+    <nav class="md-nav" aria-label="TransitionRegistry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.transition.TransitionRegistry.append" class="md-nav__link">
+    append()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.transition.TransitionRegistry.extend" class="md-nav__link">
+    extend()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.transition.TransitionRegistry.insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.util" class="md-nav__link">
+    util
+  </a>
+  
+    <nav class="md-nav" aria-label="util">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.util.fsolve" class="md-nav__link">
+    fsolve()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/" class="md-nav__link">
+        Developers
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys" class="md-nav__link">
+    atomphys
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.atom" class="md-nav__link">
+    atom
+  </a>
+  
+    <nav class="md-nav" aria-label="atom">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.atom.Atom" class="md-nav__link">
+    Atom
+  </a>
+  
+    <nav class="md-nav" aria-label="Atom">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.atom.Atom.states" class="md-nav__link">
+    states
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.atom.Atom.transitions" class="md-nav__link">
+    transitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.atom.Atom.units" class="md-nav__link">
+    units
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.calc" class="md-nav__link">
+    calc
+  </a>
+  
+    <nav class="md-nav" aria-label="calc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability" class="md-nav__link">
+    polarizability
+  </a>
+  
+    <nav class="md-nav" aria-label="polarizability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability.scalar" class="md-nav__link">
+    scalar()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability.tensor" class="md-nav__link">
+    tensor()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability.total" class="md-nav__link">
+    total()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.polarizability.vector" class="md-nav__link">
+    vector()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner" class="md-nav__link">
+    wigner
+  </a>
+  
+    <nav class="md-nav" aria-label="wigner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.ishalfint" class="md-nav__link">
+    ishalfint()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.isint" class="md-nav__link">
+    isint()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.istriangle" class="md-nav__link">
+    istriangle()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.wigner_3j" class="md-nav__link">
+    wigner_3j()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.wigner_6j" class="md-nav__link">
+    wigner_6j()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.calc.wigner.Δ" class="md-nav__link">
+    Δ()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.data" class="md-nav__link">
+    data
+  </a>
+  
+    <nav class="md-nav" aria-label="data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.data.nist" class="md-nav__link">
+    nist
+  </a>
+  
+    <nav class="md-nav" aria-label="nist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.data.nist.remove_annotations" class="md-nav__link">
+    remove_annotations()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.state" class="md-nav__link">
+    state
+  </a>
+  
+    <nav class="md-nav" aria-label="state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.Coupling" class="md-nav__link">
+    Coupling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.StateRegistry" class="md-nav__link">
+    StateRegistry
+  </a>
+  
+    <nav class="md-nav" aria-label="StateRegistry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.StateRegistry.append" class="md-nav__link">
+    append()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.StateRegistry.extend" class="md-nav__link">
+    extend()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.state.StateRegistry.insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.term" class="md-nav__link">
+    term
+  </a>
+  
+    <nav class="md-nav" aria-label="term">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.term.Coupling" class="md-nav__link">
+    Coupling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.term.parse_term" class="md-nav__link">
+    parse_term()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.transition" class="md-nav__link">
+    transition
+  </a>
+  
+    <nav class="md-nav" aria-label="transition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.transition.TransitionRegistry" class="md-nav__link">
+    TransitionRegistry
+  </a>
+  
+    <nav class="md-nav" aria-label="TransitionRegistry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.transition.TransitionRegistry.append" class="md-nav__link">
+    append()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.transition.TransitionRegistry.extend" class="md-nav__link">
+    extend()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.transition.TransitionRegistry.insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atomphys.util" class="md-nav__link">
+    util
+  </a>
+  
+    <nav class="md-nav" aria-label="util">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomphys.util.fsolve" class="md-nav__link">
+    fsolve()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/mgrau/atomphys/edit/main/docs/reference.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="reference">Reference</h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="atomphys"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="atomphys.atom" class="doc doc-heading">
+        <code>atom</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="atomphys.atom.Atom" class="doc doc-heading">
+        <code>
+Atom        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>An atom object, containing states and transitions</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of the atom</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="atomphys.atom.Atom.states" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">states</span><span class="p">:</span> <span class="n">StateRegistry</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>StateRegistry: the atomic states.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="atomphys.atom.Atom.transitions" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">transitions</span><span class="p">:</span> <span class="n">TransitionRegistry</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>TransitionRegistry: the atomic transitions.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="atomphys.atom.Atom.units" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">units</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>pint.UnitRegistry(): readonly access to the pint UnitRegistry used by the atom.</p>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="atomphys.calc" class="doc doc-heading">
+        <code>calc</code>
+
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h3 id="atomphys.calc.polarizability" class="doc doc-heading">
+        <code>polarizability</code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.polarizability.scalar" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">scalar</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate the scalar polarizability of a state |Ψ⟩</p>
+<p>Approximate the dynamical scalar polarizability α0(ω)
+of the state |Ψ⟩ by summing over matrix elements</p>
+<div class="arithmatex">\[
+    \alpha^0(\omega) =
+        \frac{1}{3(2J+1)}
+        \sum_i
+            \left(
+            \frac{1}{\hbar (E_i - E) - \hbar \omega} +
+            \frac{1}{\hbar (E_i - E) + \hbar \omega}
+            \right)
+            \left|\left&lt;\Psi\left|D\right| \Psi_i\right&gt;\right|^2
+\]</div>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>state</code></td>
+        <td><code>State</code></td>
+        <td><p>state |Ψ⟩ to calculate the polarizability</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>omega</code></td>
+        <td><code>Quantity</code></td>
+        <td><p>Angular frequency of the field to calculate
+the dynamical polarizability. Defaults to zero,
+in which case it calculates the static polarizability.
+Must have units of <code>Hz</code>.</p></td>
+        <td><code>0</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Quantity</code></td>
+      <td><p>Scalar polarizability. Has units of <code>C m / (V/m)</code>, or dipole moment / electric field.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/polarizability.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">scalar</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n">pint</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pint</span><span class="o">.</span><span class="n">Quantity</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the scalar polarizability of a state |Ψ⟩</span>
+
+<span class="sd">    Approximate the dynamical scalar polarizability α0(ω)</span>
+<span class="sd">    of the state |Ψ⟩ by summing over matrix elements</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \\alpha^0(\\omega) =</span>
+<span class="sd">            \\frac{1}{3(2J+1)}</span>
+<span class="sd">            \\sum_i</span>
+<span class="sd">                \\left(</span>
+<span class="sd">                \\frac{1}{\\hbar (E_i - E) - \\hbar \\omega} +</span>
+<span class="sd">                \\frac{1}{\\hbar (E_i - E) + \\hbar \\omega}</span>
+<span class="sd">                \\right)</span>
+<span class="sd">                \\left|\\left&lt;\\Psi\\left|D\\right| \\Psi_i\\right&gt;\\right|^2</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        state (State): state |Ψ⟩ to calculate the polarizability</span>
+<span class="sd">        omega: Angular frequency of the field to calculate</span>
+<span class="sd">            the dynamical polarizability. Defaults to zero,</span>
+<span class="sd">            in which case it calculates the static polarizability.</span>
+<span class="sd">            Must have units of `Hz`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Scalar polarizability. Has units of `C m / (V/m)`, or dipole moment / electric field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ω</span> <span class="o">=</span> <span class="n">omega</span>
+    <span class="n">ħ</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_ureg</span><span class="o">.</span><span class="n">ħ</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">J</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">ħ</span>
+    <span class="n">α</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">ω0</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">ω</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">α</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">-</span> <span class="n">ω</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">+</span> <span class="n">ω</span><span class="p">))</span> <span class="o">*</span> <span class="n">d</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">ω0</span> <span class="o">=</span> <span class="o">-</span><span class="n">transition</span><span class="o">.</span><span class="n">ω</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">α</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">-</span> <span class="n">ω</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">+</span> <span class="n">ω</span><span class="p">))</span> <span class="o">*</span> <span class="n">d</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">α</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">to_base_units</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.polarizability.tensor" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">tensor</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate the tensor polarizability of a state |Ψ⟩</p>
+<p>Approximate the dynamical tensor polarizability α0(ω)
+of the state |Ψ⟩ by summing over matrix elements</p>
+<div class="arithmatex">\[
+    \alpha^2(\omega) = -\sqrt{\frac{20J(2J-1)}{6(J+1)(2J+1)(2J+3)}}
+        \sum_i
+            \left\{
+            \begin{matrix}
+            1 &amp; 1 &amp; 2 \\ J &amp; J &amp; J_i
+            \end{matrix}
+            \right\}
+            (-1)^{1+J+J_i}
+            \left(
+            \frac{1}{\hbar (E_i - E) - \hbar \omega} +
+            \frac{1}{\hbar (E_i - E) + \hbar \omega}\right)
+            \left|
+            \left&lt;\Psi\left|D\right| \Psi_i\right&gt;\right|^2
+\]</div>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>state</code></td>
+        <td><code>State</code></td>
+        <td><p>state |Ψ⟩ to calculate the polarizability</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>omega</code></td>
+        <td><code>Quantity</code></td>
+        <td><p>Angular frequency of the field to calculate
+the dynamical polarizability. Defaults to zero,
+in which case it calculates the static polarizability.
+Must have units of <code>Hz</code>.</p></td>
+        <td><code>0</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td><p>Tensor polarizability. Has units of <code>C m / (V/m)</code>, or dipole moment / electric field.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/polarizability.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">tensor</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n">pint</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the tensor polarizability of a state |Ψ⟩</span>
+
+<span class="sd">    Approximate the dynamical tensor polarizability α0(ω)</span>
+<span class="sd">    of the state |Ψ⟩ by summing over matrix elements</span>
+
+<span class="sd">    \\[</span>
+<span class="sd">        \\alpha^2(\\omega) = -\\sqrt{\\frac{20J(2J-1)}{6(J+1)(2J+1)(2J+3)}}</span>
+<span class="sd">            \\sum_i</span>
+<span class="sd">                \\left\\{</span>
+<span class="sd">                \\begin{matrix}</span>
+<span class="sd">                1 &amp; 1 &amp; 2 \\\\ J &amp; J &amp; J_i</span>
+<span class="sd">                \\end{matrix}</span>
+<span class="sd">                \\right\\}</span>
+<span class="sd">                (-1)^{1+J+J_i}</span>
+<span class="sd">                \\left(</span>
+<span class="sd">                \\frac{1}{\\hbar (E_i - E) - \\hbar \\omega} +</span>
+<span class="sd">                \\frac{1}{\\hbar (E_i - E) + \\hbar \\omega}\\right)</span>
+<span class="sd">                \\left|</span>
+<span class="sd">                \\left&lt;\\Psi\\left|D\\right| \\Psi_i\\right&gt;\\right|^2</span>
+<span class="sd">    \\]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        state (State): state |Ψ⟩ to calculate the polarizability</span>
+<span class="sd">        omega: Angular frequency of the field to calculate</span>
+<span class="sd">            the dynamical polarizability. Defaults to zero,</span>
+<span class="sd">            in which case it calculates the static polarizability.</span>
+<span class="sd">            Must have units of `Hz`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor polarizability. Has units of `C m / (V/m)`, or dipole moment / electric field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ω</span> <span class="o">=</span> <span class="n">omega</span>
+    <span class="n">ħ</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_ureg</span><span class="o">.</span><span class="n">ħ</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">J</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="o">-</span><span class="p">(</span>
+            <span class="p">((</span><span class="mi">20</span> <span class="o">*</span> <span class="n">J</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="n">J</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)))</span>
+            <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="o">/</span> <span class="n">ħ</span>
+    <span class="p">)</span>
+    <span class="n">α</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">ω0</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">ω</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">Jp</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">J</span>
+        <span class="n">sixJ</span> <span class="o">=</span> <span class="n">wigner_6j</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">Jp</span><span class="p">)</span>
+        <span class="n">α</span> <span class="o">+=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">J</span> <span class="o">+</span> <span class="n">Jp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sixJ</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">-</span> <span class="n">ω</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">+</span> <span class="n">ω</span><span class="p">))</span> <span class="o">*</span> <span class="n">d</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">ω0</span> <span class="o">=</span> <span class="o">-</span><span class="n">transition</span><span class="o">.</span><span class="n">ω</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">Jp</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">i</span><span class="o">.</span><span class="n">J</span>
+        <span class="n">sixJ</span> <span class="o">=</span> <span class="n">wigner_6j</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">Jp</span><span class="p">)</span>
+        <span class="n">α</span> <span class="o">+=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">J</span> <span class="o">+</span> <span class="n">Jp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sixJ</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">-</span> <span class="n">ω</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">+</span> <span class="n">ω</span><span class="p">))</span> <span class="o">*</span> <span class="n">d</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">α</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">to_base_units</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.polarizability.total" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">total</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">mJ</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">theta_k</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">theta_p</span><span class="o">=</span><span class="mf">1.5707963267948966</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate the polarizability of a state for a given field polarization</p>
+<p>Calculates the dynamical polarizability α(ω) by taking the sum of the
+scalar, vector, and tensor poarts according to</p>
+<div class="arithmatex">\[
+    \alpha(\omega) = \alpha^0(\omega) +
+    A \cos(\theta_k) \frac{m_J}{J} \alpha^1(\omega) +
+    \frac{1}{2}\left(3 \cos^2(\theta_p) - 1\right)\frac{3m_J^2 - J(J+1)}{J(2J-1)}\alpha^2(\omega)
+\]</div>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>state</code></td>
+        <td><code>State</code></td>
+        <td><p>state |Ψ⟩ to calculate the polarizability</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>mJ</code></td>
+        <td><code>float</code></td>
+        <td><p>Zeeman sublevel to calculate the vector and tensor
+polarizability. If <code>None</code> only calculates the scalar
+component. Must be an integer if J is an integer, or
+a half-integer if J is a half integer.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>omega</code></td>
+        <td><code>Quantity</code></td>
+        <td><p>angular frequency of the field to calculate
+the dynamical polarizability. Defaults to zero,
+in which case it calculates the static polarizability.
+Must have units of <code>Hz</code>.</p></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>A</code></td>
+        <td><code>float</code></td>
+        <td><p>degree of circular polarization, with ±1 being circular
+polarization and 0 being linear polarization</p></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>theta_k</code></td>
+        <td><code>float</code></td>
+        <td><p>angle between wave vector and quantization axis</p></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>theta_p</code></td>
+        <td><code>float</code></td>
+        <td><p>angle between polarization vector and quantization axis</p></td>
+        <td><code>1.5707963267948966</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Quantity</code></td>
+      <td><p>Polarizability. Has units of <code>C m / (V/m)</code>, or dipole moment / electric field.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/polarizability.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">total</span><span class="p">(</span>
+    <span class="n">state</span><span class="p">,</span>
+    <span class="n">mJ</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">omega</span><span class="p">:</span> <span class="n">pint</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">A</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">theta_k</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">theta_p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">π</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pint</span><span class="o">.</span><span class="n">Quantity</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the polarizability of a state for a given field polarization</span>
+
+<span class="sd">    Calculates the dynamical polarizability α(ω) by taking the sum of the</span>
+<span class="sd">    scalar, vector, and tensor poarts according to</span>
+
+<span class="sd">    \\[</span>
+<span class="sd">        \\alpha(\\omega) = \\alpha^0(\\omega) +</span>
+<span class="sd">        A \\cos(\\theta_k) \\frac{m_J}{J} \\alpha^1(\\omega) +</span>
+<span class="sd">        \\frac{1}{2}\\left(3 \\cos^2(\\theta_p) - 1\\right)\\frac{3m_J^2 - J(J+1)}{J(2J-1)}\\alpha^2(\\omega)</span>
+<span class="sd">    \\]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        state (State): state |Ψ⟩ to calculate the polarizability</span>
+<span class="sd">        mJ: Zeeman sublevel to calculate the vector and tensor</span>
+<span class="sd">            polarizability. If `None` only calculates the scalar</span>
+<span class="sd">            component. Must be an integer if J is an integer, or</span>
+<span class="sd">            a half-integer if J is a half integer.</span>
+<span class="sd">        omega: angular frequency of the field to calculate</span>
+<span class="sd">            the dynamical polarizability. Defaults to zero,</span>
+<span class="sd">            in which case it calculates the static polarizability.</span>
+<span class="sd">            Must have units of `Hz`.</span>
+<span class="sd">        A: degree of circular polarization, with ±1 being circular</span>
+<span class="sd">            polarization and 0 being linear polarization</span>
+<span class="sd">        theta_k: angle between wave vector and quantization axis</span>
+<span class="sd">        theta_p: angle between polarization vector and quantization axis</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Polarizability. Has units of `C m / (V/m)`, or dipole moment / electric field.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ZeroDivisionError</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">θk</span> <span class="o">=</span> <span class="n">theta_k</span>
+    <span class="n">θp</span> <span class="o">=</span> <span class="n">theta_p</span>
+
+    <span class="n">J</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">J</span>
+    <span class="n">α0</span> <span class="o">=</span> <span class="n">scalar</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+    <span class="n">α1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+    <span class="n">α2</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mJ</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">α0</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">isint</span><span class="p">(</span><span class="n">mJ</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">ishalfint</span><span class="p">(</span><span class="n">mJ</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">J</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">isint</span><span class="p">(</span><span class="n">J</span><span class="p">))):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;mJ must be an integer, or a half-integer if J is a half-integer&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">C1</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">θk</span><span class="p">)</span> <span class="o">*</span> <span class="n">mJ</span> <span class="o">/</span> <span class="n">J</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">C2</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">θp</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">mJ</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">J</span> <span class="o">*</span> <span class="p">(</span><span class="n">J</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">J</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="n">C2</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">α0</span> <span class="o">+</span> <span class="n">C1</span> <span class="o">*</span> <span class="n">α1</span> <span class="o">+</span> <span class="n">C2</span> <span class="o">*</span> <span class="n">α2</span><span class="p">)</span><span class="o">.</span><span class="n">to_base_units</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.polarizability.vector" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">vector</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate the vector polarizability of a state |Ψ⟩</p>
+<p>Approximate the dynamical vector polarizability α1(ω)
+of the state |Ψ⟩ by summing over matrix elements</p>
+<div class="arithmatex">\[
+    \alpha^1(\omega) =
+        \sqrt{\frac{6J}{(J+1)(2J+1)}}
+        \sum_i
+            \left\{
+            \begin{matrix}
+            1 &amp; 1 &amp; 1 \\ J &amp; J &amp; J_i
+            \end{matrix}
+            \right\}
+            (-1)^{1+J+J_i}
+            \left(
+            \frac{1}{\hbar (E_i - E) - \hbar \omega} +
+            \frac{1}{\hbar (E_i - E) + \hbar \omega}
+            \right)
+            \left|\left&lt;\Psi\left|D\right| \Psi_i\right&gt;\right|^2
+\]</div>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>state</code></td>
+        <td><code>State</code></td>
+        <td><p>state |Ψ⟩ to calculate the polarizability</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>omega</code></td>
+        <td><code>Quantity</code></td>
+        <td><p>Angular frequency of the field to calculate
+the dynamical polarizability. Defaults to zero,
+in which case it calculates the static polarizability.
+Must have units of <code>Hz</code>.</p></td>
+        <td><code>0</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td><p>Vector polarizability. Has units of <code>C m / (V/m)</code>, or dipole moment / electric field.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/polarizability.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">vector</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n">pint</span><span class="o">.</span><span class="n">Quantity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the vector polarizability of a state |Ψ⟩</span>
+
+<span class="sd">    Approximate the dynamical vector polarizability α1(ω)</span>
+<span class="sd">    of the state |Ψ⟩ by summing over matrix elements</span>
+
+
+<span class="sd">    \\[</span>
+<span class="sd">        \\alpha^1(\\omega) =</span>
+<span class="sd">            \\sqrt{\\frac{6J}{(J+1)(2J+1)}}</span>
+<span class="sd">            \\sum_i</span>
+<span class="sd">                \\left\\{</span>
+<span class="sd">                \\begin{matrix}</span>
+<span class="sd">                1 &amp; 1 &amp; 1 \\\\ J &amp; J &amp; J_i</span>
+<span class="sd">                \\end{matrix}</span>
+<span class="sd">                \\right\\}</span>
+<span class="sd">                (-1)^{1+J+J_i}</span>
+<span class="sd">                \\left(</span>
+<span class="sd">                \\frac{1}{\\hbar (E_i - E) - \\hbar \\omega} +</span>
+<span class="sd">                \\frac{1}{\\hbar (E_i - E) + \\hbar \\omega}</span>
+<span class="sd">                \\right)</span>
+<span class="sd">                \\left|\\left&lt;\\Psi\\left|D\\right| \\Psi_i\\right&gt;\\right|^2</span>
+<span class="sd">    \\]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        state (State): state |Ψ⟩ to calculate the polarizability</span>
+<span class="sd">        omega: Angular frequency of the field to calculate</span>
+<span class="sd">            the dynamical polarizability. Defaults to zero,</span>
+<span class="sd">            in which case it calculates the static polarizability.</span>
+<span class="sd">            Must have units of `Hz`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Vector polarizability. Has units of `C m / (V/m)`, or dipole moment / electric field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ω</span> <span class="o">=</span> <span class="n">omega</span>
+    <span class="n">ħ</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_ureg</span><span class="o">.</span><span class="n">ħ</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">J</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="p">((</span><span class="mi">6</span> <span class="o">*</span> <span class="n">J</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">J</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">ħ</span>
+    <span class="n">α</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
+        <span class="n">ω0</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">ω</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">Jp</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">J</span>
+        <span class="n">sixJ</span> <span class="o">=</span> <span class="n">wigner_6j</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">Jp</span><span class="p">)</span>
+        <span class="n">α</span> <span class="o">+=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">J</span> <span class="o">+</span> <span class="n">Jp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sixJ</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">-</span> <span class="n">ω</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">+</span> <span class="n">ω</span><span class="p">))</span> <span class="o">*</span> <span class="n">d</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
+        <span class="n">ω0</span> <span class="o">=</span> <span class="o">-</span><span class="n">transition</span><span class="o">.</span><span class="n">ω</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">Jp</span> <span class="o">=</span> <span class="n">transition</span><span class="o">.</span><span class="n">i</span><span class="o">.</span><span class="n">J</span>
+        <span class="n">sixJ</span> <span class="o">=</span> <span class="n">wigner_6j</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">Jp</span><span class="p">)</span>
+        <span class="n">α</span> <span class="o">+=</span> <span class="o">-</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">J</span> <span class="o">+</span> <span class="n">Jp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">sixJ</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">-</span> <span class="n">ω</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">ω0</span> <span class="o">+</span> <span class="n">ω</span><span class="p">))</span> <span class="o">*</span> <span class="n">d</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">α</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">to_base_units</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h3 id="atomphys.calc.wigner" class="doc doc-heading">
+        <code>wigner</code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.wigner.ishalfint" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">ishalfint</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>check if value is half integer</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td><code>float</code></td>
+        <td><p>is this a half integer?</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>True if x is a half integer and False if it is not.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/wigner.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ishalfint</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;check if value is half integer</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        x: is this a half integer?</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if x is a half integer and False if it is not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">==</span> <span class="n">floor</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.wigner.isint" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">isint</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>checks if value is an integer</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td><code>float</code></td>
+        <td><p>is this an integer?</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>True if x is an integer and False if it is not.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/wigner.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">isint</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;checks if value is an integer</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        x: is this an integer?</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if x is an integer and False if it is not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">==</span> <span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.wigner.istriangle" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">istriangle</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>checks if triad (a, b, c) obeys the triangle inequality</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>a</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>b</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>c</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>True if the triangle inequality is satisfied and False if it is not.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/wigner.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">istriangle</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;checks if triad (a, b, c) obeys the triangle inequality</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        a:</span>
+<span class="sd">        b:</span>
+<span class="sd">        c:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the triangle inequality is satisfied and False if it is not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.wigner.wigner_3j" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">wigner_3j</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">j3</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">m3</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate the Wigner 3-j symbol numerically</p>
+<p>The Wigner 3-j symbol is calculated numerically using a recursion relation.
+This approximate calculation is often faster than the exact analytic
+calculation that is done by <code>sympy.physics.wigner</code>.
+Due to the finite precision of floating point numbers, this is only good
+for <span class="arithmatex">\(j\)</span> and <span class="arithmatex">\(m\)</span> up to about 40, after which it becomes too inaccurate.</p>
+<p>The results are cached in the private variable <code>_wigner_3j_cache</code> to
+speed subsequent calculations.</p>
+<p><span class="arithmatex">\(\left(
+\begin{matrix}
+j_1 &amp; j_2 &amp; j_3 \\ m_1 &amp; m_2 &amp; m_3
+\end{matrix}
+\right)\)</span></p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>j1</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>j2</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>j3</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>m1</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>m2</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>m3</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>float</code></td>
+      <td><p><span class="arithmatex">\(\left(
+\begin{matrix}
+j_1 &amp; j_2 &amp; j_3 \\ m_1 &amp; m_2 &amp; m_3
+\end{matrix}
+\right)\)</span></p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/wigner.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">wigner_3j</span><span class="p">(</span>
+    <span class="n">j1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">j2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">j3</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">m1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">m2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">m3</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the Wigner 3-j symbol numerically</span>
+
+<span class="sd">    The Wigner 3-j symbol is calculated numerically using a recursion relation.</span>
+<span class="sd">    This approximate calculation is often faster than the exact analytic</span>
+<span class="sd">    calculation that is done by `sympy.physics.wigner`.</span>
+<span class="sd">    Due to the finite precision of floating point numbers, this is only good</span>
+<span class="sd">    for $j$ and $m$ up to about 40, after which it becomes too inaccurate.</span>
+
+<span class="sd">    The results are cached in the private variable `_wigner_3j_cache` to</span>
+<span class="sd">    speed subsequent calculations.</span>
+
+<span class="sd">    $\\left(</span>
+<span class="sd">    \\begin{matrix}</span>
+<span class="sd">    j_1 &amp; j_2 &amp; j_3 \\\\ m_1 &amp; m_2 &amp; m_3</span>
+<span class="sd">    \\end{matrix}</span>
+<span class="sd">    \\right)$</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        j1:</span>
+<span class="sd">        j2:</span>
+<span class="sd">        j3:</span>
+<span class="sd">        m1:</span>
+<span class="sd">        m2:</span>
+<span class="sd">        m3:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        $\\left(</span>
+<span class="sd">        \\begin{matrix}</span>
+<span class="sd">        j_1 &amp; j_2 &amp; j_3 \\\\ m_1 &amp; m_2 &amp; m_3</span>
+<span class="sd">        \\end{matrix}</span>
+<span class="sd">        \\right)$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">j1</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">j2</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">j3</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">m2</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All arguments must be integers or half-integers&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">j1</span> <span class="o">&gt;</span> <span class="mi">40</span> <span class="ow">or</span> <span class="n">j2</span> <span class="o">&gt;</span> <span class="mi">40</span> <span class="ow">or</span> <span class="n">j3</span> <span class="o">&gt;</span> <span class="mi">40</span> <span class="ow">or</span> <span class="n">m1</span> <span class="o">&gt;</span> <span class="mi">40</span> <span class="ow">or</span> <span class="n">m2</span> <span class="o">&gt;</span> <span class="mi">40</span> <span class="ow">or</span> <span class="n">m3</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">OverflowError</span><span class="p">(</span>
+            <span class="s2">&quot;can&#39;t handle numbers this larger, use a sympy.physics.wigner&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># sum of second row must equal zero</span>
+    <span class="k">if</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">m2</span> <span class="o">+</span> <span class="n">m3</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1"># triangle inequality</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">istriangle</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">j3</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">j1</span> <span class="o">-</span> <span class="n">m1</span> <span class="o">!=</span> <span class="n">floor</span><span class="p">(</span><span class="n">j1</span> <span class="o">-</span> <span class="n">m1</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">j2</span> <span class="o">-</span> <span class="n">m2</span> <span class="o">!=</span> <span class="n">floor</span><span class="p">(</span><span class="n">j2</span> <span class="o">-</span> <span class="n">m2</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">j3</span> <span class="o">-</span> <span class="n">m3</span> <span class="o">!=</span> <span class="n">floor</span><span class="p">(</span><span class="n">j3</span> <span class="o">-</span> <span class="n">m3</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">j1</span> <span class="ow">or</span> <span class="nb">abs</span><span class="p">(</span><span class="n">m2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">j2</span> <span class="ow">or</span> <span class="nb">abs</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">j3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">wigner</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+        <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j2</span> <span class="o">-</span> <span class="n">m1</span> <span class="o">-</span> <span class="n">j3</span><span class="p">,</span> <span class="n">j1</span> <span class="o">+</span> <span class="n">m2</span> <span class="o">-</span> <span class="n">j3</span><span class="p">)),</span>
+        <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">-</span> <span class="n">j3</span><span class="p">,</span> <span class="n">j1</span> <span class="o">-</span> <span class="n">m1</span><span class="p">,</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">m2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">wigner</span> <span class="o">+=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">t</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">factorial</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="p">(</span><span class="n">j2</span> <span class="o">-</span> <span class="n">m1</span> <span class="o">-</span> <span class="n">j3</span><span class="p">))</span>
+            <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">m2</span> <span class="o">-</span> <span class="n">j3</span><span class="p">))</span>
+            <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">-</span> <span class="n">j3</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span>
+            <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j1</span> <span class="o">-</span> <span class="n">m1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span>
+            <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j2</span> <span class="o">+</span> <span class="n">m2</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">wigner</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">j1</span> <span class="o">-</span> <span class="n">j2</span> <span class="o">-</span> <span class="n">m3</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span>
+        <span class="n">Δ</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">j3</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">m1</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j1</span> <span class="o">-</span> <span class="n">m1</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j2</span> <span class="o">+</span> <span class="n">m2</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j2</span> <span class="o">-</span> <span class="n">m2</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j3</span> <span class="o">+</span> <span class="n">m3</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">j3</span> <span class="o">-</span> <span class="n">m3</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wigner</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.wigner.wigner_6j" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">wigner_6j</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">j3</span><span class="p">,</span> <span class="n">J1</span><span class="p">,</span> <span class="n">J2</span><span class="p">,</span> <span class="n">J3</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Calculate the Wigner 6-j symbol numerically</p>
+<p>The Wigner 6-j symbol is calculated numerically using a recursion relation.
+This approximate calculation is often faster than the exact analytic
+calculation that is done by <code>sympy.physics.wigner</code>.</p>
+<p>The results are cached in the private variable <code>_wigner_6j_cache</code> to
+speed subsequent calculations.</p>
+<p><span class="arithmatex">\(\left\{
+\begin{matrix}
+j_1 &amp; j_2 &amp; j_3 \\ J_1 &amp; J_2 &amp; J_3
+\end{matrix}
+\right\}\)</span></p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>j1</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>j2</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>j3</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>J1</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>J2</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>J3</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>float</code></td>
+      <td><p><span class="arithmatex">\(\left\{
+\begin{matrix}
+j_1 &amp; j_2 &amp; j_3 \\ J_1 &amp; J_2 &amp; J_3
+\end{matrix}
+\right\}\)</span></p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/wigner.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">wigner_6j</span><span class="p">(</span>
+    <span class="n">j1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">j2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">j3</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">J1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">J2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">J3</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the Wigner 6-j symbol numerically</span>
+
+<span class="sd">    The Wigner 6-j symbol is calculated numerically using a recursion relation.</span>
+<span class="sd">    This approximate calculation is often faster than the exact analytic</span>
+<span class="sd">    calculation that is done by `sympy.physics.wigner`.</span>
+
+<span class="sd">    The results are cached in the private variable `_wigner_6j_cache` to</span>
+<span class="sd">    speed subsequent calculations.</span>
+
+<span class="sd">    $\\left\\{</span>
+<span class="sd">    \\begin{matrix}</span>
+<span class="sd">    j_1 &amp; j_2 &amp; j_3 \\\\ J_1 &amp; J_2 &amp; J_3</span>
+<span class="sd">    \\end{matrix}</span>
+<span class="sd">    \\right\\}$</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        j1:</span>
+<span class="sd">        j2:</span>
+<span class="sd">        j3:</span>
+<span class="sd">        J1:</span>
+<span class="sd">        J2:</span>
+<span class="sd">        J3:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        $\\left\\{</span>
+<span class="sd">        \\begin{matrix}</span>
+<span class="sd">        j_1 &amp; j_2 &amp; j_3 \\\\ J_1 &amp; J_2 &amp; J_3</span>
+<span class="sd">        \\end{matrix}</span>
+<span class="sd">        \\right\\}$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">j1</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">j2</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">j3</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">J1</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">J2</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">ishalfint</span><span class="p">(</span><span class="n">J3</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All arguments must be integers or half-integers&quot;</span><span class="p">)</span>
+
+    <span class="c1"># triangle inequality for each triad</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="n">istriangle</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">j3</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">istriangle</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">J2</span><span class="p">,</span> <span class="n">J3</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">istriangle</span><span class="p">(</span><span class="n">J1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">J3</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">istriangle</span><span class="p">(</span><span class="n">J1</span><span class="p">,</span> <span class="n">J2</span><span class="p">,</span> <span class="n">j3</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1"># each triad must sum to an integer</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="n">isint</span><span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">j3</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">isint</span><span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">J2</span> <span class="o">+</span> <span class="n">J3</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">isint</span><span class="p">(</span><span class="n">J1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">J3</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">isint</span><span class="p">(</span><span class="n">J1</span> <span class="o">+</span> <span class="n">J2</span> <span class="o">+</span> <span class="n">j3</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">wigner</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+        <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">j3</span><span class="p">,</span> <span class="n">j1</span> <span class="o">+</span> <span class="n">J2</span> <span class="o">+</span> <span class="n">J3</span><span class="p">,</span> <span class="n">J1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">J3</span><span class="p">,</span> <span class="n">J1</span> <span class="o">+</span> <span class="n">J2</span> <span class="o">+</span> <span class="n">j3</span><span class="p">)),</span>
+        <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">J1</span> <span class="o">+</span> <span class="n">J2</span><span class="p">,</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">j3</span> <span class="o">+</span> <span class="n">J2</span> <span class="o">+</span> <span class="n">J3</span><span class="p">,</span> <span class="n">j3</span> <span class="o">+</span> <span class="n">j1</span> <span class="o">+</span> <span class="n">J3</span> <span class="o">+</span> <span class="n">J1</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">wigner</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">t</span>
+            <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="o">/</span> <span class="p">(</span>
+                <span class="n">factorial</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">j3</span><span class="p">))</span>
+                <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="p">(</span><span class="n">j1</span> <span class="o">+</span> <span class="n">J2</span> <span class="o">+</span> <span class="n">J3</span><span class="p">))</span>
+                <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="p">(</span><span class="n">J1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">J3</span><span class="p">))</span>
+                <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="p">(</span><span class="n">J1</span> <span class="o">+</span> <span class="n">J2</span> <span class="o">+</span> <span class="n">j3</span><span class="p">))</span>
+                <span class="o">*</span> <span class="n">factorial</span><span class="p">((</span><span class="n">j1</span> <span class="o">+</span> <span class="n">j2</span> <span class="o">+</span> <span class="n">J1</span> <span class="o">+</span> <span class="n">J2</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span>
+                <span class="o">*</span> <span class="n">factorial</span><span class="p">((</span><span class="n">j2</span> <span class="o">+</span> <span class="n">j3</span> <span class="o">+</span> <span class="n">J2</span> <span class="o">+</span> <span class="n">J3</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span>
+                <span class="o">*</span> <span class="n">factorial</span><span class="p">((</span><span class="n">j3</span> <span class="o">+</span> <span class="n">j1</span> <span class="o">+</span> <span class="n">J3</span> <span class="o">+</span> <span class="n">J1</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">wigner</span> <span class="o">*=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Δ</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">j3</span><span class="p">)</span> <span class="o">*</span> <span class="n">Δ</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">J2</span><span class="p">,</span> <span class="n">J3</span><span class="p">)</span> <span class="o">*</span> <span class="n">Δ</span><span class="p">(</span><span class="n">J1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">J3</span><span class="p">)</span> <span class="o">*</span> <span class="n">Δ</span><span class="p">(</span><span class="n">J1</span><span class="p">,</span> <span class="n">J2</span><span class="p">,</span> <span class="n">j3</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">wigner</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.calc.wigner.Δ" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">Δ</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Helper function for wigner symbols</p>
+<p>Calculates the intermediate expression</p>
+<p><span class="arithmatex">\(\Delta = \frac{(a+b-c)!(a-b+c)!(-a+b+c)!}{(a+b+c+1)!}\)</span></p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>a</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>b</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>c</code></td>
+        <td><code>float</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>float</code></td>
+      <td><p><span class="arithmatex">\(\Delta\)</span></p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/calc/wigner.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">Δ</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Helper function for wigner symbols</span>
+
+<span class="sd">    Calculates the intermediate expression</span>
+
+<span class="sd">    $\\Delta = \\frac{(a+b-c)!(a-b+c)!(-a+b+c)!}{(a+b+c+1)!}$</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        a:</span>
+<span class="sd">        b:</span>
+<span class="sd">        c:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        $\\Delta$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">factorial</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">-</span> <span class="n">c</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span>
+        <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="o">-</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span>
+        <span class="o">/</span> <span class="n">factorial</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="atomphys.data" class="doc doc-heading">
+        <code>data</code>
+
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h3 id="atomphys.data.nist" class="doc doc-heading">
+        <code>nist</code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="atomphys.data.nist.remove_annotations" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">remove_annotations</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>remove annotations from energy strings in NIST ASD</p>
+
+        <details class="quote">
+          <summary>Source code in <code>atomphys/data/nist.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_annotations</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;remove annotations from energy strings in NIST ASD&quot;&quot;&quot;</span>
+    <span class="c1"># re_energy = re.compile(&quot;-?\\d+\\.\\d*|$&quot;)</span>
+    <span class="c1"># return re_energy.findall(s)[0]</span>
+
+    <span class="c1"># this is about 3.5× faster than re.findall, but it&#39;s less flexible</span>
+    <span class="c1"># overall this can make a several hundred ms difference when loading</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;()[]aluxyz +?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;dagger;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="atomphys.state" class="doc doc-heading">
+        <code>state</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="atomphys.state.Coupling" class="doc doc-heading">
+        <code>
+Coupling            (<span title="enum.Enum">Enum</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>An enumeration.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="atomphys.state.StateRegistry" class="doc doc-heading">
+        <code>
+StateRegistry            (<span title="collections.UserList">UserList</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="atomphys.state.StateRegistry.append" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>S.append(value) -- append value to the end of the sequence</p>
+
+        <details class="quote">
+          <summary>Source code in <code>atomphys/state.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_assert_State</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="atomphys.state.StateRegistry.extend" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>S.extend(iterable) -- extend sequence by appending elements from the iterable</p>
+
+        <details class="quote">
+          <summary>Source code in <code>atomphys/state.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_assert_State</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">]</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="atomphys.state.StateRegistry.insert" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>S.insert(index, value) -- insert value before index</p>
+
+        <details class="quote">
+          <summary>Source code in <code>atomphys/state.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_assert_State</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="atomphys.term" class="doc doc-heading">
+        <code>term</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="atomphys.term.Coupling" class="doc doc-heading">
+        <code>
+Coupling            (<span title="enum.Enum">Enum</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>An enumeration.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="atomphys.term.parse_term" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">parse_term</span><span class="p">(</span><span class="n">term</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>parse term symbol string in NIST ASD</p>
+
+        <details class="quote">
+          <summary>Source code in <code>atomphys/term.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">parse_term</span><span class="p">(</span><span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parse term symbol string in NIST ASD</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;Limit&quot;</span> <span class="ow">in</span> <span class="n">term</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;ionization_limit&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="n">parity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="s2">&quot;*&quot;</span> <span class="ow">in</span> <span class="n">term</span> <span class="k">else</span> <span class="mi">1</span>
+
+    <span class="n">match</span> <span class="o">=</span> <span class="n">LS_term</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">J1J2_term</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">LK_term</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;parity&quot;</span><span class="p">:</span> <span class="n">parity</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;S2&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">Fraction</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;J1&quot;</span><span class="p">,</span> <span class="s2">&quot;J2&quot;</span><span class="p">,</span> <span class="s2">&quot;J&quot;</span><span class="p">,</span> <span class="s2">&quot;K&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">Fraction</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">L</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+
+    <span class="n">term</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">convert</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">value</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">term</span><span class="p">,</span> <span class="s2">&quot;parity&quot;</span><span class="p">:</span> <span class="n">parity</span><span class="p">}</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="atomphys.transition" class="doc doc-heading">
+        <code>transition</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="atomphys.transition.TransitionRegistry" class="doc doc-heading">
+        <code>
+TransitionRegistry            (<span title="collections.UserList">UserList</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="atomphys.transition.TransitionRegistry.append" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>S.append(value) -- append value to the end of the sequence</p>
+
+        <details class="quote">
+          <summary>Source code in <code>atomphys/transition.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition</span><span class="p">:</span> <span class="n">Transition</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_assert_Transition</span><span class="p">(</span><span class="n">transition</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transition</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="atomphys.transition.TransitionRegistry.extend" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transitions</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>S.extend(iterable) -- extend sequence by appending elements from the iterable</p>
+
+        <details class="quote">
+          <summary>Source code in <code>atomphys/transition.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transitions</span><span class="p">):</span>
+    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_assert_Transition</span><span class="p">(</span><span class="n">transition</span><span class="p">)</span> <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">transitions</span><span class="p">]</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">transitions</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="atomphys.transition.TransitionRegistry.insert" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">transition</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>S.insert(index, value) -- insert value before index</p>
+
+        <details class="quote">
+          <summary>Source code in <code>atomphys/transition.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">transition</span><span class="p">:</span> <span class="n">Transition</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_assert_Transition</span><span class="p">(</span><span class="n">transition</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">transition</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="atomphys.util" class="doc doc-heading">
+        <code>util</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="atomphys.util.fsolve" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">fsolve</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1.49012e-08</span><span class="p">,</span> <span class="n">maxfev</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Find the roots of a function using the secant method.</p>
+<p>Return the roots of the equation <code>func(x) = 0</code> given a
+starting estimate <code>x0</code>. A second starting estimate <code>x1</code>
+for the next iteration of the secant method can be supplied.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>func</code></td>
+        <td><code>Callable</code></td>
+        <td><p>a function <code>f(x)</code> that takes a single argument <code>x</code></p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>x0</code></td>
+        <td></td>
+        <td><p>The starting estimate for the roots of `func(x) = 0``</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>x1</code></td>
+        <td></td>
+        <td><p>A second starting estimate for the next iteration of</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>tol</code></td>
+        <td><code>float</code></td>
+        <td><p>The calculation will terminate if the relative
+error between two consecutive iterates is at most <code>tol</code></p></td>
+        <td><code>1.49012e-08</code></td>
+      </tr>
+      <tr>
+        <td><code>maxfev</code></td>
+        <td><code>int</code></td>
+        <td><p>The maximum number of calls to the function.</p></td>
+        <td><code>100</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td><p>The root of the function <code>f(x)</code>.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>atomphys/util.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fsolve</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.49012e-08</span><span class="p">,</span> <span class="n">maxfev</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the roots of a function using the secant method.</span>
+
+<span class="sd">    Return the roots of the equation `func(x) = 0` given a</span>
+<span class="sd">    starting estimate `x0`. A second starting estimate `x1`</span>
+<span class="sd">    for the next iteration of the secant method can be supplied.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        func: a function `f(x)` that takes a single argument `x`</span>
+<span class="sd">        x0: The starting estimate for the roots of `func(x) = 0``</span>
+<span class="sd">        x1: A second starting estimate for the next iteration of</span>
+<span class="sd">        the secant method. Defaults to `1.0001 * x0`.</span>
+<span class="sd">        tol: The calculation will terminate if the relative</span>
+<span class="sd">            error between two consecutive iterates is at most `tol`</span>
+<span class="sd">        maxfev: The maximum number of calls to the function.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The root of the function `f(x)`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x1</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">*</span> <span class="mf">1.001</span> <span class="k">if</span> <span class="n">x0</span> <span class="k">else</span> <span class="mf">0.001</span>
+    <span class="n">fx0</span><span class="p">,</span> <span class="n">fx1</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x0</span><span class="p">),</span> <span class="n">func</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">fx0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">abs</span><span class="p">((</span><span class="n">fx1</span> <span class="o">-</span> <span class="n">fx0</span><span class="p">)</span> <span class="o">/</span> <span class="n">fx0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">maxfev</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">fx1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">fx1</span> <span class="o">-</span> <span class="n">fx0</span><span class="p">)</span>
+        <span class="n">fx0</span><span class="p">,</span> <span class="n">fx1</span> <span class="o">=</span> <span class="n">fx1</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">x1</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../user_guide/laser/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Laser" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Laser
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../developers/" class="md-footer__link md-footer__link--next" aria-label="Next: Developers" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Developers
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.top", "navigation.expand", "navigation.sections", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
