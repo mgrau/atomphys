@@ -58,21 +58,9 @@ class Transition:
 
         self._matrix_element = 0
         for attr in [
-            "energy",
-            "En",
-            "angular_frequency",
-            "omega",
-            "ω",
-            "frequency",
-            "nu",
-            "ν",
-            "wavelength",
-            "λ",
-            "matrix_element",
-            "d",
-            "Gamma",
-            "Γ",
-            "A",
+            attr.strip("_")
+            for attr, val in self.__class__.__dict__.items()
+            if getattr(val, "fset", False)
         ]:
             if attr in transition:
                 setattr(self, "_" + attr, transition[attr])
