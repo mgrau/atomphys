@@ -128,13 +128,22 @@ class State:
     def name(self):
         if self.term is None:
             return None
-        if "n" in self.__quantum_numbers:
+        if all(k in self.__quantum_numbers for k in ("n", "L", "J")):
             return f"{self.n}{L_inv[self.L]}{Fraction(self.J)}, {self.term}"
         return f"{self.term}"
 
     # -----------
     # Transitions
     # -----------
+
+    @property
+    def states(self):
+        return StateRegistry(
+            [
+                transition.f if transition.i is self else transition.i
+                for transition in self.__transitions
+            ]
+        )
 
     @property
     def transitions(self):
