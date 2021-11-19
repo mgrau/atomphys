@@ -8,7 +8,7 @@ from typing import List
 from atomphys.term import print_term
 from atomphys.util import disk_cache
 
-monovalent = re.compile(r"^[a-z0-9]*\.(?P<n>\d+)[a-z]$")
+monovalent = re.compile(r"^[a-z0-9]*p6\.(?P<n>\d+)[a-z]$")
 
 
 def remove_annotations(s: str) -> str:
