@@ -241,6 +241,11 @@ def test_registry_search():
     with pytest.raises(TypeError):
         transitions(Transition())
 
+    assert transitions(transitions[0].i) is transitions[0]
+    assert transitions(transitions[0].f) is transitions[0]
+    assert transitions(transitions[2].i) is transitions[2]
+    assert transitions(transitions[2].f) is transitions[2]
+
 
 def test_registry_repr():
     assert str(TransitionRegistry()) == "0 Transitions ()"
