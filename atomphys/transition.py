@@ -430,6 +430,12 @@ class TransitionRegistry(TypeRegistry):
         elif isinstance(key, float):
             wavelength = self._ureg.Quantity(key, "nm")
             return min(self, key=lambda t: abs(t.wavelength - wavelength))
+        elif isinstance(key, state.State):
+            return next(
+                filter(
+                    lambda transition: transition.i is key or transition.f is key, self
+                )
+            )
         elif isinstance(key, self._ureg.Quantity):
             if key.check("[length]"):
                 return min(self, key=lambda t: abs(t.wavelength - key))
