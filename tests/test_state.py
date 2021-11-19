@@ -44,6 +44,12 @@ def test_initialization():
     with pytest.raises(ValueError):
         State(energy="1 kg")
 
+    state_i = State("2S1/2")
+    state_f = State("2P1/2", energy="h*c/(532 nm)")
+    Transition(state_i=state_i, state_f=state_f, Gamma="1 MHz")
+    assert state_i.states == StateRegistry([state_f])
+    assert state_f.states == StateRegistry([state_i])
+
 
 def test_repr():
     assert str(State(energy="13.6 eV")) == "State(13.6 eV)"
