@@ -36,18 +36,15 @@ def scalar(state, omega: pint.Quantity = 0) -> pint.Quantity:
     ω = omega
     ħ = state._ureg.ħ
     J = state.J
-    X = 1 / (3 * (2 * J + 1)) / ħ
+
+    X = 1 / (3 * (2 * J + 1))
     α = 0
 
-    for transition in state.up:
-        ω0 = transition.ω
+    for transition in state.transitions:
+        state_i = transition.f if transition.i is state else transition.i
+        ω0 = (state_i.energy - state.energy) / ħ
         d = transition.d
-        α += (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
-
-    for transition in state.down:
-        ω0 = -transition.ω
-        d = transition.d
-        α += (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
+        α += (1 / (ħ * (ω0 - ω)) + 1 / (ħ * (ω0 + ω))) * d ** 2
 
     return (α * X).to_base_units()
 
@@ -144,28 +141,23 @@ def tensor(state, omega: pint.Quantity = 0):
     ω = omega
     ħ = state._ureg.ħ
     J = state.J
-    X = (
-        -(
-            ((20 * J * (2 * J - 1)) / (6 * (J + 1) * (2 * J + 1) * (2 * J + 3)))
-            ** (1 / 2)
-        )
-        / ħ
+    X = -(
+        ((20 * J * (2 * J - 1)) / (6 * (J + 1) * (2 * J + 1) * (2 * J + 3))) ** (1 / 2)
     )
     α = 0
 
-    for transition in state.up:
-        ω0 = transition.ω
+    for transition in state.transitions:
+        state_i = transition.f if transition.i is state else transition.i
+        ω0 = (state_i.energy - state.energy) / ħ
         d = transition.d
-        Jp = transition.f.J
+        Jp = state_i.J
         sixJ = wigner_6j(1, 1, 2, J, J, Jp)
-        α += (-1) ** (J + Jp + 1) * sixJ * (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
-
-    for transition in state.down:
-        ω0 = -transition.ω
-        d = transition.d
-        Jp = transition.i.J
-        sixJ = wigner_6j(1, 1, 2, J, J, Jp)
-        α += (-1) ** (J + Jp + 1) * sixJ * (1 / (ω0 - ω) + 1 / (ω0 + ω)) * d ** 2
+        α += (
+            (-1) ** (J + Jp + 1)
+            * sixJ
+            * (1 / (ħ * (ω0 - ω)) + 1 / (ħ * (ω0 + ω)))
+            * d ** 2
+        )
 
     return (α * X).to_base_units()
 
