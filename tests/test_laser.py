@@ -60,7 +60,7 @@ def test_units():
 def test_Rabi_frequency():
     transition = Transition(
         state_i=State("2S1/2"),
-        state_f=State("2P1/2", energy="h*c/(532 nm)"),
+        state_f=State("2P1/2", energy="planck_constant*c/(532 nm)"),
         d="1 e a0",
     )
     laser = Laser(I="1 mW/cm^2")
