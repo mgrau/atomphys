@@ -1,12 +1,12 @@
-# atomphys
+# atomphys_ea
 
 <p align="left">
-  <a href="https://mgrau.github.io/atomphys/"><img src="https://mgrau.github.io/atomphys/img/logo.svg" alt="atomphys logo"></a>
+  <a href="https://mgrau.github.io/atomphys/"><img src="https://github.com/EvgAnikin/atomphys_ea/blob/main/docs/img/logo_ea.svg" alt="atomphys logo"></a>
 </p>
 
 <!--intro-start-->
 
-A Python package to help with atomic physics calculations.
+A Python package to help with atomic physics calculations  (fork of [atomphys](https://github.com/mgrau/atomphys))
 
 [![Tests](https://github.com/mgrau/atomphys/actions/workflows/tests.yml/badge.svg)](https://github.com/mgrau/atomphys/actions/workflows/tests.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/mgrau/atomphys)](https://app.codecov.io/gh/mgrau/atomphys)

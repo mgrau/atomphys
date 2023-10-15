@@ -134,14 +134,14 @@ def test_lifetime():
     assert State().lifetime.check("[time]")
     assert 1 / State().lifetime == 0
 
-    state = State("2P1/2", energy="h*c/(532 nm)")
+    state = State("2P1/2", energy="planck_constant*c/(532 nm)")
     Transition(state_i=State("2S1/2"), state_f=state, Gamma="1 MHz")
     state.τ == state._ureg("1 us")
 
 
 def test_polarizability():
     state_i = State("2S1/2")
-    state_f = State("2P1/2", energy="h*c/(532 nm)")
+    state_f = State("2P1/2", energy="planck_constant*c/(532 nm)")
     Transition(state_i=state_i, state_f=state_f, Gamma="1 MHz")
 
     state_i.α().m_as("ε_0 a0^3") == pytest.approx(7.26913647)
@@ -230,7 +230,7 @@ def test_registry_search():
         states(State())
 
     state_i = State("2S1/2")
-    state_f = State("2P1/2", energy="h*c/(532 nm)")
+    state_f = State("2P1/2", energy="planck_constant*c/(532 nm)")
     transition = Transition(state_i=state_i, state_f=state_f, Gamma="1 MHz")
     assert state_i.to("P1/2") is transition
 
