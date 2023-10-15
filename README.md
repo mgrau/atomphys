@@ -1,7 +1,7 @@
-# atomphys
+# [atomphys]([url](https://github.com/mgrau/atomphys)) fork
 
 <p align="left">
-  <a href="https://mgrau.github.io/atomphys/"><img src="https://mgrau.github.io/atomphys/img/logo.svg" alt="atomphys logo"></a>
+  <a href="https://mgrau.github.io/atomphys/"><img src="https://github.com/EvgAnikin/atomphys_ea/blob/main/docs/img/logo_ea.svg" alt="atomphys logo"></a>
 </p>
 
 <!--intro-start-->
