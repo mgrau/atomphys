@@ -8,10 +8,10 @@ from atomphys.transition import Transition, TransitionRegistry
 
 def test_initialization():
     state_i = State("2S1/2")
-    state_f = State("2P1/2", energy="h*c/(532 nm)")
+    state_f = State("2P1/2", energy="planck_constant*c/(532 nm)")
     transition = Transition(state_i, state_f)
     assert isinstance(transition, Transition)
-    assert transition.energy == transition._ureg("h*c/(532 nm)")
+    assert transition.energy == transition._ureg("planck_constant*c/(532 nm)")
     assert transition.state_i is state_i
     assert transition.state_f is state_f
     assert transition.wavelength == transition._ureg.Quantity(532, "nm")
@@ -112,7 +112,7 @@ def test_match_states():
 def test_repr():
     assert str(Transition()) == "Transition(None <--> None : λ=inf nm, Γ=2π×0 Hz)"
     assert (
-        str(Transition(State("2S1/2"), State("2P1/2", energy="h*c/(532 nm)"), d=1))
+        str(Transition(State("2S1/2"), State("2P1/2", energy="planck_constant*c/(532 nm)"), d=1))
         == "Transition(2S1/2 <--> 2P1/2 : λ=532 nm, Γ=2π×1.07 MHz)"
     )
 

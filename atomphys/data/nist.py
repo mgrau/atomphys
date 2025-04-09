@@ -32,10 +32,10 @@ def fetch_states(atom, refresh_cache=False):
         "term_out": "on",  # output the term symbol string
         "conf_out": "on",  # output the configutation string
         "level_out": "on",  # output the energy level
-        "unc_out": 0,  # uncertainty on energy
+        "unc_out": 1,  # uncertainty on energy
         "j_out": "on",  # output the J level
         "g_out": "on",  # output the g-factor
-        "lande_out": "off",  # output experimentally measured g-factor
+        "lande_out": "on",  # output experimentally measured g-factor
     }
 
     get_postfix = urllib.parse.urlencode(values)
